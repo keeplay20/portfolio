@@ -30,7 +30,7 @@ const About: React.FC = () => {
   const highlights = [
     {
       year: "2021-Present",
-      title: "Software Development Engineer 2 -> Dream11",
+      title: "Software Engineer II -> Dream11",
       description: "Building features for millions of fantasy sports users",
     },
     {
