@@ -24,6 +24,11 @@
     "gh-pages": "^6.0.0",
     "typescript": "^5.9.3"
   },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "$typescript"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

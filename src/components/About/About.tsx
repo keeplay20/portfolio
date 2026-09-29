@@ -29,12 +29,17 @@ const About: React.FC = () => {
 
   const highlights = [
     {
-      year: "2021-Present",
+      year: "Jul 2026 - Present",
+      title: "Senior Mobile Engineer -> SuperHealth",
+      description: "Building the React Native mobile application from scratch, owning application architecture, engineering foundations, and development standards for Android and iOS.",
+    },
+    {
+      year: "2021-Jul 2026",
       title: "Software Engineer II -> Dream11",
       description: "Building features for millions of fantasy sports users",
     },
     {
-      year: "10+ Years",
+      year: "5+ Years",
       title: "Software Development Experience",
       description: "From technical consulting to senior development roles",
     },

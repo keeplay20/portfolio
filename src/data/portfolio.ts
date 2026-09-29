@@ -9,10 +9,10 @@ import {
 
 export const personalInfo: PersonalInfo = {
   name: "Mandar Vyas",
-  title: "Senior Frontend Engineer",
+  title: "Senior Mobile Engineer",
   summary:
-    "10+ years building React & React Native apps for millions. Currently at Dream11.",
-  yearsOfExperience: 10,
+    "5+ years building React & React Native apps for millions. Currently at SuperHealth.",
+  yearsOfExperience: 5,
   location: "India",
   email: "mandar.vyas20@gmail.com",
   linkedin: "https://www.linkedin.com/in/mandar-vyas/",
@@ -22,10 +22,41 @@ export const personalInfo: PersonalInfo = {
 
 export const experiences: Experience[] = [
   {
+    id: "superhealth",
+    company: "SuperHealth",
+    position: "Senior Mobile Engineer",
+    duration: "Jul 2026 - Present",
+    location: "Bangalore, India",
+    description: [
+      "Building the React Native mobile application from scratch, owning application architecture, engineering foundations, and development standards for Android and iOS.",
+      "Establishing a scalable TypeScript architecture using Expo, Expo Router, Zustand, and TanStack Query with modular feature boundaries and a shared data layer.",
+      "Building reusable UI foundations using design tokens, shared components, and a consistent design system in collaboration with Product and Design.",
+      "Integrating Firebase for feature flags and remote configuration to support controlled feature rollouts and experimentation.",
+      "Setting up core mobile capabilities including authentication, REST API integration, analytics, crash reporting, deep linking, push notifications, and WebView-based hybrid experiences.",
+      "Defining engineering patterns for caching, error handling, session management, performance, maintainability, and production reliability.",
+    ],
+    technologies: [
+      "React Native",
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "GitHub Actions",
+      "Node.js",
+      "Expo",
+      "Expo Router",
+      "Zustand",
+      "TanStack Query",
+      "Design Tokens",
+      "Shared Components",
+      "Firebase",
+      "Feature Flags",
+    ],
+  },
+  {
     id: "dream11",
     company: "Dream11",
     position: "Software Engineer II",
-    duration: "2021 - Present",
+    duration: "2021 - Jul 2026",
     location: "Mumbai, India",
     description: [
       "Built and shipped features in the Dream11 React Native app including My Balance, My Transactions, and Verification flows",
@@ -231,14 +262,14 @@ export const certifications = [
 
 export const contact: Contact = {
   email: "mandar.vyas20@gmail.com",
-  location: "Mumbai, India",
+  location: "Bangalore, India",
   linkedin: "https://www.linkedin.com/in/mandar-vyas/",
   github: "https://github.com/keeplay20",
 };
 
 export const aboutText = [
-  "I'm a Senior Full Stack Developer currently working at Dream11, where I build and ship features for millions of users. With over 10 years of experience in software development, I specialize in React Native, React.js, and modern web technologies.",
-  "My journey started as a Technical Consultant at Wipro, and I've since worked across various domains including messaging platforms at Gupshup, Linux-based systems at VXL Instruments, and now fantasy sports at Dream11. I'm passionate about automation, testing, and building scalable applications.",
+  "I'm a Senior Full Stack Developer currently building the React Native app at SuperHealth from the ground up, after shipping features for millions of users at Dream11. With over 5 years of experience in software development, I specialize in React Native, React.js, and modern web technologies.",
+  "My journey started as a Technical Consultant at Wipro, and I've since worked across various domains including messaging platforms at Gupshup, Linux-based systems at VXL Instruments, fantasy sports at Dream11, and now healthcare at SuperHealth. I'm passionate about automation, testing, and building scalable applications.",
   "I love creating efficient, maintainable code and have a strong background in both frontend and backend development. I'm also experienced in setting up CI/CD pipelines, automated testing frameworks, and performance monitoring systems.",
 ];
 
@@ -456,7 +487,7 @@ export const projects: Project[] = [
 ];
 
 export const heroStats = [
-  { label: "Years of Experience", value: "10+" },
+  { label: "Years of Experience", value: "5+" },
   { label: "Projects Completed", value: "50+" },
   { label: "Companies Worked", value: "5+" },
   { label: "Technologies Mastered", value: "25+" },

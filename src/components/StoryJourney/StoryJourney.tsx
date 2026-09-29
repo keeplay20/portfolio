@@ -69,9 +69,21 @@ const CHAPTER_META: Record<
     color: "#6366f1",
     icon: "🏆",
     narrative:
-      "Dream11 is where everything came together. As SDE-2, I ship features in a React Native app used by 150M+ users across India. My Balance, Transactions, Verification flows — features that millions of cricket fans interact with every match day. I architect E2E testing frameworks with Detox, build internal admin panels in React, and help drive engineering quality at scale.",
+      "Dream11 is where everything came together. As SDE-2, I shipped features in a React Native app used by 150M+ users across India. My Balance, Transactions, Verification flows — features that millions of cricket fans interacted with every match day. I architected E2E testing frameworks with Detox, built internal admin panels in React, and helped drive engineering quality at scale.",
     gained:
       "React Native mastery, E2E testing architecture, and the privilege of building for India's largest fantasy sports platform. This is where craft meets real impact.",
+    transition:
+      "I had shipped at massive scale. The next challenge: building a mobile app from the very first commit.",
+  },
+  superhealth: {
+    roman: "VI",
+    title: "Building From Zero",
+    color: "#06b6d4",
+    icon: "🩺",
+    narrative:
+      "At SuperHealth, I'm building the React Native app from a blank repository. I own the architecture, engineering foundations, and development standards for Android and iOS — a TypeScript codebase on Expo with Zustand and TanStack Query, a design-token-driven component system built with Product and Design, and Firebase-powered feature flags for safe, controlled rollouts.",
+    gained:
+      "Every decision here sets the foundation the app will grow on. This chapter is about turning years of shipping experience into architecture, patterns, and standards that a whole team builds on.",
   },
 };
 
@@ -117,7 +129,7 @@ const StoryJourney: React.FC = () => {
             The Story <span className="text-gradient">So Far</span>
           </h2>
           <p className="section-subtitle">
-            A decade of code, companies, and craft — each chapter building on
+            Years of code, companies, and craft — each chapter building on
             the last
           </p>
         </motion.div>

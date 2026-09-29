@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { contact } from "../../data/portfolio";
+import ContactForm from "../ContactForm/ContactForm";
 import "./Skills.css";
 
 const primarySkills = [
@@ -40,7 +41,7 @@ const Skills: React.FC = () => {
             The <span className="text-gradient">Arsenal</span>
           </h2>
           <p className="section-subtitle">
-            React &amp; React Native first — backed by a decade of battle-tested craft.
+            React &amp; React Native first — backed by 5+ years of battle-tested craft.
           </p>
         </motion.div>
 
@@ -79,6 +80,7 @@ const Skills: React.FC = () => {
           <p className="skills__contact-headline">
             Open to new opportunities — <span className="text-gradient">let's talk</span>
           </p>
+          <ContactForm />
           <div className="skills__contact-links">
             {contactLinks.map((link) => (
               <motion.a

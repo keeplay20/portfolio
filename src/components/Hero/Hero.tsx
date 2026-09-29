@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ onProjectsClick, onGamesClick }) => {
           {/* Badge */}
           <motion.div className="hero__badge" variants={itemVariants}>
             <span className="hero__badge-dot" />
-            10 years · React &amp; React Native
+            5 years · React &amp; React Native
           </motion.div>
 
           {/* Headline */}
@@ -48,12 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onProjectsClick, onGamesClick }) => {
 
           {/* Role */}
           <motion.p className="hero__role" variants={itemVariants}>
-            {personalInfo.title} · Dream11
-          </motion.p>
-
-          {/* Description */}
-          <motion.p className="hero__description" variants={itemVariants}>
-            I build the React Native features 150M+ Dream11 users tap every match day.
+            {personalInfo.title} · SuperHealth
           </motion.p>
 
           {/* Action Cards */}
