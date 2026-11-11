@@ -1,0 +1,27 @@
+# Mandar Vyas — Portfolio
+
+> Portfolio of Mandar Vyas, Senior Mobile Engineer: React Native at scale (Dream11, SuperHealth), interaction labs, and contact.
+
+This site is a client-rendered React application. Key sections on the home page include About, Experience, Skills, Featured Work, and Contact. Use the links below for stable entry points.
+
+## Site
+
+- [Home](https://portfolio-blush-one-87.vercel.app/): Introduction, experience, skills, and contact
+- [Work](https://portfolio-blush-one-87.vercel.app/work): Project gallery and case studies
+- [Play](https://portfolio-blush-one-87.vercel.app/play): Interactive game center
+
+## Case studies
+
+- [Animate Spotlight Showcase](https://portfolio-blush-one-87.vercel.app/work/animate-spotlight-showcase): Motion and spotlight interaction lab
+- [Transition Trail Explorer](https://portfolio-blush-one-87.vercel.app/work/transition-trail-explorer): UI transition and trail exploration
+
+## For agents
+
+- [Agent Resource Descriptor](https://portfolio-blush-one-87.vercel.app/.well-known/ard.json): Machine-readable site and API entries (AIR)
+- [Contact API](https://portfolio-blush-one-87.vercel.app/api/contact): POST endpoint for the portfolio contact form
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/in/mandar-vyas/): Professional profile
+- [GitHub](https://github.com/keeplay20): Open source and experiments
+- [Tech practice hub](https://keeplay20.github.io/tech-practice-hub/): Additional JavaScript and learning projects
