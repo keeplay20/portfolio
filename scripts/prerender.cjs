@@ -48,14 +48,26 @@ function createStaticServer() {
   });
 }
 
-async function resolveExecutablePath() {
+async function loadChromium() {
+  const mod = await import("@sparticuz/chromium");
+  return mod.default;
+}
+
+function useBundledChromium() {
+  return (
+    process.env.VERCEL === "1" ||
+    process.env.CI === "1" ||
+    process.env.CI === "true"
+  );
+}
+
+async function resolveExecutablePath(Chromium) {
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     return process.env.PUPPETEER_EXECUTABLE_PATH;
   }
 
-  if (process.env.VERCEL === "1" || process.env.CI === "true") {
-    const chromium = require("@sparticuz/chromium");
-    return chromium.executablePath();
+  if (useBundledChromium()) {
+    return Chromium.executablePath();
   }
 
   const candidates = [
@@ -95,7 +107,7 @@ async function main() {
   }
 
   const puppeteer = require("puppeteer-core");
-  const chromium = require("@sparticuz/chromium");
+  const Chromium = await loadChromium();
 
   const server = createStaticServer();
   await new Promise((resolve, reject) => {
@@ -105,16 +117,16 @@ async function main() {
 
   let browser;
   try {
-    const onVercel = process.env.VERCEL === "1" || process.env.CI === "true";
-    const executablePath = await resolveExecutablePath();
+    const onServerless = useBundledChromium();
+    const executablePath = await resolveExecutablePath(Chromium);
 
     browser = await puppeteer.launch({
       executablePath,
       headless: true,
-      args: onVercel
-        ? chromium.args
+      args: onServerless
+        ? Chromium.args
         : ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
-      defaultViewport: onVercel ? chromium.defaultViewport : { width: 1280, height: 720 },
+      defaultViewport: { width: 1280, height: 720 },
     });
 
     for (const route of ROUTES) {
