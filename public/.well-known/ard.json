@@ -1,0 +1,30 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:portfolio-blush-one-87.vercel.app:site:portfolio",
+      "displayName": "Mandar Vyas — Portfolio",
+      "type": "text/html",
+      "url": "https://portfolio-blush-one-87.vercel.app/",
+      "description": "Portfolio of Mandar Vyas, Senior Mobile Engineer: experience, React Native projects, skills, and contact.",
+      "representativeQueries": [
+        "Mandar Vyas React Native mobile engineer portfolio",
+        "senior mobile developer experience Dream11 SuperHealth",
+        "hire React Native developer India"
+      ],
+      "tags": ["portfolio", "react-native", "mobile-engineering", "typescript"],
+      "updatedAt": "2026-11-11T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:portfolio-blush-one-87.vercel.app:api:contact",
+      "displayName": "Portfolio Contact API",
+      "type": "application/json",
+      "url": "https://portfolio-blush-one-87.vercel.app/api/contact",
+      "description": "POST endpoint used by the portfolio contact form to reach Mandar Vyas.",
+      "representativeQueries": [
+        "send a message through Mandar Vyas portfolio",
+        "contact the portfolio owner by email"
+      ],
+      "capabilities": ["contact", "email"]
+    }
+  ]
+}
