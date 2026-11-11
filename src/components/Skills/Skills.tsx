@@ -37,11 +37,9 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="skills__eyebrow">Collected Along The Journey</span>
-          <h2 className="section-title">
-            The <span className="text-gradient">Arsenal</span>
-          </h2>
+          <h2 className="section-title">Stack &amp; contact</h2>
           <p className="section-subtitle">
-            React &amp; React Native first — backed by 5+ years of battle-tested craft.
+            React and React Native at the core—TypeScript, motion, and reliability patterns from production.
           </p>
         </motion.div>
 
@@ -78,7 +76,7 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p className="skills__contact-headline">
-            Open to new opportunities — <span className="text-gradient">let's talk</span>
+            Open to thoughtful collaborations — reach out below.
           </p>
           <ContactForm />
           <div className="skills__contact-links">

@@ -11,7 +11,7 @@ export const personalInfo: PersonalInfo = {
   name: "Mandar Vyas",
   title: "Senior Mobile Engineer",
   summary:
-    "5+ years building React & React Native apps for millions. Currently at SuperHealth.",
+    "Mobile products for millions at Dream11 and SuperHealth—and web labs where motion and state are the interface.",
   yearsOfExperience: 5,
   location: "India",
   email: "mandar.vyas20@gmail.com",
@@ -275,12 +275,127 @@ export const aboutText = [
 
 // Project Categories
 export const projectCategories: ProjectCategory[] = [
-  { id: "react-native", name: "React Native", icon: "📱" },
-  { id: "react", name: "React", icon: "⚛️" },
-  { id: "javascript", name: "JavaScript", icon: "💻" },
+  { id: "interaction", name: "Interaction Labs", icon: "◎" },
+  { id: "react-native", name: "React Native", icon: "RN" },
+  { id: "react", name: "React Web", icon: "RW" },
+  { id: "javascript", name: "JavaScript", icon: "JS" },
 ];
 
+export const featuredProjectIds = [
+  "animate-spotlight-showcase",
+  "transition-trail-explorer",
+] as const;
+
+export function getProjectById(id: string): Project | undefined {
+  return projects.find((p) => p.id === id);
+}
+
 export const projects: Project[] = [
+  {
+    id: "animate-spotlight-showcase",
+    featured: true,
+    tagline: "Thirty-nine motions, one playground",
+    title: "Animate Spotlight Showcase",
+    description:
+      "Editorial UI motion catalog—live springs, parallax, reveals, and gestures with controls you can tweak.",
+    longDescription: [
+      "A curated surface for interface motion: each pattern ships with a live demo, difficulty rating, and copy written for designers and engineers who learn by touching controls.",
+      "Built as a scroll-led gallery with photography and spotlight transitions, the site argues that motion literacy belongs in the same toolbox as typography and layout.",
+      "Deployed as a static React experience on Vercel—fast routes, no server, every animation runnable in the browser.",
+    ],
+    category: "Web App",
+    technologies: ["React", "TypeScript", "Vite", "CSS Motion", "Framer Motion"],
+    features: [
+      "39 interactive motion patterns",
+      "Editorial layouts with photography",
+      "Live parameter exploration",
+      "Scroll-triggered reveals",
+      "Accessible reduced-motion fallbacks",
+    ],
+    highlights: [
+      "Motion catalog structured like a design publication",
+      "Patterns grouped from core timing to mobile patterns",
+      "Copy in the visitor's vocabulary, not framework jargon",
+    ],
+    status: "Completed",
+    liveDemo: "https://animate-spotlight-showcase.vercel.app/",
+    previewImage:
+      "https://animate-spotlight-showcase.vercel.app/assets/mountain-DPinf_Ym.jpg",
+    duration: "3 weeks",
+    teamSize: 1,
+    caseStudy: {
+      problem:
+        "Teams copy motion snippets without understanding timing, easing, or when to stop—interfaces feel either dead or chaotic.",
+      role: "Design, engineering, and copy—single-author playground shipped to production.",
+      outcome:
+        "A browsable catalog where every pattern is runnable, labeled by difficulty, and written for the person searching—not the framework docs.",
+      decisions: [
+        {
+          title: "Editorial pacing over component grid",
+          body: "Scroll-led chapters with photography break the 'docs page' rhythm and keep attention on one pattern at a time.",
+        },
+        {
+          title: "Spotlight transitions between patterns",
+          body: "Shared-element style handoffs tie the catalog together so motion feels authored, not sprinkled on.",
+        },
+        {
+          title: "Visitor vocabulary in microcopy",
+          body: "Queries and labels mirror how people search for help—improves discovery and ARD-style semantic indexing.",
+        },
+      ],
+    },
+  },
+  {
+    id: "transition-trail-explorer",
+    featured: true,
+    tagline: "Fetch lifecycle, made tangible",
+    title: "Transition Trail Explorer",
+    description:
+      "State-machine playground for API fetch flows—valid events, guarded retries, scripted scenarios, and a living history log.",
+    longDescription: [
+      "Teaches the classic fetch lifecycle as an explorable graph: every transition is clickable, invalid moves explain why guards failed.",
+      "Scenario scripts auto-play happy path, guarded retry, and exhausted-retry arcs so teams can demo reliability patterns in seconds.",
+      "Built for engineers onboarding to XState-style thinking without reading a manual first.",
+    ],
+    category: "Web App",
+    technologies: ["React", "TypeScript", "State Machines", "Vite"],
+    features: [
+      "Interactive event panel with enabled/disabled cues",
+      "Guarded RETRY with retryCount ceiling",
+      "Scripted scenario runner",
+      "Transition history with failure reasons",
+    ],
+    highlights: [
+      "Pedagogy-first UI—state is visible, not implied",
+      "Scenario library for demos and interviews",
+      "Production-minded guards mirrored from real apps",
+    ],
+    status: "Completed",
+    liveDemo: "https://transition-trail-explorer.vercel.app/",
+    duration: "2 weeks",
+    teamSize: 1,
+    caseStudy: {
+      problem:
+        "Async fetch flows are taught with diagrams that don't fail—engineers don't feel why guards and retry ceilings matter.",
+      role: "Concept, UI, and state model—built as a teaching surface for interviews and onboarding.",
+      outcome:
+        "A playground where invalid events explain themselves and scripted scenarios demonstrate exhaustion in under a minute.",
+      decisions: [
+        {
+          title: "Events as the primary control",
+          body: "Bright vs dimmed events show legality at a glance—closer to operating a real app than reading a chart.",
+        },
+        {
+          title: "Guard failures in the history log",
+          body: "Rejected transitions stay visible with reasons, mirroring production debugging instead of hiding errors.",
+        },
+        {
+          title: "Scenario scripts for narrative",
+          body: "Happy path, retry, and exhaustion arcs auto-play—useful for demos without live improvisation.",
+        },
+      ],
+    },
+  },
   {
     id: "moviebuzz",
     title: "MovieBuzz - Movie Discovery App",

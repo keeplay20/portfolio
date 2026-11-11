@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import TicTacToe from "../Games/TicTacToe/TicTacToe";
 import RockPaperScissors from "../Games/RockPaperScissors/RockPaperScissors";
@@ -8,7 +9,7 @@ import MemoryCardGame from "../Games/MemoryCardGame/MemoryCardGame";
 import "./GameCenter.css";
 
 interface GameCenterProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 interface Game {
@@ -78,7 +79,7 @@ const GameCard: React.FC<GameCardProps> = ({
   </motion.div>
 );
 
-const GameCenter: React.FC<GameCenterProps> = ({ onBack }) => {
+const GameCenter: React.FC<GameCenterProps> = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
   const renderGame = () => {
@@ -111,16 +112,11 @@ const GameCenter: React.FC<GameCenterProps> = ({ onBack }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            🎮 Game Center
+            Playground
           </motion.h1>
-          <motion.button
-            className="btn btn-ghost game-center__back-btn"
-            onClick={onBack}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            ← Back to Portfolio
-          </motion.button>
+          <Link to="/" className="btn btn-ghost game-center__back-btn">
+            ← Home
+          </Link>
         </div>
       </motion.header>
 

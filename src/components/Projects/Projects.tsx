@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects, projectCategories } from "../../data/portfolio";
 import "./Projects.css";
 
 const Projects: React.FC = () => {
   // Set "react-native" as the default selected category
-  const [selectedCategory, setSelectedCategory] = useState("react-native");
+  const [selectedCategory, setSelectedCategory] = useState("interaction");
 
   // Filter projects based on selected category
   const filteredProjects = useMemo(() => {
@@ -14,10 +15,16 @@ const Projects: React.FC = () => {
       const category = project.category.toLowerCase();
 
       switch (selectedCategory) {
+        case "interaction":
+          return Boolean(project.featured);
         case "react-native":
           return tech.includes("react native") || category.includes("mobile");
         case "react":
-          return tech.includes("react") && !tech.includes("react native");
+          return (
+            tech.includes("react") &&
+            !tech.includes("react native") &&
+            !project.featured
+          );
         case "javascript":
           return (
             tech.includes("javascript") &&
@@ -37,10 +44,16 @@ const Projects: React.FC = () => {
       const category = project.category.toLowerCase();
 
       switch (categoryId) {
+        case "interaction":
+          return Boolean(project.featured);
         case "react-native":
           return tech.includes("react native") || category.includes("mobile");
         case "react":
-          return tech.includes("react") && !tech.includes("react native");
+          return (
+            tech.includes("react") &&
+            !tech.includes("react native") &&
+            !project.featured
+          );
         case "javascript":
           return (
             tech.includes("javascript") &&
@@ -57,10 +70,9 @@ const Projects: React.FC = () => {
     <section id="projects" className="projects-section section">
       <div className="container">
         <div className="projects-header">
-          <h2 className="section-title text-gradient">My Projects</h2>
+          <h2 className="section-title">Project archive</h2>
           <p className="section-subtitle">
-            A showcase of my recent work, highlighting technical skills and
-            problem-solving abilities.
+            Shipped interfaces—labs, mobile apps, and earlier experiments.
           </p>
         </div>
 
@@ -144,10 +156,17 @@ const Projects: React.FC = () => {
                         {/* Left Column - App Demo */}
                         <div className="demo-column">
                           <h4>App Demo</h4>
-                          {project.demoVideo && (
+                          {(project.demoVideo || project.previewImage) && (
                             <div className="project-demo">
                               <div className="demo-container">
-                                {project.demoVideo.includes(".gif") ? (
+                                {project.previewImage && !project.demoVideo ? (
+                                  <img
+                                    src={project.previewImage}
+                                    alt={`${project.title} preview`}
+                                    className="demo-gif"
+                                    loading="lazy"
+                                  />
+                                ) : project.demoVideo?.includes(".gif") ? (
                                   <img
                                     src={`${process.env.PUBLIC_URL}${project.demoVideo}`}
                                     alt="App Demo GIF"
@@ -166,8 +185,8 @@ const Projects: React.FC = () => {
                                       )
                                     }
                                   />
-                                ) : project.demoVideo.includes("youtube.com") ||
-                                  project.demoVideo.includes("youtu.be") ? (
+                                ) : project.demoVideo?.includes("youtube.com") ||
+                                  project.demoVideo?.includes("youtu.be") ? (
                                   <iframe
                                     src={project.demoVideo.replace(
                                       "watch?v=",
@@ -249,6 +268,14 @@ const Projects: React.FC = () => {
 
                     {/* Project Actions */}
                     <div className="project-actions">
+                      {project.featured && (
+                        <Link
+                          to={`/work/${project.id}`}
+                          className="action-btn primary"
+                        >
+                          Case study
+                        </Link>
+                      )}
                       {project.githubRepo && (
                         <a
                           href={project.githubRepo}

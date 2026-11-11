@@ -4,27 +4,39 @@
 
 .story-journey {
   position: relative;
+  border-top: 1px solid var(--border-color);
 }
 
 /* ---- Section Header ---- */
+
 .story-journey__header {
-  text-align: center;
-  margin-bottom: 2rem;
+  text-align: left;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  max-width: 40rem;
 }
 
-.story-journey__eyebrow {
-  display: inline-block;
+.story-journey__index {
   font-family: var(--font-family-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent-color);
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  padding: 0.3rem 0.9rem;
-  border-radius: 999px;
-  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.story-journey__title--left,
+.story-journey__lede--left {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.story-journey__title {
+  font-family: var(--font-family-display);
+}
+
+.story-journey__lede {
+  max-width: 36rem;
 }
 
 
@@ -70,9 +82,9 @@
 }
 
 .story-chapter__roman {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-family-display);
+  font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -108,7 +120,14 @@
 
 .story-chapter__header:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border-color: var(--border-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-chapter__header:hover {
+    transform: none;
+  }
 }
 
 .story-chapter__meta {

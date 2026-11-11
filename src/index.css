@@ -11,13 +11,11 @@ html {
 
 body {
   margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0a0a;
-  color: #ffffff;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
   line-height: 1.6;
 }
 
@@ -28,22 +26,23 @@ code {
 
 /* CSS Custom Properties */
 :root {
-  /* Colors */
-  --primary-bg: #0a0a0a;
-  --secondary-bg: #111111;
-  --card-bg: #1a1a1a;
-  --accent-color: #6366f1;
-  --accent-hover: #818cf8;
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --border-color: #27272a;
+  /* Colors — warm editorial dark */
+  --primary-bg: #0a0908;
+  --secondary-bg: #12100e;
+  --card-bg: #1a1816;
+  --accent-color: #d4a574;
+  --accent-hover: #e8c9a0;
+  --text-primary: #ebe6dc;
+  --text-secondary: #b5afa3;
+  --text-muted: #7a7468;
+  --border-color: #2a2723;
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --error-color: #ef4444;
 
   /* Typography */
-  --font-family-primary: "Inter", sans-serif;
+  --font-family-display: "Syne", "Georgia", serif;
+  --font-family-primary: "DM Sans", system-ui, sans-serif;
   --font-family-mono: "JetBrains Mono", monospace;
 
   /* Spacing */
@@ -158,8 +157,10 @@ code {
 }
 
 .section-title {
+  font-family: var(--font-family-display);
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   text-align: center;
   margin-bottom: 1rem;
 }

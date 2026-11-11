@@ -1,43 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Projects from "../Projects/Projects"; // Re-using the Projects component
+import Header from "../Header/Header";
+import Projects from "../Projects/Projects";
+import Footer from "../Footer/Footer";
 import "./ProjectsPage.css";
 
-interface ProjectsPageProps {
-  onBack: () => void;
-}
-
-const ProjectsPage: React.FC<ProjectsPageProps> = ({ onBack }) => {
+const ProjectsPage: React.FC = () => {
   return (
     <div className="projects-page">
-      {/* Header */}
+      <Header />
       <motion.header
         className="projects-page__header"
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45 }}
       >
-        <div className="projects-page__header-container">
-          <motion.h1
-            className="projects-page__title"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            🚀 My Projects
-          </motion.h1>
-          <motion.button
-            className="btn btn-ghost projects-page__back-btn"
-            onClick={onBack}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            ← Back to Portfolio
-          </motion.button>
+        <div className="projects-page__header-container container">
+          <div>
+            <p className="projects-page__eyebrow">Archive</p>
+            <h1 className="projects-page__title">Projects</h1>
+            <p className="projects-page__intro">
+              Interaction labs first—then mobile apps and earlier web experiments.
+            </p>
+          </div>
+          <Link to="/" className="btn btn-ghost projects-page__back-btn">
+            ← Home
+          </Link>
         </div>
       </motion.header>
 
       <main className="projects-page__content">
-        <Projects /> {/* Render the Projects component here */}
+        <Projects />
       </main>
+      <Footer />
     </div>
   );
 };

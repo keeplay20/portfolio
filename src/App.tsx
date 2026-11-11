@@ -1,63 +1,83 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import "./App.css";
-import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
-import StoryJourney from "./components/StoryJourney/StoryJourney";
-import Skills from "./components/Skills/Skills";
-import GameCenter from "./components/GameCenter/GameCenter";
+import HomePage from "./pages/HomePage";
+import CaseStudyPage from "./pages/CaseStudyPage";
 import ProjectsPage from "./components/ProjectsPage/ProjectsPage";
-import Footer from "./components/Footer/Footer";
+import GameCenter from "./components/GameCenter/GameCenter";
+import CustomCursor from "./components/CustomCursor/CustomCursor";
 
-type Page = "portfolio" | "games" | "projects";
-
-function App() {
-  const [currentPage, setCurrentPage] = useState<Page>("portfolio");
+function AnimatedRoutes() {
+  const location = useLocation();
 
   return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <HomePage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/work/:projectId"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CaseStudyPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/work"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ProjectsPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/play"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <GameCenter />
+            </motion.div>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
     <div className="App">
-      <AnimatePresence mode="wait">
-        {currentPage === "portfolio" ? (
-          <motion.div
-            key="portfolio"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Header />
-            <main>
-              <Hero
-                onProjectsClick={() => setCurrentPage("projects")}
-                onGamesClick={() => setCurrentPage("games")}
-              />
-              <StoryJourney />
-              <Skills />
-            </main>
-            <Footer />
-          </motion.div>
-        ) : currentPage === "games" ? (
-          <motion.div
-            key="games"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <GameCenter onBack={() => setCurrentPage("portfolio")} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="projects"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ProjectsPage onBack={() => setCurrentPage("portfolio")} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <BrowserRouter>
+        <CustomCursor />
+        <AnimatedRoutes />
+      </BrowserRouter>
     </div>
   );
 }

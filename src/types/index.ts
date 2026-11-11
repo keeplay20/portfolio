@@ -48,9 +48,18 @@ export interface Project {
   features: string[];
   highlights: string[];
   status: "Completed" | "In Progress" | "Planned";
+  featured?: boolean;
+  tagline?: string;
+  previewImage?: string;
+  caseStudy?: {
+    problem: string;
+    role: string;
+    outcome: string;
+    decisions: { title: string; body: string }[];
+  };
   demoVideo?: string;
   liveDemo?: string;
-  githubRepo: string;
+  githubRepo?: string;
   downloadLinks?: {
     android?: string;
     ios?: string;

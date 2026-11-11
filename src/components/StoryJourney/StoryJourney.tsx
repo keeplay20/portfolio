@@ -18,8 +18,8 @@ const CHAPTER_META: Record<
   wipro: {
     roman: "I",
     title: "Where The Story Begins",
-    color: "#3b82f6",
-    icon: "🏢",
+    color: "#9ab0c4",
+    icon: "",
     narrative:
       "Fresh out of engineering, I stepped into the corporate world at Wipro as a Technical Consultant. This was my baptism by fire — configuring enterprise SharePoint systems, writing my first production JavaScript, and learning that software has real consequences for real people. Every workflow I automated saved hours for actual humans on the other side.",
     gained:
@@ -30,8 +30,8 @@ const CHAPTER_META: Record<
   freelancer: {
     roman: "II",
     title: "Taking The Leap",
-    color: "#8b5cf6",
-    icon: "🚀",
+    color: "#c4a574",
+    icon: "",
     narrative:
       "I took a calculated risk and went independent. Working with multiple startups, I wore every hat — developer, tester, architect, and sometimes tech support. This was the chapter that forced me to grow fast. React entered my life here, and I fell in love with building interfaces that people actually used.",
     gained:
@@ -42,8 +42,8 @@ const CHAPTER_META: Record<
   vxl: {
     roman: "III",
     title: "The Craft Deepens",
-    color: "#10b981",
-    icon: "⚙️",
+    color: "#7eb8a4",
+    icon: "",
     narrative:
       "VXL Instruments brought me into the world of hardware-software integration. For three years, I built automation frameworks for Linux-based systems, tested Lenovo Terminal Manager, and learned the critical importance of quality engineering. Selenium and TestNG became my daily tools. I didn't just test software — I made sure it was bulletproof.",
     gained:
@@ -54,8 +54,8 @@ const CHAPTER_META: Record<
   gupshup: {
     roman: "IV",
     title: "Scaling New Heights",
-    color: "#f59e0b",
-    icon: "📡",
+    color: "#c9a06a",
+    icon: "",
     narrative:
       "Gupshup opened my eyes to distributed systems operating at genuine scale. Millions of messages flowing through pipelines, API performance that could make or break SLAs, and the art of finding bottlenecks before users did. I automated backend components, built test data generators, and collaborated with teams across time zones.",
     gained:
@@ -66,8 +66,8 @@ const CHAPTER_META: Record<
   dream11: {
     roman: "V",
     title: "The Dream Chapter",
-    color: "#6366f1",
-    icon: "🏆",
+    color: "#e8c9a0",
+    icon: "",
     narrative:
       "Dream11 is where everything came together. As SDE-2, I shipped features in a React Native app used by 150M+ users across India. My Balance, Transactions, Verification flows — features that millions of cricket fans interacted with every match day. I architected E2E testing frameworks with Detox, built internal admin panels in React, and helped drive engineering quality at scale.",
     gained:
@@ -78,8 +78,8 @@ const CHAPTER_META: Record<
   superhealth: {
     roman: "VI",
     title: "Building From Zero",
-    color: "#06b6d4",
-    icon: "🩺",
+    color: "#8eb4c9",
+    icon: "",
     narrative:
       "At SuperHealth, I'm building the React Native app from a blank repository. I own the architecture, engineering foundations, and development standards for Android and iOS — a TypeScript codebase on Expo with Zustand and TanStack Query, a design-token-driven component system built with Product and Design, and Firebase-powered feature flags for safe, controlled rollouts.",
     gained:
@@ -124,13 +124,13 @@ const StoryJourney: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span className="story-journey__eyebrow">A Developer's Chronicle</span>
-          <h2 className="section-title">
-            The Story <span className="text-gradient">So Far</span>
+          <p className="story-journey__index">02 — Career</p>
+          <h2 className="story-journey__title section-title story-journey__title--left">
+            Chapters so far
           </h2>
-          <p className="section-subtitle">
-            Years of code, companies, and craft — each chapter building on
-            the last
+          <p className="story-journey__lede section-subtitle story-journey__lede--left">
+            From enterprise consulting to mobile at scale—each stop added depth,
+            reliability thinking, or ownership.
           </p>
         </motion.div>
 

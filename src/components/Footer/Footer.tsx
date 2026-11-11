@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
             © {currentYear} {personalInfo.name}. All rights reserved.
           </p>
           <p className="footer__built">
-            Built with React, TypeScript & Framer Motion
+            Designed & engineered by {personalInfo.name}
           </p>
         </div>
       </div>

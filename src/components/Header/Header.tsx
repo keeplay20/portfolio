@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./Header.css";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const onHome = location.pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
+  const goToSection = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
+    if (onHome) {
+      const element = document.getElementById(sectionId);
+      element?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate(`/#${sectionId}`);
     }
   };
 
   const menuItems = [
-    { id: "hero", label: "Home" },
-    { id: "experience", label: "Experience" },
-    { id: "skills", label: "Skills" },
+    { id: "featured-work", label: "Work" },
+    { id: "experience", label: "Journey" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -36,48 +39,58 @@ const Header: React.FC = () => {
       className={`header ${isScrolled ? "header--scrolled" : ""}`}
     >
       <div className="header__container">
-        {/* Logo */}
-        <motion.div
-          className="header__logo"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => scrollToSection("hero")}
-        >
+        <Link to="/" className="header__logo" aria-label="Home">
           <span className="header__logo-text">mv.</span>
-        </motion.div>
+        </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="header__nav">
+        <nav className="header__nav" aria-label="Primary">
           <div className="header__nav-pill">
             {menuItems.map((item) => (
               <button
                 key={item.id}
+                type="button"
                 className="header__nav-link"
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => goToSection(item.id)}
               >
                 {item.label}
               </button>
             ))}
+            <Link
+              to="/work"
+              className={`header__nav-link header__nav-link--route ${
+                location.pathname === "/work" ? "header__nav-link--active" : ""
+              }`}
+            >
+              Archive
+            </Link>
+            <Link
+              to="/play"
+              className={`header__nav-link header__nav-link--route ${
+                location.pathname === "/play" ? "header__nav-link--active" : ""
+              }`}
+            >
+              Play
+            </Link>
           </div>
         </nav>
 
-        {/* Mobile Menu Toggle */}
         <div className="header__actions">
           <button
+            type="button"
             className={`header__mobile-toggle ${
               isMobileMenuOpen ? "header__mobile-toggle--active" : ""
             }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Toggle menu"
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <motion.div
         className={`header__mobile-menu ${
           isMobileMenuOpen ? "header__mobile-menu--open" : ""
@@ -89,27 +102,46 @@ const Header: React.FC = () => {
         }}
         transition={{ duration: 0.3 }}
       >
-        <nav className="header__mobile-nav">
+        <nav className="header__mobile-nav" aria-label="Mobile">
           <ul className="header__mobile-nav-list">
             {menuItems.map((item, index) => (
               <motion.li
                 key={item.id}
                 className="header__mobile-nav-item"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -16 }}
                 animate={{
                   opacity: isMobileMenuOpen ? 1 : 0,
-                  x: isMobileMenuOpen ? 0 : -20,
+                  x: isMobileMenuOpen ? 0 : -16,
                 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
               >
                 <button
+                  type="button"
                   className="header__mobile-nav-link"
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => goToSection(item.id)}
                 >
                   {item.label}
                 </button>
               </motion.li>
             ))}
+            <li className="header__mobile-nav-item">
+              <Link
+                to="/work"
+                className="header__mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Archive
+              </Link>
+            </li>
+            <li className="header__mobile-nav-item">
+              <Link
+                to="/play"
+                className="header__mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Play
+              </Link>
+            </li>
           </ul>
         </nav>
       </motion.div>

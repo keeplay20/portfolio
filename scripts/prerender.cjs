@@ -8,7 +8,13 @@ const BUILD_DIR = path.join(__dirname, "..", "build");
 const HOST = "127.0.0.1";
 const PORT = 4173;
 /** App routes to prerender (add paths when you introduce URL-based routing). */
-const ROUTES = ["/"];
+const ROUTES = [
+  "/",
+  "/work",
+  "/play",
+  "/work/animate-spotlight-showcase",
+  "/work/transition-trail-explorer",
+];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

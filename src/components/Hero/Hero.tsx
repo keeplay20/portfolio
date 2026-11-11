@@ -1,104 +1,69 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import { personalInfo } from "../../data/portfolio";
 import "./Hero.css";
 
-interface HeroProps {
-  onProjectsClick: () => void;
-  onGamesClick: () => void;
-}
-
-const Hero: React.FC<HeroProps> = ({ onProjectsClick, onGamesClick }) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { delayChildren: 0.2, staggerChildren: 0.15 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 16, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
-    },
-  };
+const Hero: React.FC = () => {
+  const reduceMotion = useReducedMotion();
 
   return (
     <section id="hero" className="hero">
-      <div className="hero__container">
-        <motion.div
-          className="hero__content"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Badge */}
-          <motion.div className="hero__badge" variants={itemVariants}>
-            <span className="hero__badge-dot" />
-            5 years · React &amp; React Native
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1 className="hero__title" variants={itemVariants}>
-            Hi, I'm <span className="text-gradient">{personalInfo.name}</span>
-          </motion.h1>
-
-          {/* Role */}
-          <motion.p className="hero__role" variants={itemVariants}>
-            {personalInfo.title} · SuperHealth
-          </motion.p>
-
-          {/* Action Cards */}
-          <motion.div className="hero__cards" variants={itemVariants}>
+      <div className="hero__grain" aria-hidden="true" />
+      <div className="hero__container container">
+        <div className="hero__grid">
+          <motion.div
+            className="hero__copy"
+            initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="hero__kicker">
+              {personalInfo.title} · Bangalore
+            </p>
+            <h1 className="hero__title">
+              {personalInfo.name} builds{" "}
+              <span className="hero__title-accent">interfaces in motion</span>
+            </h1>
+            <p className="hero__summary">{personalInfo.summary}</p>
             <motion.div
-              className="hero__card hero__card--projects"
-              onClick={onProjectsClick}
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0, y: 16 }}
+              className="hero__actions"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.4 }}
+              transition={{ delay: 0.25, duration: 0.6 }}
             >
-              <span className="hero__card-title">Projects</span>
-              <span className="hero__card-sub">View my work →</span>
-            </motion.div>
-            <motion.div
-              className="hero__card hero__card--games"
-              onClick={onGamesClick}
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 0.4 }}
-            >
-              <span className="hero__card-title">Mini Games</span>
-              <span className="hero__card-sub">Play & explore →</span>
+              <a href="#featured-work" className="btn btn-primary hero__btn">
+                Selected work
+              </a>
+              <Link to="/work" className="btn btn-ghost hero__btn">
+                Archive
+              </Link>
             </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
 
-      {/* Background */}
-      <div className="hero__background">
-        <motion.div
-          className="hero__bg-element hero__bg-element--1"
-          animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-          transition={{
-            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-          }}
-        />
-        <motion.div
-          className="hero__bg-element hero__bg-element--2"
-          animate={{ rotate: -360, scale: [1, 0.9, 1] }}
-          transition={{
-            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-            scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-          }}
-        />
+          <motion.aside
+            className="hero__aside"
+            initial={reduceMotion ? false : { opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            aria-label="At a glance"
+          >
+            <div className="hero__stat">
+              <span className="hero__stat-label">Now</span>
+              <span className="hero__stat-value">SuperHealth · RN from zero</span>
+            </div>
+            <div className="hero__stat">
+              <span className="hero__stat-label">Before</span>
+              <span className="hero__stat-value">Dream11 · millions of users</span>
+            </div>
+            <div className="hero__stat">
+              <span className="hero__stat-label">Playground</span>
+              <Link to="/play" className="hero__stat-link">
+                Small games & reflex tests
+              </Link>
+            </div>
+          </motion.aside>
+        </div>
       </div>
     </section>
   );
