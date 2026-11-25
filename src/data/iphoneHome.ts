@@ -6,6 +6,32 @@ function appIconPath(file: string): string {
   return `${PUBLIC}/app-icons/${file}`;
 }
 
+/** Home-screen icon captions — no ALL-CAPS words */
+const PRESERVE_APP_LABELS: Record<string, string> = {
+  LinkedIn: "LinkedIn",
+  GitHub: "GitHub",
+  Dream11: "Dream11",
+  VXL: "VXL",
+  Gupshup: "Gupshup",
+};
+
+function formatAppLabel(raw: string): string {
+  const text = raw.trim();
+  if (!text) return text;
+  if (PRESERVE_APP_LABELS[text]) return PRESERVE_APP_LABELS[text];
+
+  return text
+    .split(/\s+/)
+    .map((word) => {
+      if (/^[A-Z]{2,}$/.test(word)) {
+        return word.charAt(0) + word.slice(1).toLowerCase();
+      }
+      const lower = word.toLowerCase();
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
 export type AppDestination =
   | { type: "project"; projectId: string }
   | { type: "route"; path: string }
@@ -84,7 +110,9 @@ function projectApp(
   return {
     id: p.id,
     name: p.title,
-    label: p.title.split(/[\s-]/).slice(0, 2).join(" "),
+    label: formatAppLabel(
+      p.title.split(/[\s-]/).slice(0, 2).join(" ")
+    ),
     glyph: glyph ?? p.title.slice(0, 2).toUpperCase(),
     iconBg: meta?.iconBg ?? "#1c1c1e",
     iconFg: "#f5f5f7",
@@ -110,7 +138,7 @@ const gameApps: PhoneApp[] = [
   {
     id: "rps",
     name: "Rock Paper Scissors",
-    label: "RPS",
+    label: "Rock Paper",
     glyph: "RPS",
     iconBg: "#bf5af2",
     iconBackground: "linear-gradient(145deg, #af52de, #ff2d55)",
@@ -207,7 +235,7 @@ const experienceApps: PhoneApp[] = experiences.map((exp) => {
   return {
     id: exp.id,
     name: exp.company,
-    label: exp.company.split(" ")[0],
+    label: formatAppLabel(exp.company.split(" ")[0]),
     glyph: exp.company.slice(0, 2).toUpperCase(),
     iconBg: pal.iconBg,
     iconFg: pal.iconFg,
