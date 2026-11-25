@@ -31,7 +31,6 @@ export interface PhoneFolder {
 }
 
 const webProjects = projects.filter((p) => p.category === "Web App");
-const appProjects = projects.filter((p) => p.category === "Mobile App");
 
 const projectIconMeta: Record<
   string,
@@ -203,18 +202,11 @@ const experienceApps: PhoneApp[] = experiences.map((exp) => {
 export const phoneFolders: PhoneFolder[] = [
   {
     id: "web",
-    name: "Web Projects",
+    name: "Projects",
     overview:
       "Interaction labs and web experiments—motion, state machines, and tools shipped to Vercel.",
     previewColors: ["#0a84ff", "#5e5ce6", "#30d158", "#ff9f0a"],
     apps: webProjects.map((p) => projectApp(p)),
-  },
-  {
-    id: "apps",
-    name: "App Projects",
-    overview: "React Native and Expo apps—discovery, games, and mobile UI craft.",
-    previewColors: ["#30d158", "#0a84ff", "#ff375f", "#64d2ff"],
-    apps: appProjects.map((p) => projectApp(p)),
   },
   {
     id: "games",

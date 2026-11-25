@@ -204,11 +204,10 @@ function SingleCardCarousel({
 }
 
 const WorkArchive: React.FC = () => {
-  const archiveProjects = useMemo(() => {
-    const web = projects.filter((p) => p.category === "Web App");
-    const mobile = projects.filter((p) => p.category === "Mobile App");
-    return [...web, ...mobile];
-  }, []);
+  const archiveProjects = useMemo(
+    () => projects.filter((p) => p.category === "Web App"),
+    []
+  );
 
   return (
     <div className="work-archive">

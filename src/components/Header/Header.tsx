@@ -6,9 +6,8 @@ import "./Header.css";
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const onArchive = location.pathname === "/work";
   const onGame = location.pathname.startsWith("/games/");
-  const showBackHome = onArchive || onGame;
+  const showBackHome = onGame;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
