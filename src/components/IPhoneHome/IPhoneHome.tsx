@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   dockApps,
   InPhoneLaunch,
@@ -19,6 +19,7 @@ import IOSAppIcon, { IOSFolderPreview } from "./IOSAppIcon";
 import IPhoneStatusBar from "./IPhoneStatusBar";
 import LocationWidget from "./LocationWidget";
 import PhoneInApp, { PhoneInAppLaunch } from "./PhoneInApp";
+import PhoneLockScreen from "./PhoneLockScreen";
 import woodTexture from "../../assets/images/wood-table-texture.jpg";
 import phoneWallpaper from "../../assets/images/phone-wallpapers/midnight-oil.jpg";
 import "./IPhoneHome.css";
@@ -46,6 +47,29 @@ function useClock() {
     return () => window.clearInterval(id);
   }, []);
   return time;
+}
+
+function useLockDateLabel() {
+  const [label, setLabel] = useState(() =>
+    new Date().toLocaleDateString([], {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    })
+  );
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setLabel(
+        new Date().toLocaleDateString([], {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        })
+      );
+    }, 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+  return label;
 }
 
 function toPhoneInAppLaunch(raw: InPhoneLaunch): PhoneInAppLaunch {
@@ -112,7 +136,9 @@ function FolderIcon({
 
 const IPhoneHome: React.FC = () => {
   const clock = useClock();
+  const lockDateLabel = useLockDateLabel();
   const navigate = useNavigate();
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [view, setView] = useState<PhoneView>("home");
   const [activeFolder, setActiveFolder] = useState<PhoneFolder | null>(null);
   const [inApp, setInApp] = useState<{
@@ -194,97 +220,126 @@ const IPhoneHome: React.FC = () => {
               <div
                 className={`iphone-device__screen${
                   view === "inapp" ? " iphone-device__screen--inapp" : ""
-                }`}
+                }${!isUnlocked ? " iphone-device__screen--locked" : ""}`}
               >
-                <div
-                  className={`iphone-device__wallpaper${
-                    view === "inapp" ? " iphone-device__wallpaper--dim" : ""
-                  }`}
-                  aria-hidden="true"
+                <AnimatePresence>
+                  {!isUnlocked ? (
+                    <PhoneLockScreen
+                      key="lock"
+                      time={clock}
+                      dateLabel={lockDateLabel}
+                      onUnlock={() => setIsUnlocked(true)}
+                    />
+                  ) : null}
+                </AnimatePresence>
+
+                <motion.div
+                  className="iphone-screen__surface"
+                  initial={false}
+                  animate={
+                    isUnlocked
+                      ? { y: 0, opacity: 1, scale: 1 }
+                      : { y: 48, opacity: 0, scale: 1.03 }
+                  }
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: isUnlocked ? 0.06 : 0,
+                  }}
+                  aria-hidden={!isUnlocked}
                 >
                   <div
-                    className="iphone-device__wallpaper-slide"
-                    style={{ backgroundImage: `url(${phoneWallpaper})` }}
-                  />
-                  <div className="iphone-device__wallpaper-scrim" />
-                </div>
-
-                <IPhoneStatusBar time={clock} />
-
-                <div className="iphone-screen__scroll">
-                  {view === "inapp" && inApp ? (
-                    <PhoneInApp
-                      app={inApp.app}
-                      launch={inApp.launch}
-                      onBack={exitInApp}
-                      games={PHONE_GAMES}
+                    className={`iphone-device__wallpaper${
+                      view === "inapp" ? " iphone-device__wallpaper--dim" : ""
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <div
+                      className="iphone-device__wallpaper-slide"
+                      style={{ backgroundImage: `url(${phoneWallpaper})` }}
                     />
-                  ) : view === "home" ? (
-                    <>
-                      <LocationWidget />
+                    <div className="iphone-device__wallpaper-scrim" />
+                  </div>
 
-                      <div className="iphone-grid iphone-grid--folders">
-                        {phoneFolders.map((folder) => (
-                          <FolderIcon
-                            key={folder.id}
-                            folder={folder}
-                            onOpen={openFolder}
-                          />
-                        ))}
-                      </div>
+                  <IPhoneStatusBar time={clock} />
 
-                      <div className="iphone-search">
+                  <div className="iphone-screen__scroll">
+                    {view === "inapp" && inApp ? (
+                      <PhoneInApp
+                        app={inApp.app}
+                        launch={inApp.launch}
+                        onBack={exitInApp}
+                        games={PHONE_GAMES}
+                      />
+                    ) : view === "home" ? (
+                      <>
+                        <LocationWidget />
+
+                        <div className="iphone-grid iphone-grid--folders">
+                          {phoneFolders.map((folder) => (
+                            <FolderIcon
+                              key={folder.id}
+                              folder={folder}
+                              onOpen={openFolder}
+                            />
+                          ))}
+                        </div>
+
+                        <div className="iphone-search">
+                          <button
+                            type="button"
+                            className="iphone-search__pill"
+                            onClick={openArchiveInPhone}
+                          >
+                            Search projects
+                          </button>
+                        </div>
+                      </>
+                    ) : activeFolder ? (
+                      <div className="iphone-folder-view">
                         <button
                           type="button"
-                          className="iphone-search__pill"
-                          onClick={openArchiveInPhone}
+                          className="iphone-folder-view__back"
+                          onClick={goHome}
                         >
-                          Search projects
+                          ‹ Home
                         </button>
+                        <h2 className="iphone-folder-view__title">
+                          {activeFolder.name}
+                        </h2>
+                        <div className="iphone-grid iphone-grid--apps">
+                          {activeFolder.apps.map((app) => (
+                            <AppIcon
+                              key={app.id}
+                              app={app}
+                              onSelect={launchAppInPhone}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </>
-                  ) : activeFolder ? (
-                    <div className="iphone-folder-view">
-                      <button
-                        type="button"
-                        className="iphone-folder-view__back"
-                        onClick={goHome}
-                      >
-                        ‹ Home
-                      </button>
-                      <h2 className="iphone-folder-view__title">
-                        {activeFolder.name}
-                      </h2>
-                      <div className="iphone-grid iphone-grid--apps">
-                        {activeFolder.apps.map((app) => (
-                          <AppIcon
-                            key={app.id}
-                            app={app}
-                            onSelect={launchAppInPhone}
-                          />
-                        ))}
-                      </div>
+                    ) : null}
+                  </div>
+
+                  {view !== "inapp" ? (
+                    <div className="iphone-dock">
+                      {dockApps.map((app) => (
+                        <AppIcon
+                          key={app.id}
+                          app={app}
+                          size="dock"
+                          onSelect={launchAppInPhone}
+                        />
+                      ))}
                     </div>
                   ) : null}
-                </div>
-
-                {view !== "inapp" ? (
-                  <div className="iphone-dock">
-                    {dockApps.map((app) => (
-                      <AppIcon
-                        key={app.id}
-                        app={app}
-                        size="dock"
-                        onSelect={launchAppInPhone}
-                      />
-                    ))}
-                  </div>
-                ) : null}
+                </motion.div>
               </div>
             </div>
           </motion.div>
           <p className="iphone-device__hint">
-            Tap a folder or app · Everything opens inside the phone
+            {isUnlocked
+              ? "Tap a folder or app · Everything opens inside the phone"
+              : "Swipe up on the phone to unlock"}
           </p>
         </div>
       </div>
