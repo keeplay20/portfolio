@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG Preview</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      .og {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        background-color: #14110e;
+        background-image: url("wood-table-texture.jpg");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Geist", system-ui, sans-serif;
+        color: #f0ede8;
+      }
+
+      .og::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 100% 80% at 50% 50%,
+            transparent 0%,
+            rgba(8, 6, 5, 0.2) 55%,
+            rgba(8, 6, 5, 0.48) 100%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(8, 6, 5, 0.22) 0%,
+            transparent 35%,
+            rgba(8, 6, 5, 0.35) 100%
+          );
+        pointer-events: none;
+      }
+
+      .og__stage {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .og__device {
+        width: 248px;
+        padding: 8px;
+        border-radius: 42px;
+        background: linear-gradient(
+          160deg,
+          #242428 0%,
+          #121214 14%,
+          #030303 32%,
+          #0a0a0c 48%,
+          #000 58%,
+          #141416 72%,
+          #1e1e22 100%
+        );
+        box-shadow:
+          0 32px 64px rgba(0, 0, 0, 0.65),
+          0 0 0 0.5px rgba(255, 255, 255, 0.25);
+      }
+
+      .og__screen {
+        position: relative;
+        border-radius: 34px;
+        overflow: hidden;
+        aspect-ratio: 390 / 844;
+        background: #000;
+      }
+
+      .og__wallpaper {
+        position: absolute;
+        inset: 0;
+        background-image: url("phone-wallpaper-midnight.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .og__wallpaper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0.08) 40%,
+          rgba(0, 0, 0, 0.4) 100%
+        );
+      }
+
+      .og__status {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 22px 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .og__island {
+        width: 78px;
+        height: 22px;
+        border-radius: 20px;
+        background: #000;
+      }
+
+      .og__widget {
+        position: relative;
+        z-index: 2;
+        margin: 8px 16px 0;
+        height: 118px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: #1c2836;
+      }
+
+      .og__widget-map {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, #1a2f2a, #2d4a3e 45%, #1c2836);
+      }
+
+      .og__widget-name {
+        position: absolute;
+        left: 14px;
+        bottom: 28px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+      }
+
+      .og__grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px 10px;
+        padding: 16px 16px 0;
+      }
+
+      .og__app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .og__app-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 11px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      }
+
+      .og__app-icon--a {
+        background: linear-gradient(145deg, #0a84ff, #5e5ce6);
+      }
+      .og__app-icon--b {
+        background: linear-gradient(145deg, #5e5ce6, #30d158);
+      }
+      .og__app-icon--c {
+        background: linear-gradient(145deg, #1c1c1e, #0a84ff);
+      }
+
+      .og__app-label {
+        font-size: 9px;
+        opacity: 0.92;
+      }
+
+      .og__dock {
+        position: relative;
+        z-index: 2;
+        margin: 18px 14px 12px;
+        padding: 10px 8px;
+        border-radius: 22px;
+        display: flex;
+        justify-content: space-evenly;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+      }
+
+      .og__dock .og__app-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .og__dock .og__app-icon--mail {
+        background: linear-gradient(180deg, #5ac8fa, #0a84ff);
+      }
+      .og__dock .og__app-icon--in {
+        background: #0a66c2;
+      }
+      .og__dock .og__app-icon--gh {
+        background: linear-gradient(145deg, #30363d, #0d1117);
+      }
+      .og__dock .og__app-icon--ar {
+        background: linear-gradient(145deg, #8e8e93, #48484a);
+      }
+
+      .og__hint {
+        position: relative;
+        z-index: 1;
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 15px;
+        color: rgba(245, 235, 220, 0.85);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="og">
+      <div class="og__stage">
+        <div class="og__device">
+          <div class="og__screen">
+            <div class="og__wallpaper" aria-hidden="true"></div>
+            <div class="og__status">
+              <span>9:41</span>
+              <span class="og__island"></span>
+              <span>●●●</span>
+            </div>
+            <div class="og__widget">
+              <div class="og__widget-map"></div>
+              <div class="og__widget-name">Mandar Vyas</div>
+            </div>
+            <div class="og__grid">
+              <div class="og__app">
+                <div class="og__app-icon og__app-icon--a"></div>
+                <span class="og__app-label">Projects</span>
+              </div>
+              <div class="og__app">
+                <div class="og__app-icon og__app-icon--b"></div>
+                <span class="og__app-label">Games</span>
+              </div>
+              <div class="og__app">
+                <div class="og__app-icon og__app-icon--c"></div>
+                <span class="og__app-label">Experience</span>
+              </div>
+              <div class="og__app" aria-hidden="true"></div>
+            </div>
+            <div class="og__dock">
+              <div class="og__app-icon og__app-icon--mail"></div>
+              <div class="og__app-icon og__app-icon--in"></div>
+              <div class="og__app-icon og__app-icon--gh"></div>
+              <div class="og__app-icon og__app-icon--ar"></div>
+            </div>
+          </div>
+        </div>
+        <p class="og__hint">Portfolio · mandarvyas.vercel.app</p>
+      </div>
+    </div>
+  </body>
+</html>

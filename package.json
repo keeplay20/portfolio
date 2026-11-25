@@ -31,7 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && node scripts/prerender.cjs",
+    "build": "node scripts/generate-og-preview.cjs && react-scripts build && node scripts/prerender.cjs",
+    "generate:og": "node scripts/generate-og-preview.cjs",
     "build:spa": "react-scripts build",
     "prerender": "node scripts/prerender.cjs",
     "test": "react-scripts test",
