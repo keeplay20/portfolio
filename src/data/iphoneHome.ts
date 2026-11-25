@@ -53,14 +53,6 @@ const projectIconMeta: Record<
     iconBackground: "linear-gradient(160deg, #0369a1 0%, #0ea5e9 60%, #fcd34d 100%)",
     iconBg: "#0284c7",
   },
-  "javascript-mini-projects": {
-    iconBackground: "linear-gradient(145deg, #ca8a04 0%, #eab308 100%)",
-    iconBg: "#ca8a04",
-  },
-  "html-css-projects": {
-    iconBackground: "linear-gradient(145deg, #e11d48 0%, #f97316 100%)",
-    iconBg: "#e11d48",
-  },
   moviebuzz: {
     iconBackground: "linear-gradient(145deg, #0f0f0f 0%, #7f1d1d 100%)",
     iconBg: "#18181b",
@@ -325,10 +317,7 @@ export function resolveInPhoneLaunch(
   destination: AppDestination,
   projectLookup: typeof projects
 ): InPhoneLaunch | null {
-  if (
-    destination.type === "external" &&
-    destination.url.startsWith("mailto:")
-  ) {
+  if (destination.type === "external") {
     return null;
   }
 
@@ -344,10 +333,6 @@ export function resolveInPhoneLaunch(
       mode: "iframe",
       src: new URL(destination.path, window.location.origin).href,
     };
-  }
-
-  if (destination.type === "external") {
-    return { mode: "iframe", src: destination.url };
   }
 
   const direct = getAppDirectLink(destination, projectLookup);

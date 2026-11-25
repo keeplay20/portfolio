@@ -136,22 +136,6 @@ function IconGraphic({ id, light }: { id: string; light?: boolean }) {
           />
         </svg>
       );
-    case "javascript-mini-projects":
-      return (
-        <svg viewBox="0 0 48 48" className="ios-icon__svg">
-          <text x="24" y="30" textAnchor="middle" fontSize="14" fill={stroke} fontWeight="700">
-            JS
-          </text>
-        </svg>
-      );
-    case "html-css-projects":
-      return (
-        <svg viewBox="0 0 48 48" className="ios-icon__svg">
-          <text x="24" y="28" textAnchor="middle" fontSize="11" fill={stroke} fontWeight="700">
-            HTML
-          </text>
-        </svg>
-      );
     case "playground":
       return (
         <svg viewBox="0 0 48 48" className="ios-icon__svg">

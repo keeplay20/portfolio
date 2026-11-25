@@ -146,8 +146,12 @@ const IPhoneHome: React.FC = () => {
     const raw = resolveInPhoneLaunch(app.destination, projects);
     if (raw === null) {
       const dest = app.destination;
-      if (dest.type === "external" && dest.url.startsWith("mailto:")) {
-        window.location.href = dest.url;
+      if (dest.type === "external") {
+        if (dest.url.startsWith("mailto:")) {
+          window.location.href = dest.url;
+        } else {
+          window.open(dest.url, "_blank", "noopener,noreferrer");
+        }
       }
       return;
     }

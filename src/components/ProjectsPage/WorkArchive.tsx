@@ -3,8 +3,7 @@ import { projects } from "../../data/portfolio";
 import { Project } from "../../types";
 import "./WorkArchive.css";
 
-const ROTATE_MS_WEB = 5500;
-const ROTATE_MS_MOBILE = 5500;
+const ROTATE_MS = 5500;
 
 function projectPreviewSrc(project: Project): string | null {
   if (project.previewImage) return project.previewImage;
@@ -37,7 +36,13 @@ function WorkProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="work-card__body">
-        <p className="work-card__category">{project.category}</p>
+        <span
+          className={`work-card__chip work-card__chip--${
+            project.category === "Mobile App" ? "mobile" : "web"
+          }`}
+        >
+          {project.category === "Mobile App" ? "Mobile app" : "Web app"}
+        </span>
         <h3 className="work-card__title">{project.title}</h3>
         <p className="work-card__desc">{project.description}</p>
 
@@ -199,38 +204,28 @@ function SingleCardCarousel({
 }
 
 const WorkArchive: React.FC = () => {
-  const { web, mobile } = useMemo(() => {
-    return {
-      web: projects.filter((p) => p.category === "Web App"),
-      mobile: projects.filter((p) => p.category === "Mobile App"),
-    };
+  const archiveProjects = useMemo(() => {
+    const web = projects.filter((p) => p.category === "Web App");
+    const mobile = projects.filter((p) => p.category === "Mobile App");
+    return [...web, ...mobile];
   }, []);
-
-  const columns = [
-    { title: "Web Apps", items: web, rotateMs: ROTATE_MS_WEB },
-    { title: "Mobile Apps", items: mobile, rotateMs: ROTATE_MS_MOBILE },
-  ].filter((col) => col.items.length > 0);
 
   return (
     <div className="work-archive">
-      <div className="work-archive__columns">
-        {columns.map((col) => (
-          <section key={col.title} className="work-archive__column">
-            <div className="work-archive__section-head">
-              <h2 className="work-archive__section-title">{col.title}</h2>
-              <span className="work-archive__section-count">
-                {col.items.length} project
-                {col.items.length === 1 ? "" : "s"}
-              </span>
-            </div>
-            <SingleCardCarousel
-              items={col.items}
-              ariaLabel={`${col.title} projects`}
-              rotateMs={col.rotateMs}
-            />
-          </section>
-        ))}
-      </div>
+      <section className="work-archive__main">
+        <div className="work-archive__section-head">
+          <h2 className="work-archive__section-title">Archive</h2>
+          <span className="work-archive__section-count">
+            {archiveProjects.length} project
+            {archiveProjects.length === 1 ? "" : "s"}
+          </span>
+        </div>
+        <SingleCardCarousel
+          items={archiveProjects}
+          ariaLabel="Project archive"
+          rotateMs={ROTATE_MS}
+        />
+      </section>
     </div>
   );
 };
