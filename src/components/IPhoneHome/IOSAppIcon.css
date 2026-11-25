@@ -38,7 +38,14 @@
   transform: scale(1.02);
 }
 
-.ios-icon:has(.ios-icon__photo)::after {
+/* Full-bleed brand marks (LinkedIn, employers, etc.) — no gloss wash */
+.ios-icon--brand .ios-icon__photo {
+  object-fit: cover;
+  transform: none;
+  filter: none;
+}
+
+.ios-icon:has(.ios-icon__photo):not(.ios-icon--brand)::after {
   content: "";
   position: absolute;
   inset: 0;

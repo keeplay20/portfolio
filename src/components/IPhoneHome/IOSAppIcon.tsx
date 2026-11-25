@@ -14,14 +14,21 @@ function iconUsesLightArt(iconFg?: string): boolean {
   return fg === "#fff" || fg === "#ffffff" || fg === "white";
 }
 
+function isBrandAppIcon(src?: string): boolean {
+  return Boolean(src?.includes("/app-icons/"));
+}
+
 const IOSAppIcon: React.FC<Props> = ({ app, size = "md", badge }) => {
+  const brandIcon = isBrandAppIcon(app.iconImage);
   const bg =
     app.iconBackground ?? app.iconBg ?? "linear-gradient(145deg, #3a3a3c, #1c1c1e)";
 
   return (
     <span
-      className={`ios-icon ios-icon--${size}`}
-      style={{ background: bg }}
+      className={`ios-icon ios-icon--${size}${
+        brandIcon ? " ios-icon--brand" : ""
+      }`}
+      style={{ background: brandIcon ? "transparent" : bg }}
     >
       {app.iconImage ? (
         <img
@@ -36,7 +43,9 @@ const IOSAppIcon: React.FC<Props> = ({ app, size = "md", badge }) => {
           <IconGraphic id={app.id} light={iconUsesLightArt(app.iconFg)} />
         </span>
       )}
-      <span className="ios-icon__shine" aria-hidden="true" />
+      {brandIcon ? null : (
+        <span className="ios-icon__shine" aria-hidden="true" />
+      )}
       {badge ? <span className="ios-icon__badge">{badge}</span> : null}
       {app.badge && !badge ? (
         <span className="ios-icon__badge">{app.badge}</span>

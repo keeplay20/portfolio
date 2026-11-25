@@ -1,5 +1,11 @@
 import { experiences, personalInfo, projects } from "./portfolio";
 
+const PUBLIC = process.env.PUBLIC_URL ?? "";
+
+function appIconPath(file: string): string {
+  return `${PUBLIC}/app-icons/${file}`;
+}
+
 export type AppDestination =
   | { type: "project"; projectId: string }
   | { type: "route"; path: string }
@@ -145,37 +151,48 @@ const gameApps: PhoneApp[] = [
 
 const experienceIconMeta: Record<
   string,
-  { iconBackground: string; iconBg: string; iconFg: string }
+  {
+    iconBackground: string;
+    iconBg: string;
+    iconFg: string;
+    iconImage: string;
+  }
 > = {
   superhealth: {
     iconBackground: "linear-gradient(145deg, #dc2626, #991b1b)",
     iconBg: "#dc2626",
     iconFg: "#fff",
+    iconImage: appIconPath("superhealth.svg"),
   },
   dream11: {
     iconBackground: "linear-gradient(145deg, #ea580c, #c2410c)",
     iconBg: "#ea580c",
     iconFg: "#fff",
+    iconImage: appIconPath("dream11.svg"),
   },
   gupshup: {
     iconBackground: "linear-gradient(145deg, #2563eb, #1d4ed8)",
     iconBg: "#2563eb",
     iconFg: "#fff",
+    iconImage: appIconPath("gupshup.svg"),
   },
   vxl: {
-    iconBackground: "linear-gradient(145deg, #475569, #334155)",
-    iconBg: "#475569",
-    iconFg: "#fff",
+    iconBackground: "#ffffff",
+    iconBg: "#ffffff",
+    iconFg: "#1a1a1a",
+    iconImage: appIconPath("vxl.svg"),
   },
   freelancer: {
     iconBackground: "linear-gradient(145deg, #7c3aed, #5b21b6)",
     iconBg: "#7c3aed",
     iconFg: "#fff",
+    iconImage: appIconPath("freelancer.svg"),
   },
   wipro: {
     iconBackground: "linear-gradient(145deg, #0d9488, #0f766e)",
     iconBg: "#0d9488",
     iconFg: "#fff",
+    iconImage: appIconPath("wipro.svg"),
   },
 };
 
@@ -185,6 +202,7 @@ const experienceApps: PhoneApp[] = experiences.map((exp) => {
     iconBg: "#1c1c1e",
     iconFg: "#f5f5f7",
     iconBackground: "linear-gradient(145deg, #3a3a3c, #1c1c1e)",
+    iconImage: appIconPath(`${exp.id}.svg`),
   };
   return {
     id: exp.id,
@@ -194,6 +212,7 @@ const experienceApps: PhoneApp[] = experiences.map((exp) => {
     iconBg: pal.iconBg,
     iconFg: pal.iconFg,
     iconBackground: pal.iconBackground,
+    iconImage: pal.iconImage,
     overview: `${exp.position} · ${exp.duration}\n${exp.location ?? ""}\n\n${exp.description[0]}`,
     destination: { type: "experience", experienceId: exp.id },
   };
@@ -244,7 +263,8 @@ export const dockApps: PhoneApp[] = [
     glyph: "in",
     iconBg: "#0a66c2",
     iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #0a66c2, #004182)",
+    iconBackground: "#0a66c2",
+    iconImage: appIconPath("linkedin.svg"),
     overview: "Professional profile and work history.",
     destination: { type: "external", url: personalInfo.linkedin },
   },

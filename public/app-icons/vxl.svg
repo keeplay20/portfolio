@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="VXL Instruments">
+  <rect width="72" height="72" rx="16" fill="#FFFFFF"/>
+  <g transform="translate(6 20) scale(0.1)">
+    <path
+      d="M 162 215 C 145 145, 195 65, 295 25 C 215 72, 165 142, 162 215 Z"
+      fill="#E31E24"
+    />
+    <path
+      d="M 248 282 C 385 288, 495 215, 488 102 C 518 228, 398 308, 248 282 Z"
+      fill="#1A1A1A"
+    />
+    <polygon points="212,115 239,115 247,168 279,115 304,115 253,195 227,195" fill="#1A1A1A"/>
+    <polygon points="310,115 338,115 358,155 322,195 294,195 330,155" fill="#E31E24"/>
+    <polygon points="374,115 400,115 365,155 385,195 357,195 338,155" fill="#1A1A1A"/>
+    <polygon points="410,115 436,115 424,175 466,175 462,195 394,195" fill="#1A1A1A"/>
+  </g>
+</svg>
