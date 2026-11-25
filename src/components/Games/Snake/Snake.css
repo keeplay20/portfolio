@@ -29,11 +29,11 @@
   font-weight: 800;
   margin: 0;
   font-family: var(--font-family-mono);
-  color: #10b981;
+  color: #346538;
 }
 
 .snake-game__score-value--high {
-  color: #8b5cf6;
+  color: #787774;
 }
 
 .snake-game__board {
@@ -52,16 +52,16 @@
 }
 
 .snake-game__cell--head {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: var(--btn-bg);
   z-index: 2;
 }
 
 .snake-game__cell--body {
-  background: linear-gradient(135deg, #34d399, #10b981);
+  background: var(--text-muted);
 }
 
 .snake-game__cell--food {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+  background: var(--pastel-red-fg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
 .snake-game__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(17, 17, 17, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +89,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #ef4444;
+  color: #9f2f2d;
 }
 
 .snake-game__game-over-text {
@@ -153,8 +153,8 @@
 }
 
 .snake-game__control-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04);
 }
 
 .snake-game__control-btn--up {

@@ -1,0 +1,45 @@
+.game-play {
+  min-height: 100vh;
+  background: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+.game-play__main {
+  padding: 5.5rem 0 2rem;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.game-play__container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.game-play__frame {
+  width: 100%;
+}
+
+.game-play__content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  padding: 2rem;
+  min-height: min(70vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .game-play__container {
+    padding: 0 2rem;
+  }
+
+  .game-play__content {
+    padding: 3rem;
+  }
+}

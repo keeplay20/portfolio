@@ -1,17 +1,10 @@
-import {
-  Experience,
-  SkillCategory,
-  Contact,
-  PersonalInfo,
-  Project,
-  ProjectCategory,
-} from "../types";
+import { Experience, PersonalInfo, Project } from "../types";
 
 export const personalInfo: PersonalInfo = {
   name: "Mandar Vyas",
   title: "Senior Mobile Engineer",
   summary:
-    "Mobile products for millions at Dream11 and SuperHealth—and web labs where motion and state are the interface.",
+    "Mobile products for millions at Dream11 and Superhealth—and web labs where motion and state are the interface.",
   yearsOfExperience: 5,
   location: "India",
   email: "mandar.vyas20@gmail.com",
@@ -23,7 +16,7 @@ export const personalInfo: PersonalInfo = {
 export const experiences: Experience[] = [
   {
     id: "superhealth",
-    company: "SuperHealth",
+    company: "Superhealth",
     position: "Senior Mobile Engineer",
     duration: "Jul 2026 - Present",
     location: "Bangalore, India",
@@ -164,133 +157,40 @@ export const experiences: Experience[] = [
   },
 ];
 
-export const skillCategories: SkillCategory[] = [
-  {
-    id: "programming",
-    name: "Programming Languages",
-    icon: "💻",
-    description: "Core programming languages and markup technologies",
-    skills: ["JavaScript", "TypeScript", "HTML5", "CSS3", "Shell Scripting"],
-  },
-  {
-    id: "frontend",
-    name: "Frontend Development",
-    icon: "⚛️",
-    description: "Modern frontend frameworks and libraries",
-    skills: [
-      "React.js",
-      "React Native",
-      "Redux",
-      "Context API",
-      "Styled Components",
-      "Tailwind CSS",
-    ],
-  },
-  {
-    id: "backend",
-    name: "Backend Development",
-    icon: "🔧",
-    description: "Server-side technologies and databases",
-    skills: ["REST APIs", "GraphQL", "MySQL"],
-  },
-  {
-    id: "devops",
-    name: "DevOps & Tools",
-    icon: "🚀",
-    description: "Development tools and deployment technologies",
-    skills: ["Jenkins", "GitHub Actions"],
-  },
-  {
-    id: "mobile",
-    name: "Mobile Development",
-    icon: "📱",
-    description: "Cross-platform and native mobile development",
-    skills: [
-      "React Native",
-      "Expo",
-      "Android SDK",
-      "iOS Development",
-      "App Store Deployment",
-      "Play Store Deployment",
-    ],
-  },
-  {
-    id: "testing",
-    name: "Testing & QA",
-    icon: "🧪",
-    description: "Testing frameworks and quality assurance tools",
-    skills: [
-      "Jest",
-      "React Testing Library",
-      "Selenium",
-      "Detox",
-      "JMeter",
-      "Postman",
-      "TestNG",
-    ],
-  },
-  {
-    id: "monitoring",
-    name: "Monitoring & Analytics",
-    icon: "📊",
-    description: "Performance monitoring and analytics tools",
-    skills: ["Crashlytics", "Firebase Analytics", "Datadog"],
-  },
-  {
-    id: "collaboration",
-    name: "Collaboration & Project Management",
-    icon: "🤝",
-    description: "Tools for team collaboration and project management",
-    skills: ["Jira", "Confluence", "Slack", "Notion", "Miro", "Figma"],
-  },
-];
-
-export const certifications = [
-  {
-    name: "ISTQB - Test Automation Engineer (CT-TAE)",
-    issuer: "ISTQB",
-    year: "2020",
-    credentialId: "TAE-2020-001",
-  },
-  {
-    name: "ISTQB - Foundation Level (CTFL)",
-    issuer: "ISTQB",
-    year: "2019",
-    credentialId: "CTFL-2019-001",
-  },
-];
-
-export const contact: Contact = {
-  email: "mandar.vyas20@gmail.com",
-  location: "Bangalore, India",
-  linkedin: "https://www.linkedin.com/in/mandar-vyas/",
-  github: "https://github.com/keeplay20",
-};
-
-export const aboutText = [
-  "I'm a Senior Full Stack Developer currently building the React Native app at SuperHealth from the ground up, after shipping features for millions of users at Dream11. With over 5 years of experience in software development, I specialize in React Native, React.js, and modern web technologies.",
-  "My journey started as a Technical Consultant at Wipro, and I've since worked across various domains including messaging platforms at Gupshup, Linux-based systems at VXL Instruments, fantasy sports at Dream11, and now healthcare at SuperHealth. I'm passionate about automation, testing, and building scalable applications.",
-  "I love creating efficient, maintainable code and have a strong background in both frontend and backend development. I'm also experienced in setting up CI/CD pipelines, automated testing frameworks, and performance monitoring systems.",
-];
-
-// Project Categories
-export const projectCategories: ProjectCategory[] = [
-  { id: "interaction", name: "Interaction Labs", icon: "◎" },
-  { id: "react-native", name: "React Native", icon: "RN" },
-  { id: "react", name: "React Web", icon: "RW" },
-  { id: "javascript", name: "JavaScript", icon: "JS" },
-];
-
-export const featuredProjectIds = [
-  "animate-spotlight-showcase",
-  "transition-trail-explorer",
-] as const;
-
 export function getProjectById(id: string): Project | undefined {
   return projects.find((p) => p.id === id);
 }
 
 export const projects: Project[] = [
+  {
+    id: "deep-link-doctor",
+    featured: true,
+    tagline: "Why your links open the website, not the app",
+    title: "Deep Link Doctor",
+    description:
+      "Enter a domain and diagnose iOS Universal Link and Android App Link configuration, with clear steps to fix what is broken.",
+    longDescription: [
+      "Deep Link Doctor checks apple-app-site-association and assetlinks.json for a domain and explains exactly why links open the browser instead of the app.",
+      "Built from real mobile-engineering pain: broken deep links are hard to debug, so the tool turns cryptic config issues into actionable fixes.",
+      "Shipped as a Next.js app on Vercel with light and dark themes.",
+    ],
+    category: "Web App",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    features: [
+      "iOS Universal Links diagnosis",
+      "Android App Links diagnosis",
+      "Actionable fix guidance",
+      "Light and dark themes",
+    ],
+    highlights: [
+      "Solves a real mobile deep-linking pain point",
+      "Diagnosis paired with how-to-fix guidance",
+    ],
+    status: "Completed",
+    liveDemo: "https://deep-link-doctor.vercel.app",
+    duration: "1 week",
+    teamSize: 1,
+  },
   {
     id: "animate-spotlight-showcase",
     featured: true,
@@ -425,12 +325,12 @@ export const projects: Project[] = [
       "Responsive Design for All Screen Sizes",
     ],
     highlights: [
-      "🎬 Netflix-quality UI/UX design",
-      "🔍 Real-time search with debounced API calls",
-      "🎯 Custom hooks for reusable state logic",
-      "💾 Local data persistence with AsyncStorage",
-      "🎨 Responsive design with dynamic layouts",
-      "🔧 TypeScript for type-safe development",
+      "Netflix-quality UI/UX design",
+      "Real-time search with debounced API calls",
+      "Custom hooks for reusable state logic",
+      "Local data persistence with AsyncStorage",
+      "Responsive design with dynamic layouts",
+      "TypeScript for type-safe development",
     ],
     status: "Completed",
     demoVideo: "/images/MovieBuzz.gif",
@@ -469,12 +369,12 @@ export const projects: Project[] = [
       "New Game Reset",
     ],
     highlights: [
-      "🎮 Unique create-your-own-puzzle gameplay",
-      "🎨 Clean, intuitive UI with visual feedback",
-      "📱 Responsive grid layout for all screen sizes",
-      "🔢 Input validation (1-9 only)",
-      "🎯 TypeScript for type-safe development",
-      "⚡ Smooth state management with React Hooks",
+      "Unique create-your-own-puzzle gameplay",
+      "Clean, intuitive UI with visual feedback",
+      "Responsive grid layout for all screen sizes",
+      "Input validation (1-9 only)",
+      "TypeScript for type-safe development",
+      "Smooth state management with React Hooks",
     ],
     status: "Completed",
     demoVideo: "/images/CustomSudoku.gif",
@@ -515,11 +415,11 @@ export const projects: Project[] = [
       "Smooth Scroll Animations",
     ],
     highlights: [
-      "⚛️ React with component architecture",
-      "🎨 Modern gradient & glassmorphism design",
-      "✨ Smooth hover & transition animations",
-      "🌍 Interactive destination showcase",
-      "📱 Fully responsive layout",
+      "React with component architecture",
+      "Modern gradient & glassmorphism design",
+      "Smooth hover & transition animations",
+      "Interactive destination showcase",
+      "Fully responsive layout",
     ],
     status: "Completed",
     demoVideo: "/images/wander-react.gif",
@@ -553,10 +453,10 @@ export const projects: Project[] = [
       "Responsive Design",
     ],
     highlights: [
-      "💻 Vanilla JavaScript implementation",
-      "🎮 Multiple interactive games",
-      "🎯 Clean code architecture",
-      "⚡ Optimized performance",
+      "Vanilla JavaScript implementation",
+      "Multiple interactive games",
+      "Clean code architecture",
+      "Optimized performance",
     ],
     status: "Completed",
     githubRepo:
@@ -588,10 +488,10 @@ export const projects: Project[] = [
       "Interactive Elements",
     ],
     highlights: [
-      "🎨 Modern CSS techniques",
-      "📱 Fully responsive designs",
-      "✨ Smooth animations",
-      "🎯 Semantic HTML structure",
+      "Modern CSS techniques",
+      "Fully responsive designs",
+      "Smooth animations",
+      "Semantic HTML structure",
     ],
     status: "Completed",
     githubRepo:

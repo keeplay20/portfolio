@@ -5,7 +5,7 @@ import "./RockPaperScissors.css";
 type Choice = 0 | 1 | 2; // Rock, Paper, Scissors
 type GameResult = "player" | "computer" | "draw";
 
-const choices = ["✊", "✋", "✌️"];
+const choices = ["Rock", "Paper", "Scissors"];
 const choiceNames = ["Rock", "Paper", "Scissors"];
 
 const getWinner = (player: Choice, computer: Choice): GameResult => {
@@ -82,10 +82,10 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({
     </div>
     <p className={`rps__result-text rps__result-text--${result}`}>
       {result === "player"
-        ? "You Win! 🎉"
+        ? "You Win! "
         : result === "computer"
-        ? "AI Wins! 🤖"
-        : "It's a Draw! 🤝"}
+        ? "AI Wins! "
+        : "It's a Draw! "}
     </p>
   </motion.div>
 );

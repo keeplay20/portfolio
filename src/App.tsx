@@ -5,8 +5,9 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import CaseStudyPage from "./pages/CaseStudyPage";
 import ProjectsPage from "./components/ProjectsPage/ProjectsPage";
-import GameCenter from "./components/GameCenter/GameCenter";
-import CustomCursor from "./components/CustomCursor/CustomCursor";
+import GamePlayPage from "./pages/GamePlayPage";
+import PlayRedirect from "./pages/PlayRedirect";
+import { ThemeProvider } from "./theme/ThemeProvider";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -54,7 +55,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/play"
+          path="/games/:gameId"
           element={
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -62,10 +63,11 @@ function AnimatedRoutes() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <GameCenter />
+              <GamePlayPage />
             </motion.div>
           }
         />
+        <Route path="/play" element={<PlayRedirect />} />
       </Routes>
     </AnimatePresence>
   );
@@ -73,12 +75,13 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <CustomCursor />
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </div>
+    </ThemeProvider>
   );
 }
 

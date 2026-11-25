@@ -8,23 +8,6 @@ export interface Experience {
   technologies: string[];
 }
 
-export interface SkillCategory {
-  id: string;
-  name: string;
-  icon: string;
-  skills: string[];
-  description?: string;
-}
-
-export interface Contact {
-  email: string;
-  phone?: string;
-  location: string;
-  linkedin: string;
-  github: string;
-  twitter?: string;
-}
-
 export interface PersonalInfo {
   name: string;
   title: string;
@@ -70,8 +53,3 @@ export interface Project {
   teamSize?: number;
 }
 
-export interface ProjectCategory {
-  id: string;
-  name: string;
-  icon: string;
-}

@@ -222,7 +222,7 @@ const TypingTest: React.FC = () => {
           onClick={resetTest}
           className="btn btn-primary"
         >
-          🔄 New Test
+          New Test
         </motion.button>
 
         {!isStarted && (
@@ -255,7 +255,7 @@ const TypingTest: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="typing-test__modal-header">
-                <h3>🎉 Test Complete!</h3>
+                <h3>Test Complete!</h3>
               </div>
 
               <div className="typing-test__modal-stats">
@@ -286,7 +286,7 @@ const TypingTest: React.FC = () => {
       {/* Instructions */}
       <div className="typing-test__instructions">
         <p>
-          💡 Tip: Focus on accuracy over speed. Practice with programming
+          Tip: Focus on accuracy over speed. Practice with programming
           syntax!
         </p>
       </div>

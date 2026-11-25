@@ -52,8 +52,8 @@
 }
 
 .memory-card-game__stat--best {
-  background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(202, 138, 4, 0.1) 100%);
-  border-color: rgba(234, 179, 8, 0.3);
+  background: var(--pastel-yellow-bg);
+  border-color: transparent;
 }
 
 .memory-card-game__stat-label {
@@ -72,15 +72,15 @@
 }
 
 .memory-card-game__stat--best .memory-card-game__stat-value {
-  color: #ca8a04;
+  color: #956400;
 }
 
 .memory-card-game__new-game-btn {
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--btn-fg);
+  background: var(--btn-bg);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -89,7 +89,7 @@
 }
 
 .memory-card-game__new-game-btn:hover {
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .memory-card-game__board {
@@ -129,8 +129,8 @@
 }
 
 .memory-card-game__card--matched .memory-card-game__card-inner {
-  background: linear-gradient(145deg, rgba(52, 211, 153, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
-  border-color: rgba(52, 211, 153, 0.5);
+  background: var(--pastel-green-bg);
+  border-color: transparent;
   cursor: default;
 }
 
@@ -149,14 +149,15 @@
 }
 
 .memory-card-game__card-front {
-  background: linear-gradient(145deg, var(--surface-elevated) 0%, var(--surface-base) 100%);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-weight: 700;
   font-size: 2.5rem;
 }
 
 .memory-card-game__card-back {
-  background: linear-gradient(145deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: var(--secondary-bg);
   transform: rotateY(180deg);
 }
 
@@ -167,7 +168,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(17, 17, 17, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +181,7 @@
   padding: 2.5rem;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   max-width: 90%;
   width: 400px;
   border: 1px solid var(--border-color);
@@ -233,7 +234,7 @@
 }
 
 .memory-card-game__modal-record {
-  color: #ca8a04;
+  color: #956400;
   font-size: 1.125rem;
   font-weight: 700;
   margin: 1rem 0 0.5rem 0;
@@ -254,8 +255,8 @@
   padding: 0.875rem 2.5rem;
   font-size: 1rem;
   font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--btn-fg);
+  background: var(--btn-bg);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -263,7 +264,7 @@
 }
 
 .memory-card-game__modal-btn:hover {
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Responsive Design */

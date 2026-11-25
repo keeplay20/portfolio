@@ -26,11 +26,11 @@
 }
 
 .tic-tac-toe__score-label--x {
-  color: #6366f1;
+  color: var(--text-primary);
 }
 
 .tic-tac-toe__score-label--o {
-  color: #8b5cf6;
+  color: #787774;
 }
 
 .tic-tac-toe__score-value {
@@ -60,12 +60,12 @@
 
 .tic-tac-toe__winner--x,
 .tic-tac-toe__current--x {
-  color: #6366f1;
+  color: var(--text-primary);
 }
 
 .tic-tac-toe__winner--o,
 .tic-tac-toe__current--o {
-  color: #8b5cf6;
+  color: #787774;
 }
 
 .tic-tac-toe__board {
@@ -95,13 +95,13 @@
 
 .tic-tac-toe__cell:hover:not(.tic-tac-toe__cell--disabled) {
   border-color: var(--accent-color);
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .tic-tac-toe__cell--winning {
   border-color: var(--accent-color);
-  background: rgba(99, 102, 241, 0.1);
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
 .tic-tac-toe__cell--disabled {
@@ -116,11 +116,11 @@
 }
 
 .tic-tac-toe__symbol--x {
-  color: #6366f1;
+  color: var(--text-primary);
 }
 
 .tic-tac-toe__symbol--o {
-  color: #8b5cf6;
+  color: #787774;
 }
 
 .tic-tac-toe__reset-btn {

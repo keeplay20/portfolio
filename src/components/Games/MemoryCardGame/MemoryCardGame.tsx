@@ -14,7 +14,7 @@ interface BestScore {
   time: number;
 }
 
-const CARD_SYMBOLS = ["🍎", "🍌", "🍇", "🍊", "🍓", "🍉", "🍒", "🍑"];
+const CARD_SYMBOLS = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 const createInitialCards = (): Card[] => {
   const cards: Card[] = [];
@@ -175,7 +175,7 @@ const MemoryCardGame: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="memory-card-game__header">
-          <h2 className="memory-card-game__title">🎮 Memory Card Game</h2>
+          <h2 className="memory-card-game__title">Memory Card Game</h2>
           <p className="memory-card-game__subtitle">
             Match all pairs in the fewest moves!
           </p>
@@ -257,8 +257,7 @@ const MemoryCardGame: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="memory-card-game__modal-title">
-                🎉 Congratulations! 🎉
-              </h2>
+                Congratulations!               </h2>
               <p className="memory-card-game__modal-message">
                 You completed the game!
               </p>
@@ -284,8 +283,7 @@ const MemoryCardGame: React.FC = () => {
                 moves === bestScore.moves &&
                 timer === bestScore.time && (
                   <p className="memory-card-game__modal-record">
-                    🏆 New Best Score! 🏆
-                  </p>
+                    New Best Score!                   </p>
                 )}
               <motion.button
                 className="memory-card-game__modal-btn"

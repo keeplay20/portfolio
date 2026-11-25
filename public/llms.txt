@@ -1,14 +1,15 @@
 # Mandar Vyas — Portfolio
 
-> Portfolio of Mandar Vyas, Senior Mobile Engineer: React Native at scale (Dream11, SuperHealth), interaction labs, and contact.
+> Portfolio of Mandar Vyas, Senior Mobile Engineer: React Native at scale (Dream11, Superhealth), interaction labs, and contact.
 
-This site is a client-rendered React application. Key sections on the home page include About, Experience, Skills, Featured Work, and Contact. Use the links below for stable entry points.
+This site is a client-rendered React application. The home page is an interactive iPhone-style portfolio (folders for web and mobile projects, games, experience, and dock links). Use the links below for stable entry points.
 
 ## Site
 
 - [Home](https://portfolio-blush-one-87.vercel.app/): Introduction, experience, skills, and contact
 - [Work](https://portfolio-blush-one-87.vercel.app/work): Project gallery and case studies
-- [Play](https://portfolio-blush-one-87.vercel.app/play): Interactive game center
+- [Tic Tac Toe](https://portfolio-blush-one-87.vercel.app/games/tictactoe): Mini arcade from the phone home Games folder
+- [Snake](https://portfolio-blush-one-87.vercel.app/games/snake): Snake game
 
 ## Case studies
 

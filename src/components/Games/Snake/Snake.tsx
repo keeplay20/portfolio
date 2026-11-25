@@ -310,8 +310,7 @@ const Snake: React.FC = () => {
             height: `${CELL_SIZE - 1}px`,
           }}
         >
-          🍎
-        </motion.div>
+                  </motion.div>
 
         {/* Game Over Overlay */}
         <AnimatePresence>
@@ -327,7 +326,7 @@ const Snake: React.FC = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 className="snake-game__game-over"
               >
-                <p className="snake-game__game-over-title">💀 Game Over!</p>
+                <p className="snake-game__game-over-title">Game Over!</p>
                 <p className="snake-game__game-over-text">
                   Press Space to restart
                 </p>
@@ -347,7 +346,7 @@ const Snake: React.FC = () => {
           onClick={() => setIsPlaying(true)}
           className="btn btn-primary snake-game__start-btn"
         >
-          🐍 Start Game
+          Start Game
         </motion.button>
       )}
 
@@ -360,7 +359,7 @@ const Snake: React.FC = () => {
           onClick={resetGame}
           className="btn btn-primary snake-game__restart-btn"
         >
-          🔄 Play Again
+          Play Again
         </motion.button>
       )}
 
@@ -378,7 +377,7 @@ const Snake: React.FC = () => {
               className="snake-game__control-btn snake-game__control-btn--up"
               aria-label="Move Up"
             >
-              ⬆️
+              ↑
             </motion.button>
             <div className="snake-game__horizontal-controls">
               <motion.button
@@ -387,7 +386,7 @@ const Snake: React.FC = () => {
                 className="snake-game__control-btn snake-game__control-btn--left"
                 aria-label="Move Left"
               >
-                ⬅️
+                ←
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.9 }}
@@ -395,7 +394,7 @@ const Snake: React.FC = () => {
                 className="snake-game__control-btn snake-game__control-btn--right"
                 aria-label="Move Right"
               >
-                ➡️
+                →
               </motion.button>
             </div>
             <motion.button
@@ -404,7 +403,7 @@ const Snake: React.FC = () => {
               className="snake-game__control-btn snake-game__control-btn--down"
               aria-label="Move Down"
             >
-              ⬇️
+              ↓
             </motion.button>
           </div>
         </motion.div>
@@ -414,8 +413,8 @@ const Snake: React.FC = () => {
       <div className="snake-game__controls">
         <p>
           {isMobile
-            ? "📱 Controls: Swipe to move • Tap to start/restart"
-            : "🎮 Controls: Arrow Keys or WASD • Space: Start/Restart"}
+            ? "Controls: Swipe to move • Tap to start/restart"
+            : "Controls: Arrow Keys or WASD • Space: Start/Restart"}
         </p>
       </div>
     </div>

@@ -11,7 +11,11 @@ const PORT = 4173;
 const ROUTES = [
   "/",
   "/work",
-  "/play",
+  "/games/tictactoe",
+  "/games/rps",
+  "/games/snake",
+  "/games/typing",
+  "/games/memory",
   "/work/animate-spotlight-showcase",
   "/work/transition-trail-explorer",
 ];

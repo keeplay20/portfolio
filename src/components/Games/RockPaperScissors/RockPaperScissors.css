@@ -31,11 +31,11 @@
 }
 
 .rps__score-value--player {
-  color: #10b981;
+  color: #346538;
 }
 
 .rps__score-value--computer {
-  color: #ef4444;
+  color: #9f2f2d;
 }
 
 .rps__result {
@@ -78,11 +78,11 @@
 }
 
 .rps__result-text--player {
-  color: #10b981;
+  color: #346538;
 }
 
 .rps__result-text--computer {
-  color: #ef4444;
+  color: #9f2f2d;
 }
 
 .rps__result-text--draw {
@@ -111,18 +111,18 @@
 
 .rps__choice:hover:not(.rps__choice--disabled) {
   border-color: var(--accent-color);
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .rps__choice--selected {
   border-color: var(--accent-color);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .rps__choice--winner {
-  border-color: #10b981;
+  border-color: #346538;
   background: rgba(16, 185, 129, 0.1);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  box-shadow: none;
 }
 
 .rps__choice--disabled {
