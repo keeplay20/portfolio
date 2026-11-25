@@ -105,12 +105,15 @@ function AppIcon({
     <button
       type="button"
       className={`iphone-app ${size !== "md" ? `iphone-app--${size}` : ""}`}
+      aria-label={size === "dock" ? app.label : undefined}
       onClick={() => onSelect(app)}
     >
       <span className="iphone-app__icon">
         <IOSAppIcon app={app} size={size === "dock" ? "dock" : "md"} />
       </span>
-      <span className="iphone-app__label">{app.label}</span>
+      {size !== "dock" ? (
+        <span className="iphone-app__label">{app.label}</span>
+      ) : null}
     </button>
   );
 }
