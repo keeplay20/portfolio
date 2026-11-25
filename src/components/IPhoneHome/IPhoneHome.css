@@ -68,15 +68,6 @@
   pointer-events: none;
 }
 
-@media (min-width: 960px) {
-  .iphone-home__layout {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 2.5rem;
-  }
-}
-
 /* ---- Device frame ---- */
 .iphone-device {
   flex-shrink: 0;
@@ -391,6 +382,19 @@
   margin-left: 0.15rem;
 }
 
+.iphone-device__screen--inapp .iphone-screen__scroll {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.iphone-device__wallpaper--dim {
+  opacity: 0.35;
+}
+
 .iphone-screen__scroll {
   position: relative;
   z-index: 1;
@@ -590,11 +594,135 @@
   font-size: 0.8rem;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  font-family: inherit;
 }
 
 /* ---- Folder view ---- */
 .iphone-folder-view {
   padding-top: 0.5rem;
+}
+
+/* ---- In-phone app (Safari-style) ---- */
+.iphone-inapp {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  background: #0c0c0e;
+}
+
+.iphone-inapp__chrome {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 1rem 0.55rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 22, 24, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.iphone-inapp__back {
+  background: none;
+  border: none;
+  color: #0a84ff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.2rem 0;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.iphone-inapp__title {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f5f5f7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iphone-inapp__content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.iphone-inapp__iframe {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: #fff;
+}
+
+.iphone-inapp__embed {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.75rem;
+  color: var(--text-primary);
+  background: var(--primary-bg);
+}
+
+.iphone-inapp__embed--game {
+  padding: 0.5rem;
+  transform: scale(0.92);
+  transform-origin: top center;
+}
+
+.iphone-inapp__experience {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.85rem 1rem 1.25rem;
+  color: #f5f5f7;
+}
+
+.iphone-inapp__role {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.iphone-inapp__meta {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  color: rgba(245, 245, 247, 0.72);
+}
+
+.iphone-inapp__list {
+  margin: 0 0 0.85rem;
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(245, 245, 247, 0.88);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.iphone-inapp__tech {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: 0.68rem;
+  color: rgba(245, 245, 247, 0.55);
+  line-height: 1.5;
+}
+
+.iphone-inapp__empty {
+  margin: auto;
+  padding: 1.5rem;
+  text-align: center;
+  color: rgba(245, 245, 247, 0.75);
+  font-size: 0.9rem;
 }
 
 .iphone-folder-view__back {
@@ -629,244 +757,8 @@
   -webkit-backdrop-filter: blur(24px);
 }
 
-/* ---- Overview panel ---- */
-.iphone-overview {
-  width: 100%;
-  max-width: 420px;
-  flex: 1;
-  min-height: 200px;
-}
-
-@media (min-width: 960px) {
-  .iphone-overview {
-    position: sticky;
-    top: 2rem;
-    margin-top: 2rem;
-  }
-}
-
-/* Sticky-note overview cards */
-.iphone-overview__note {
-  --note-ink: #2a2618;
-  --note-ink-muted: #5a5345;
-  --note-line: rgba(42, 38, 24, 0.1);
-  position: relative;
-  padding: 1.85rem 1.5rem 1.6rem;
-  min-height: 11rem;
-  border: none;
-  border-radius: 3px;
-  color: var(--note-ink);
-  box-shadow:
-    1px 2px 0 rgba(0, 0, 0, 0.04),
-    3px 5px 0 rgba(0, 0, 0, 0.05),
-    6px 14px 24px rgba(0, 0, 0, 0.14);
-  background-color: #fff9b8;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 1.55rem,
-    var(--note-line) 1.55rem,
-    var(--note-line) calc(1.55rem + 1px)
-  );
-  transform-origin: center top;
-}
-
-.iphone-overview__note::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 1.35rem;
-  border-radius: 3px 3px 0 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.07) 0%,
-    rgba(0, 0, 0, 0.02) 55%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.iphone-overview__note::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 1.65rem;
-  height: 1.65rem;
-  background: linear-gradient(
-    225deg,
-    rgba(0, 0, 0, 0.12) 0%,
-    rgba(0, 0, 0, 0.06) 45%,
-    transparent 55%
-  );
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-  pointer-events: none;
-}
-
-.iphone-overview__note--idle {
-  background-color: #fff9b8;
-  transform: rotate(-2deg);
-}
-
-.iphone-overview__note--app {
-  background-color: #c8f5d8;
-  --note-line: rgba(24, 48, 32, 0.1);
-  transform: rotate(1.25deg);
-}
-
-.iphone-overview__note--folder {
-  background-color: #ffd4e8;
-  --note-line: rgba(48, 24, 36, 0.09);
-  transform: rotate(-1deg);
-}
-
-.iphone-overview__eyebrow {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-family-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--note-ink-muted);
-  margin-bottom: 0.65rem;
-}
-
-.iphone-overview__note h2 {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-family-display);
-  font-size: 1.65rem;
-  font-weight: 500;
-  font-style: italic;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.65rem;
-  color: var(--note-ink);
-  line-height: 1.2;
-}
-
-.iphone-overview__note > p:not(.iphone-overview__eyebrow):not(.iphone-overview__body) {
-  position: relative;
-  z-index: 1;
-  color: var(--note-ink-muted);
-  line-height: 1.55;
-  font-size: 0.95rem;
-}
-
-.iphone-overview__body {
-  position: relative;
-  z-index: 1;
-  color: var(--note-ink-muted);
-  line-height: 1.55;
-  margin-bottom: 1.15rem;
-  white-space: pre-line;
-  font-size: 0.95rem;
-}
-
-.iphone-overview__role {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 0.85rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--note-ink);
-  line-height: 1.35;
-}
-
-.iphone-overview__role-meta {
-  display: block;
-  margin-top: 0.25rem;
-  font-weight: 500;
-  font-size: 0.82rem;
-  color: var(--note-ink-muted);
-}
-
-.iphone-overview__list {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 1.15rem;
-  padding-left: 1.1rem;
-  color: var(--note-ink-muted);
-  font-size: 0.88rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-
-.iphone-overview__actions {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.iphone-overview__chips {
-  position: relative;
-  z-index: 1;
-  list-style: none;
-  margin: 0 0 1.25rem;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.iphone-overview__chip {
-  padding: 0.35rem 0.65rem;
-  border-radius: 2px;
-  border: 1px solid rgba(42, 38, 24, 0.12);
-  background: rgba(255, 255, 255, 0.45);
-  color: var(--note-ink);
-  font-size: 0.78rem;
-  cursor: pointer;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.iphone-overview__chip:hover {
-  transform: translateY(-1px) rotate(-1deg);
-  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.12);
-}
-
-.iphone-overview__note .btn-ghost {
-  border-color: rgba(42, 38, 24, 0.2);
-  color: var(--note-ink);
-  background: rgba(255, 255, 255, 0.35);
-}
-
-.iphone-overview__note .btn-primary {
-  background: linear-gradient(180deg, #4a4436 0%, #2f2a1f 100%);
-  color: #fff9ec;
-  border: 1px solid rgba(42, 38, 24, 0.35);
-  box-shadow: 2px 3px 0 rgba(42, 38, 24, 0.22);
-}
-
-.iphone-overview__note .btn-primary:hover {
-  background: linear-gradient(180deg, #5a5344 0%, #3a3428 100%);
-  color: #fffdf8;
-  box-shadow: 2px 4px 0 rgba(42, 38, 24, 0.28);
-}
-
-.iphone-overview__soon:disabled {
-  opacity: 0.72;
-  cursor: not-allowed;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .iphone-app__icon {
     transition: none;
-  }
-
-  .iphone-overview__note--idle,
-  .iphone-overview__note--app,
-  .iphone-overview__note--folder {
-    transform: none;
-  }
-
-  .iphone-overview__chip:hover {
-    transform: none;
   }
 }

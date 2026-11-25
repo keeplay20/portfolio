@@ -306,6 +306,67 @@ export type ResolvedAppLink = {
   disabled?: boolean;
 };
 
+export function getAppDirectLink(
+  destination: AppDestination,
+  projectLookup: typeof projects
+): ResolvedAppLink | null {
+  const links = resolveAppHref(destination, projectLookup);
+  return links.find((link) => !link.disabled && Boolean(link.href)) ?? null;
+}
+
+export type InPhoneLaunch =
+  | { mode: "iframe"; src: string }
+  | { mode: "route"; path: string }
+  | { mode: "experience"; experienceId: string }
+  | { mode: "placeholder" };
+
+/** How to render an app inside the phone shell (no new browser tab). */
+export function resolveInPhoneLaunch(
+  destination: AppDestination,
+  projectLookup: typeof projects
+): InPhoneLaunch | null {
+  if (
+    destination.type === "external" &&
+    destination.url.startsWith("mailto:")
+  ) {
+    return null;
+  }
+
+  if (destination.type === "experience") {
+    return { mode: "experience", experienceId: destination.experienceId };
+  }
+
+  if (destination.type === "route") {
+    if (destination.path.startsWith("/games/")) {
+      return { mode: "route", path: destination.path };
+    }
+    return {
+      mode: "iframe",
+      src: new URL(destination.path, window.location.origin).href,
+    };
+  }
+
+  if (destination.type === "external") {
+    return { mode: "iframe", src: destination.url };
+  }
+
+  const direct = getAppDirectLink(destination, projectLookup);
+  if (direct) {
+    if (direct.external) {
+      return { mode: "iframe", src: direct.href };
+    }
+    if (direct.href.startsWith("/games/")) {
+      return { mode: "route", path: direct.href };
+    }
+    return {
+      mode: "iframe",
+      src: new URL(direct.href, window.location.origin).href,
+    };
+  }
+
+  return { mode: "placeholder" };
+}
+
 export function resolveAppHref(
   destination: AppDestination,
   projectLookup: typeof projects
