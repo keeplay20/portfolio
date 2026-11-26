@@ -307,17 +307,6 @@ export const dockApps: PhoneApp[] = [
     overview: "Code, experiments, and open repos.",
     destination: { type: "external", url: personalInfo.github },
   },
-  {
-    id: "archive",
-    name: "Archive",
-    label: "Archive",
-    glyph: "AR",
-    iconBg: "#636366",
-    iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #8e8e93, #48484a)",
-    overview: "Full project list with filters.",
-    destination: { type: "route", path: "/work" },
-  },
 ];
 
 export function getFolder(id: string): PhoneFolder | undefined {

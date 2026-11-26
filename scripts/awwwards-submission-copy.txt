@@ -1,0 +1,43 @@
+# Awwwards submission — Mandar Vyas portfolio
+# Upload cover: public/awwwards-cover.png (1600×1200)
+
+SITE URL
+https://mandarvyas.vercel.app/
+
+WEBSITE NAME
+Mandar Vyas — iPhone Portfolio
+
+SHORT DESCRIPTION (max 185 characters — paste into Description field)
+Senior mobile engineer portfolio as an interactive iPhone: lock screen, app folders for work and experience, in-phone case studies, and a Games arcade—React, TypeScript, Framer Motion.
+
+LONGER PROJECT STORY (for extended fields / your notes)
+The site replaces a scroll-heavy résumé with a familiar phone metaphor. Visitors swipe up from a lock screen, browse company and project folders like iOS apps, open case studies inside the device chrome, and reach contact via the dock. Built solo with React 18, TypeScript, React Router, and Framer Motion; OG and Awwwards assets are generated via Puppeteer at build time.
+
+COUNTRY
+India
+
+CATEGORIES & TAGS (pick closest matches in the form)
+- Awards category: Portfolio
+- Also consider: Single Page, Animation, Interaction Design, Experimental, Web Design
+- Tags: portfolio, interaction, mobile-first, react, typescript, framer-motion, creative developer, ui
+
+CREDITS
+Design & development: Mandar Vyas
+
+ELEMENT URLS TO HIGHLIGHT (add as Elements / showcase sections)
+Desktop — Home:     https://mandarvyas.vercel.app/
+Desktop — Work:    https://mandarvyas.vercel.app/work
+Case study:        https://mandarvyas.vercel.app/work/animate-spotlight-showcase
+Case study:        https://mandarvyas.vercel.app/work/transition-trail-explorer
+Mobile entry:      https://mandarvyas.vercel.app/ (test on phone viewport)
+
+VIDEO (highly recommended, MP4, show interaction)
+1. Lock screen → swipe up
+2. Tap Projects folder → open a case study
+3. Home → Games → launch one mini-game
+4. Scroll dock → Mail/LinkedIn affordance
+Keep 60–90 seconds, 1920×1080 or 16:9, no music required.
+
+CHECKOUT
+- Standard plan is enough unless you have Pro free credits
+- https://www.awwwards.com/submit/ → Standard → pay → complete draft before review

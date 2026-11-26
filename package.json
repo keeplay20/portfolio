@@ -33,6 +33,7 @@
     "start": "react-scripts start",
     "build": "node scripts/generate-og-preview.cjs && react-scripts build && node scripts/prerender.cjs",
     "generate:og": "node scripts/generate-og-preview.cjs",
+    "generate:awwwards": "node scripts/generate-awwwards-cover.cjs",
     "build:spa": "react-scripts build",
     "prerender": "node scripts/prerender.cjs",
     "test": "react-scripts test",

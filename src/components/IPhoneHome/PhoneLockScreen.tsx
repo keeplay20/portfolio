@@ -5,8 +5,10 @@ import {
   useReducedMotion,
   useTransform,
 } from "framer-motion";
+import { personalInfo } from "../../data/portfolio";
 
 const UNLOCK_THRESHOLD_PX = 72;
+const TAP_MOVEMENT_THRESHOLD_PX = 10;
 
 type PhoneLockScreenProps = {
   time: string;
@@ -25,6 +27,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
 
   const startYRef = useRef(0);
   const activeRef = useRef(false);
+  const movedRef = useRef(false);
   const reduceMotion = useReducedMotion();
   const [isDragging, setIsDragging] = useState(false);
   const showIdleMotion = !reduceMotion && !isDragging;
@@ -35,9 +38,13 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
     activeRef.current = false;
   }, [dragY]);
 
-  const finishSwipe = useCallback(
-    (deltaY: number) => {
+  const finishGesture = useCallback(
+    (deltaY: number, didMove: boolean) => {
       if (deltaY <= -UNLOCK_THRESHOLD_PX) {
+        onUnlock();
+        return;
+      }
+      if (!didMove && Math.abs(deltaY) <= TAP_MOVEMENT_THRESHOLD_PX) {
         onUnlock();
         return;
       }
@@ -48,6 +55,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
 
   const onPointerDown = useCallback((event: React.PointerEvent) => {
     activeRef.current = true;
+    movedRef.current = false;
     setIsDragging(true);
     startYRef.current = event.clientY;
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -57,6 +65,9 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
     (event: React.PointerEvent) => {
       if (!activeRef.current) return;
       const delta = event.clientY - startYRef.current;
+      if (Math.abs(delta) > TAP_MOVEMENT_THRESHOLD_PX) {
+        movedRef.current = true;
+      }
       if (delta > 8) {
         dragY.set(0);
         return;
@@ -70,12 +81,13 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
     (event: React.PointerEvent) => {
       if (!activeRef.current) return;
       const delta = event.clientY - startYRef.current;
+      const didMove = movedRef.current;
       if (event.currentTarget.hasPointerCapture(event.pointerId)) {
         event.currentTarget.releasePointerCapture(event.pointerId);
       }
-      finishSwipe(delta);
+      finishGesture(delta, didMove);
     },
-    [finishSwipe]
+    [finishGesture]
   );
 
   const onPointerCancel = useCallback(() => {
@@ -96,7 +108,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
     <motion.div
       className={`iphone-lock${isDragging ? " iphone-lock--dragging" : ""}`}
       role="dialog"
-      aria-label="Locked. Swipe up to unlock."
+      aria-label={`${personalInfo.name}, ${personalInfo.title}. Locked. Swipe up or tap to unlock.`}
       style={{ y: dragY }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
@@ -145,6 +157,17 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
       </motion.div>
 
       <motion.div
+        className="iphone-lock__profile"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <p className="iphone-lock__name">{personalInfo.name}</p>
+        <p className="iphone-lock__role">{personalInfo.title}</p>
+        <p className="iphone-lock__intro">{personalInfo.summary}</p>
+      </motion.div>
+
+      <motion.div
         className="iphone-lock__swipe"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -184,7 +207,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
             }
             style={isDragging ? { opacity: hintOpacity } : undefined}
           >
-            Swipe to unlock
+            Swipe or tap to unlock
           </motion.p>
         </motion.div>
         <motion.span

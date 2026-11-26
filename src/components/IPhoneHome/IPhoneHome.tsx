@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   dockApps,
@@ -23,6 +22,7 @@ import PhoneLockScreen from "./PhoneLockScreen";
 import woodTexture from "../../assets/images/wood-table-texture.jpg";
 import phoneWallpaper from "../../assets/images/phone-wallpapers/midnight-oil.jpg";
 import "./IPhoneHome.css";
+import { useIphoneStageScale } from "./useIphoneStageScale";
 
 const PHONE_GAMES: Record<string, React.FC> = {
   tictactoe: TicTacToe,
@@ -138,9 +138,9 @@ function FolderIcon({
 }
 
 const IPhoneHome: React.FC = () => {
+  const homeRef = useRef<HTMLDivElement>(null);
   const clock = useClock();
   const lockDateLabel = useLockDateLabel();
-  const navigate = useNavigate();
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [view, setView] = useState<PhoneView>("home");
   const [activeFolder, setActiveFolder] = useState<PhoneFolder | null>(null);
@@ -149,10 +149,7 @@ const IPhoneHome: React.FC = () => {
     launch: PhoneInAppLaunch;
   } | null>(null);
 
-  const archiveDockApp = useMemo(
-    () => dockApps.find((a) => a.id === "archive"),
-    []
-  );
+  useIphoneStageScale(homeRef, [isUnlocked, view]);
 
   const openFolder = useCallback((folder: PhoneFolder) => {
     setActiveFolder(folder);
@@ -189,16 +186,8 @@ const IPhoneHome: React.FC = () => {
     setView("inapp");
   }, []);
 
-  const openArchiveInPhone = useCallback(() => {
-    if (archiveDockApp) {
-      launchAppInPhone(archiveDockApp);
-    } else {
-      navigate("/work");
-    }
-  }, [archiveDockApp, launchAppInPhone, navigate]);
-
   return (
-    <div className="iphone-home">
+    <div className="iphone-home" ref={homeRef}>
       <div
         className="iphone-home__wood"
         style={{ backgroundImage: `url(${woodTexture})` }}
@@ -287,16 +276,6 @@ const IPhoneHome: React.FC = () => {
                             />
                           ))}
                         </div>
-
-                        <div className="iphone-search">
-                          <button
-                            type="button"
-                            className="iphone-search__pill"
-                            onClick={openArchiveInPhone}
-                          >
-                            Search projects
-                          </button>
-                        </div>
                       </>
                     ) : activeFolder ? (
                       <div className="iphone-folder-view">
@@ -342,7 +321,7 @@ const IPhoneHome: React.FC = () => {
           <p className="iphone-device__hint">
             {isUnlocked
               ? "Tap a folder or app · Everything opens inside the phone"
-              : "Swipe up on the phone to unlock"}
+              : "Swipe or tap the phone to unlock"}
           </p>
         </div>
       </div>
