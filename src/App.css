@@ -1,6 +1,8 @@
 .App {
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--primary-bg);
+  overflow-x: clip;
 }
 
 /* Main layout */

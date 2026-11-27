@@ -20,30 +20,120 @@ export const experiences: Experience[] = [
     position: "Senior Mobile Engineer",
     duration: "Jul 2026 - Present",
     location: "Bangalore, India",
+    cardHighlight:
+      "Built hospital super-app on Expo Router with SDUI home, payments, linked-patient booking, and store-compliant account lifecycle at scale.",
     description: [
-      "Building the React Native mobile application from scratch, owning application architecture, engineering foundations, and development standards for Android and iOS.",
-      "Establishing a scalable TypeScript architecture using Expo, Expo Router, Zustand, and TanStack Query with modular feature boundaries and a shared data layer.",
-      "Building reusable UI foundations using design tokens, shared components, and a consistent design system in collaboration with Product and Design.",
-      "Integrating Firebase for feature flags and remote configuration to support controlled feature rollouts and experimentation.",
-      "Setting up core mobile capabilities including authentication, REST API integration, analytics, crash reporting, deep linking, push notifications, and WebView-based hybrid experiences.",
-      "Defining engineering patterns for caching, error handling, session management, performance, maintainability, and production reliability.",
+      "Shipped a hospital super-app on Expo Router—SDUI home, payments, linked-patient booking, and store-compliant account lifecycle.",
+      "Scaled a 600+ module TypeScript codebase with Remote Config route kill switches and typed SDUI (type@version) action runners.",
+      "Owned household care, VIP commerce, consult/diagnostic journeys, and Firebase-backed reliability gates.",
     ],
     technologies: [
       "React Native",
-      "React",
-      "JavaScript",
-      "TypeScript",
-      "GitHub Actions",
-      "Node.js",
-      "Expo",
+      "Expo SDK 57",
       "Expo Router",
+      "TypeScript",
+      "Reanimated",
+      "React Query",
       "Zustand",
-      "TanStack Query",
-      "Design Tokens",
-      "Shared Components",
       "Firebase",
-      "Feature Flags",
+      "SDUI",
+      "Secure Store",
+      "Deep Linking",
     ],
+    deepDive: {
+      productLine: "SuperApp · React Native / Expo",
+      summary:
+        "Cross-platform consumer health app for a multi-specialty hospital: VIP membership, consult and diagnostic booking, specialty care programs (maternity, dermatology, dental), surgery stay journeys, medical records, and family profiles.",
+      tagline:
+        "Built Superhealth’s hospital super-app—Expo Router, SDUI-driven home, payments, linked-patient booking, store-compliant account lifecycle.",
+      stickyNotes: [
+        { text: "600+ modules · 90+ Expo Router screens", tone: "yellow" },
+        { text: "SDUI home + typed type@version actions", tone: "sky" },
+        { text: "Linked patients & family booking", tone: "mint" },
+        { text: "Remote Config kill switches per route", tone: "coral" },
+      ],
+      themes: [
+        {
+          title: "Architecture & scale",
+          bullets: [
+            "~600+ module TypeScript/RN codebase, 90+ routes; screen catalog mapped to Remote Config kill switches for safe rollouts.",
+            "SDUI for Home, Supers, and surgery stay vs client-owned auth, checkout, account deletion, and profile/forms.",
+            "Typed SDUI registry (type@version), action runner (navigate, API, renew, check-in, stories), graceful fallback for unknown nodes.",
+          ],
+        },
+        {
+          title: "Healthcare product",
+          bullets: [
+            "Linked patients: post-OTP profile gating, patient-scoped booking/cancel, family management.",
+            "Consult & diagnostic booking, check-in, bookings lifecycle, medical records (upload, PDF/image viewing).",
+            "VIP & program commerce with checkout, renewal, gifting; cache invalidation so Home SDUI reflects membership after purchase.",
+            "Profile completion for linked patients—DOB/gender validation, API error mapping, default-patient selection, onboarding gates.",
+          ],
+        },
+        {
+          title: "Reliability & ops",
+          bullets: [
+            "Firebase Analytics, Crashlytics, Performance, Remote Config—fail-open defaults, maintenance/force-update gates, per-feature kills.",
+            "Boot orchestration: auth hydrate, deeplinks, MoEngage notifications, OTA—without blocking first paint.",
+            "Gateway APIs with structured error parsing; ErrorState and form validation patterns across flows.",
+          ],
+        },
+        {
+          title: "UX, compliance & craft",
+          bullets: [
+            "Reanimated tab transitions, floating tab bar, parallax heroes, stories, bottom sheets; Android dialer + animation fixes.",
+            "FormScreen, design tokens, SuperHealthButton, onboarding gate (login → OTP → profile → tabs).",
+            "Multi-step account deletion aligned with store policy; legal/consent and permission flows (location, calendar).",
+            "Expo SDK 57, CNG, Secure Store auth, deep linking.",
+          ],
+        },
+      ],
+      skillGroups: [
+        {
+          label: "Mobile",
+          items: [
+            "React Native",
+            "Expo",
+            "Expo Router",
+            "TypeScript",
+            "Reanimated",
+            "React Query",
+            "Zustand",
+          ],
+        },
+        {
+          label: "Platform",
+          items: [
+            "iOS & Android",
+            "Firebase",
+            "Push",
+            "OTA",
+            "Deep linking",
+            "Secure Store",
+          ],
+        },
+        {
+          label: "Domain",
+          items: [
+            "Healthcare",
+            "Membership",
+            "Booking/checkout",
+            "SDUI",
+            "Family accounts",
+          ],
+        },
+        {
+          label: "Practices",
+          items: [
+            "Remote Config",
+            "Feature flags",
+            "Typed APIs",
+            "CNG",
+            "Error boundaries",
+          ],
+        },
+      ],
+    },
   },
   {
     id: "dream11",
@@ -51,23 +141,76 @@ export const experiences: Experience[] = [
     position: "Software Engineer II",
     duration: "2021 - Jul 2026",
     location: "Mumbai, India",
+    cardHighlight:
+      "Shipped wallet, KYC, and verification flows for millions of users; standardized deposit bottom sheets and Detox end-to-end tests on Jenkins for stable CI.",
     description: [
-      "Built and shipped features in the Dream11 React Native app including My Balance, My Transactions, and Verification flows",
-      "Developed multiple bottom sheets for seamless in-app interactions",
-      "Designed and developed internal React-based admin panels to streamline Customer Support operations",
-      "Architected Detox-based E2E testing framework integrated with CI/CD pipelines",
-      "Created mock payment system for development and QA environments",
-      "Built label-based automation framework to reduce test flakiness and improve maintainability",
+      "Wallet, KYC, and match-day flows on the flagship React Native app used by millions.",
+      "Detox E2E in Jenkins plus label-based selectors to stabilize CI on high-churn screens.",
+      "Mock payments and CS admin panels so wallet issues ship and resolve without production risk.",
     ],
     technologies: [
       "React Native",
-      "React",
-      "JavaScript",
       "TypeScript",
-      "Jenkins",
+      "React",
       "Detox",
+      "Jenkins",
+      "Bottom Sheets",
       "Node.js",
     ],
+    deepDive: {
+      productLine: "Fantasy Sports · React Native",
+      summary:
+        "Five years on Dream11’s consumer React Native app—wallet and verification during cricket/IPL-scale traffic, bottom-sheet UX for dense flows, and tooling that kept support and QA unblocked.",
+      tagline:
+        "Shipped My Balance, Transactions, and Verification; standardized bottom sheets; wired Detox into Jenkins with label-based automation.",
+      stickyNotes: [
+        { text: "Wallet · KYC · match-day spikes", tone: "yellow" },
+        { text: "Bottom sheets vs 4–5 full-screen pushes", tone: "coral" },
+        { text: "Detox on Jenkins · label selectors", tone: "sky" },
+        { text: "Mock payments for parallel QA wallets", tone: "mint" },
+      ],
+      themes: [
+        {
+          title: "Impact",
+          bullets: [
+            "Owned My Balance, My Transactions, and Verification—money and identity flows used across millions of users and sharp match-day spikes.",
+            "Shipped a family of bottom sheets (deposits, history, verification steps) so users stayed in-context instead of bouncing through 4–5 full-screen pushes per task.",
+            "React CS consoles for balance and KYC disputes—support could inspect ledger state and verification status without engineering toggles or redeploys.",
+          ],
+        },
+        {
+          title: "Decisions & engineering",
+          bullets: [
+            "Bottom sheets vs new routes for wallet actions—accepted trickier back-stack/gesture edges; opened in under ~200ms perceived on mid-tier Android during live matches.",
+            "Detox on Jenkins with label-based selectors (not coordinate taps)—upfront cost writing stable IDs; fewer CI flakes when RN screens churned between IPL seasons.",
+            "Mock payment layer parallel to staging gateways—maintained two paths; unlocked 10+ concurrent QA wallet scenarios without one shared test account.",
+          ],
+        },
+      ],
+      skillGroups: [
+        {
+          label: "Mobile",
+          items: [
+            "React Native",
+            "TypeScript",
+            "Bottom sheets",
+            "Navigation",
+          ],
+        },
+        {
+          label: "Quality",
+          items: ["Detox", "Jenkins", "E2E", "Test automation"],
+        },
+        {
+          label: "Domain",
+          items: ["Wallet", "KYC", "Fantasy sports", "High traffic"],
+        },
+        {
+          label: "Internal",
+          items: ["React admin", "Mock payments", "CS tooling"],
+        },
+      ],
+    },
   },
   {
     id: "gupshup",
@@ -75,6 +218,13 @@ export const experiences: Experience[] = [
     position: "Software Engineer",
     duration: "2019 - 2021",
     location: "Mumbai, India",
+    stickyNotes: [
+      { text: "HTTPSender & SMSSender automation", tone: "yellow" },
+      { text: "JMeter + Postman perf on APIs", tone: "sky" },
+      { text: "Shell scripts for test data", tone: "mint" },
+    ],
+    cardHighlight:
+      "Automated messaging senders and test-data pipelines; performance-tested high-volume APIs with JMeter and Postman to harden delivery at scale.",
     description: [
       "Automated backend components (HTTPSender, SMSSender) to improve reliability and speed of messaging flows",
       "Developed shell scripts for automated test data generation, reducing manual dependency",
@@ -97,6 +247,13 @@ export const experiences: Experience[] = [
     position: "Software Engineer",
     duration: "2016 - 2019",
     location: "Mumbai, India",
+    stickyNotes: [
+      { text: "Selenium + TestNG for Lenovo TM", tone: "yellow" },
+      { text: "LetOS & Gio6 Linux OS QA", tone: "sky" },
+      { text: "HW–SW integration test suites", tone: "coral" },
+    ],
+    cardHighlight:
+      "Built Selenium and TestNG automation for Lenovo Terminal Manager; tested Linux-based OS releases and web management tools end-to-end.",
     description: [
       "Contributed to testing and development of Linux-based OS (LetOS, Gio6) and web-based management tools",
       "Developed automation scripts with Selenium + TestNG for Lenovo Terminal Manager, reducing manual QA cycles",
@@ -119,6 +276,13 @@ export const experiences: Experience[] = [
     position: "Frontend Engineer",
     duration: "2015 - 2016",
     location: "Remote",
+    stickyNotes: [
+      { text: "Startup web apps in JavaScript", tone: "yellow" },
+      { text: "Custom test automation frameworks", tone: "sky" },
+      { text: "Remote consulting · worldwide clients", tone: "mint" },
+    ],
+    cardHighlight:
+      "Delivered web apps and automation for startups; built test frameworks and consulting solutions for small business teams worldwide.",
     description: [
       "Delivered custom automation and development projects for multiple startups",
       "Built web applications using modern JavaScript frameworks",
@@ -140,6 +304,13 @@ export const experiences: Experience[] = [
     position: "Technical Consultant",
     duration: "2014 - 2015",
     location: "Mumbai, India",
+    stickyNotes: [
+      { text: "SharePoint 2013 & Online rollouts", tone: "yellow" },
+      { text: "EMEA + APAC enterprise clients", tone: "sky" },
+      { text: "Workflow automation & end-user training", tone: "coral" },
+    ],
+    cardHighlight:
+      "SharePoint 2013 and Online—custom pages, automated workflows, and end-user training for EMEA and APAC enterprise deployments at scale.",
     description: [
       "Developed custom SharePoint pages for business process automation",
       "Installed, configured, and supported Microsoft SharePoint 2013 & SharePoint Online for EMEA & APAC clients",
@@ -422,6 +593,7 @@ export const projects: Project[] = [
       "Fully responsive layout",
     ],
     status: "Completed",
+    previewImage: "/images/wander-preview.jpg",
     demoVideo: "/images/wander-react.gif",
     githubRepo:
       "https://github.com/mandarvyas/tech-practice-hub/tree/main/React/login-react/login",

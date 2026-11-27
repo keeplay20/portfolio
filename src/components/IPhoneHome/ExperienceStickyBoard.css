@@ -1,0 +1,161 @@
+.exp-sticky-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin: 0;
+  padding: 0.25rem 0 0.35rem;
+  perspective: 900px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.exp-sticky-board__card {
+  position: relative;
+  z-index: 1;
+  margin: 0.35rem 0 0;
+  padding: 1.15rem 0.95rem 1.05rem;
+  border-radius: 0.45rem;
+  color: #2c2c2e;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 12px 20px rgba(28, 20, 12, 0.22);
+  transform-origin: center top;
+  will-change: transform, opacity;
+}
+
+.exp-sticky-board__pin {
+  position: absolute;
+  top: -0.62rem;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1.05rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.exp-sticky-board__pin-head {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ff8a8a 0%, #e03131 55%, #9b1c1c 100%);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.exp-sticky-board__pin-needle {
+  display: block;
+  width: 2px;
+  height: 0.45rem;
+  margin-top: -0.12rem;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #6b6b6b 0%, #3d3d3d 100%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  transform-origin: center top;
+  will-change: transform;
+}
+
+.exp-sticky-board__card--yellow {
+  background: linear-gradient(168deg, #fff9d6 0%, #fff0a8 100%);
+  border: 1px solid rgba(220, 190, 80, 0.38);
+}
+
+.exp-sticky-board__card--sky {
+  background: linear-gradient(168deg, #eef6ff 0%, #dceeff 100%);
+  border: 1px solid rgba(120, 160, 210, 0.34);
+}
+
+.exp-sticky-board__card--coral {
+  background: linear-gradient(168deg, #fff0eb 0%, #ffe2d9 100%);
+  border: 1px solid rgba(220, 140, 110, 0.34);
+}
+
+.exp-sticky-board__card--mint {
+  background: linear-gradient(168deg, #ecf9f3 0%, #dcf5ea 100%);
+  border: 1px solid rgba(90, 170, 130, 0.34);
+}
+
+.exp-sticky-board__card-title {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 46, 0.62);
+}
+
+.exp-sticky-board__card-body {
+  font-size: 0.8125rem;
+  line-height: 1.48;
+  color: #2c2c2e;
+}
+
+.exp-sticky-board__paragraph {
+  margin: 0;
+}
+
+.exp-sticky-board__list {
+  margin: 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.exp-sticky-board__list li::marker {
+  color: rgba(44, 44, 46, 0.4);
+}
+
+.exp-sticky-board__stack-row + .exp-sticky-board__stack-row {
+  margin-top: 0.65rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(44, 44, 46, 0.15);
+}
+
+.exp-sticky-board__stack-label {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 46, 0.55);
+}
+
+.exp-sticky-board__chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.exp-sticky-board__chips li {
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(44, 44, 46, 0.14);
+  background: rgba(255, 255, 255, 0.42);
+  font-family: var(--font-family-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
+  color: #3a3a3c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-sticky-board__card {
+    will-change: auto;
+  }
+
+  .exp-sticky-board__pin-needle {
+    will-change: auto;
+  }
+}

@@ -36,7 +36,9 @@ export type AppDestination =
   | { type: "project"; projectId: string }
   | { type: "route"; path: string }
   | { type: "external"; url: string }
-  | { type: "experience"; experienceId: string };
+  | { type: "experience"; experienceId: string }
+  | { type: "experience-hub" }
+  | { type: "open-source-hub" };
 
 export interface PhoneApp {
   id: string;
@@ -52,6 +54,8 @@ export interface PhoneApp {
   overview: string;
   destination: AppDestination;
   badge?: string;
+  /** Short title rendered on the icon (Journey-style wordmark). Skipped when iconImage is set. */
+  iconWordmark?: string;
 }
 
 export interface PhoneFolder {
@@ -62,7 +66,13 @@ export interface PhoneFolder {
   apps: PhoneApp[];
 }
 
-const webProjects = projects.filter((p) => p.category === "Web App");
+/** Web projects on the shell home — only apps with a live demo (no placeholders). */
+const PHONE_WEB_PROJECT_IDS_EXCLUDED = new Set(["wander-travel"]);
+
+const webProjects = projects.filter(
+  (p) =>
+    p.category === "Web App" && !PHONE_WEB_PROJECT_IDS_EXCLUDED.has(p.id)
+);
 
 const projectIconMeta: Record<
   string,
@@ -80,10 +90,6 @@ const projectIconMeta: Record<
     iconBackground: "linear-gradient(145deg, #0f766e 0%, #134e4a 50%, #22d3ee 100%)",
     iconBg: "#0f766e",
   },
-  "wander-travel": {
-    iconBackground: "linear-gradient(160deg, #0369a1 0%, #0ea5e9 60%, #fcd34d 100%)",
-    iconBg: "#0284c7",
-  },
   moviebuzz: {
     iconBackground: "linear-gradient(145deg, #0f0f0f 0%, #7f1d1d 100%)",
     iconBg: "#18181b",
@@ -94,13 +100,13 @@ const projectIconMeta: Record<
   },
 };
 
-function projectImage(p: (typeof projects)[number]): string | undefined {
-  if (p.previewImage) return p.previewImage;
-  if (p.demoVideo?.startsWith("/")) {
-    return `${process.env.PUBLIC_URL ?? ""}${p.demoVideo}`;
-  }
-  return undefined;
-}
+const projectWordmarks: Record<string, string> = {
+  "deep-link-doctor": "Deep Link",
+  "animate-spotlight-showcase": "Spotlight",
+  "transition-trail-explorer": "Transitions",
+  moviebuzz: "MovieBuzz",
+  sudoku: "Sudoku",
+};
 
 function projectApp(
   p: (typeof projects)[number],
@@ -115,23 +121,25 @@ function projectApp(
     ),
     glyph: glyph ?? p.title.slice(0, 2).toUpperCase(),
     iconBg: meta?.iconBg ?? "#1c1c1e",
-    iconFg: "#f5f5f7",
+    iconFg: p.id === "sudoku" ? "#1c1c1e" : "#f5f5f7",
     iconBackground: meta?.iconBackground,
-    iconImage: projectImage(p),
+    iconWordmark: projectWordmarks[p.id] ?? formatAppLabel(p.title.split(/\s/)[0]),
     overview: p.description,
     destination: { type: "project", projectId: p.id },
     badge: p.status === "In Progress" ? "1" : undefined,
   };
 }
 
-const gameApps: PhoneApp[] = [
+export const gameApps: PhoneApp[] = [
   {
     id: "tictactoe",
     name: "Tic Tac Toe",
     label: "Tic Tac Toe",
     glyph: "O/X",
     iconBg: "#0a84ff",
+    iconFg: "#fff",
     iconBackground: "linear-gradient(145deg, #0a84ff, #5ac8fa)",
+    iconWordmark: "Tic Tac Toe",
     overview: "Classic X's and O's against a simple opponent.",
     destination: { type: "route", path: "/games/tictactoe" },
   },
@@ -140,7 +148,9 @@ const gameApps: PhoneApp[] = [
     name: "Rock Paper Scissors",
     label: "Rock Paper",
     glyph: "RPS",
+    iconWordmark: "Rock Paper",
     iconBg: "#bf5af2",
+    iconFg: "#fff",
     iconBackground: "linear-gradient(145deg, #af52de, #ff2d55)",
     overview: "Quick rounds against AI.",
     destination: { type: "route", path: "/games/rps" },
@@ -150,7 +160,9 @@ const gameApps: PhoneApp[] = [
     name: "Snake",
     label: "Snake",
     glyph: "SN",
+    iconWordmark: "Snake",
     iconBg: "#30d158",
+    iconFg: "#fff",
     iconBackground: "linear-gradient(145deg, #30d158, #248a3d)",
     overview: "Classic snake on a grid.",
     destination: { type: "route", path: "/games/snake" },
@@ -160,7 +172,9 @@ const gameApps: PhoneApp[] = [
     name: "Typing Test",
     label: "Typing",
     glyph: "WPM",
+    iconWordmark: "Typing Test",
     iconBg: "#ff9f0a",
+    iconFg: "#1c1c1e",
     iconBackground: "linear-gradient(145deg, #ff9f0a, #ffcc00)",
     overview: "Measure typing speed on code snippets.",
     destination: { type: "route", path: "/games/typing" },
@@ -170,14 +184,16 @@ const gameApps: PhoneApp[] = [
     name: "Memory Cards",
     label: "Memory",
     glyph: "MEM",
+    iconWordmark: "Memory Cards",
     iconBg: "#ff375f",
+    iconFg: "#fff",
     iconBackground: "linear-gradient(145deg, #ff375f, #ff6482)",
     overview: "Flip and match pairs.",
     destination: { type: "route", path: "/games/memory" },
   },
 ];
 
-const experienceIconMeta: Record<
+export const experienceIconMeta: Record<
   string,
   {
     iconBackground: string;
@@ -224,6 +240,32 @@ const experienceIconMeta: Record<
   },
 };
 
+function experienceOverview(exp: (typeof experiences)[number]): string {
+  const header = `${exp.position} · ${exp.duration}\n${exp.location ?? ""}`;
+  if (exp.deepDive) {
+    return `${header}\n\n${exp.deepDive.productLine}\n\n${exp.deepDive.tagline}`;
+  }
+  return `${header}\n\n${exp.description[0]}`;
+}
+
+export function getExperienceIconImage(experienceId: string): string {
+  const meta = experienceIconMeta[experienceId];
+  return meta?.iconImage ?? appIconPath(`${experienceId}.svg`);
+}
+
+export const experienceHubApp: PhoneApp = {
+  id: "experience",
+  name: "Experience",
+  label: "Experience",
+  glyph: "EX",
+  iconBg: "#152331",
+  iconFg: "#ffffff",
+  iconBackground: "linear-gradient(160deg, #000000 0%, #152331 100%)",
+  iconWordmark: "Experience",
+  overview: "Swipe through roles, timelines, and highlights—tap Know more for the full story.",
+  destination: { type: "experience-hub" },
+};
+
 const experienceApps: PhoneApp[] = experiences.map((exp) => {
   const meta = experienceIconMeta[exp.id];
   const pal = meta ?? {
@@ -241,10 +283,16 @@ const experienceApps: PhoneApp[] = experiences.map((exp) => {
     iconFg: pal.iconFg,
     iconBackground: pal.iconBackground,
     iconImage: pal.iconImage,
-    overview: `${exp.position} · ${exp.duration}\n${exp.location ?? ""}\n\n${exp.description[0]}`,
+    overview: experienceOverview(exp),
     destination: { type: "experience", experienceId: exp.id },
   };
 });
+
+export type PhoneHomeSection = {
+  id: string;
+  title: string;
+  apps: PhoneApp[];
+};
 
 export const phoneFolders: PhoneFolder[] = [
   {
@@ -256,13 +304,6 @@ export const phoneFolders: PhoneFolder[] = [
     apps: webProjects.map((p) => projectApp(p)),
   },
   {
-    id: "games",
-    name: "Games",
-    overview: "Mini games built into the portfolio—tap an icon to play.",
-    previewColors: ["#5e5ce6", "#30d158", "#ff9f0a", "#ff375f"],
-    apps: gameApps,
-  },
-  {
     id: "experience",
     name: "Experience",
     overview:
@@ -271,6 +312,26 @@ export const phoneFolders: PhoneFolder[] = [
     apps: experienceApps,
   },
 ];
+
+/** Home screen rows — Experience first, then projects (games are an easter egg). */
+export const phoneHomeSections: PhoneHomeSection[] = [
+  {
+    id: "experience",
+    title: "Experience",
+    apps: [experienceHubApp],
+  },
+  {
+    id: "web",
+    title: "Projects",
+    apps: webProjects.map((p) => projectApp(p)),
+  },
+];
+
+export const phoneArcadeSection: PhoneHomeSection = {
+  id: "arcade",
+  title: "Arcade",
+  apps: gameApps,
+};
 
 export const dockApps: PhoneApp[] = [
   {
@@ -308,15 +369,17 @@ export const dockApps: PhoneApp[] = [
     destination: { type: "external", url: personalInfo.github },
   },
   {
-    id: "archive",
-    name: "Archive",
-    label: "Archive",
-    glyph: "AR",
-    iconBg: "#636366",
+    id: "opensource",
+    name: "Open Source",
+    label: "Open Source",
+    glyph: "OSS",
+    iconBg: "#5856d6",
     iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #8e8e93, #48484a)",
-    overview: "Full project list with filters.",
-    destination: { type: "route", path: "/work" },
+    iconBackground:
+      "linear-gradient(155deg, #a855f7 0%, #5856d6 42%, #0a84ff 100%)",
+    overview:
+      "Merged PR #1959 on hot-updater: Console hint when a bundle git commit has no console.gitUrl (docs link + tests).",
+    destination: { type: "open-source-hub" },
   },
 ];
 
@@ -350,6 +413,8 @@ export type InPhoneLaunch =
   | { mode: "iframe"; src: string }
   | { mode: "route"; path: string }
   | { mode: "experience"; experienceId: string }
+  | { mode: "experience-hub" }
+  | { mode: "open-source-hub" }
   | { mode: "placeholder" };
 
 /** How to render an app inside the phone shell (no new browser tab). */
@@ -359,6 +424,14 @@ export function resolveInPhoneLaunch(
 ): InPhoneLaunch | null {
   if (destination.type === "external") {
     return null;
+  }
+
+  if (destination.type === "experience-hub") {
+    return { mode: "experience-hub" };
+  }
+
+  if (destination.type === "open-source-hub") {
+    return { mode: "open-source-hub" };
   }
 
   if (destination.type === "experience") {
@@ -418,6 +491,8 @@ export function resolveAppHref(
       return comingSoon();
     }
     case "experience":
+    case "experience-hub":
+    case "open-source-hub":
       return [];
     default:
       return comingSoon();

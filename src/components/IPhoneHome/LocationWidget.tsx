@@ -55,9 +55,11 @@ const mapEmbedSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${enco
   `${MAP_BBOX.west},${MAP_BBOX.south},${MAP_BBOX.east},${MAP_BBOX.north}`
 )}&layer=mapnik&marker=${BANGALORE.lat}%2C${BANGALORE.lon}`;
 
-const LocationWidget: React.FC = () => {
+const LocationWidget: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
   return (
-    <div className="iphone-widget">
+    <div
+      className={`iphone-widget${compact ? " iphone-widget--compact" : ""}`}
+    >
       <div className="iphone-widget__map" aria-hidden="true">
         <iframe
           className="iphone-widget__map-frame"

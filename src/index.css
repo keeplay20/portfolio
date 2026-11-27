@@ -1,3 +1,5 @@
+/* Graphik @font-face lives in /public/fonts/graphik.css (linked from index.html). */
+
 /* CSS Reset and Global Styles */
 * {
   margin: 0;
@@ -37,8 +39,7 @@ body::-webkit-scrollbar {
 }
 
 code {
-  font-family: "JetBrains Mono", source-code-pro, Menlo, Monaco, Consolas,
-    "Courier New", monospace;
+  font-family: var(--font-family-mono);
 }
 
 /* CSS Custom Properties — dark theme only */
@@ -88,9 +89,10 @@ code {
   --error-color: #e8a0a0;
 
   /* Typography */
-  --font-family-display: "Newsreader", "Instrument Serif", Georgia, serif;
-  --font-family-primary: "Geist", "SF Pro Display", "Helvetica Neue", sans-serif;
-  --font-family-mono: "Geist Mono", "SF Mono", "JetBrains Mono", monospace;
+  --font-family-graphik: "Graphik", "Helvetica Neue", Arial, sans-serif;
+  --font-family-display: var(--font-family-graphik);
+  --font-family-primary: var(--font-family-graphik);
+  --font-family-mono: var(--font-family-graphik);
 
   /* Spacing */
   --spacing-xs: 0.25rem;
