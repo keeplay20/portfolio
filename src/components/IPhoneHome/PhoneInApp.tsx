@@ -4,6 +4,9 @@ import { PhoneApp } from "../../data/iphoneHome";
 import ExperienceDeepDive from "./ExperienceDeepDive";
 import ExperienceHub from "./ExperienceHub";
 import OpenSourceHub from "./OpenSourceHub";
+import SettingsApp from "./SettingsApp";
+import ComingSoonApp from "./ComingSoonApp";
+import PhoneInAppIframe from "./PhoneInAppIframe";
 
 export type PhoneInAppLaunch =
   | { mode: "iframe"; src: string }
@@ -11,6 +14,8 @@ export type PhoneInAppLaunch =
   | { mode: "experience"; experience: Experience }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
+  | { mode: "settings" }
+  | { mode: "coming-soon"; teaserId: string }
   | { mode: "placeholder" };
 
 interface PhoneInAppProps {
@@ -37,6 +42,22 @@ const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack, games }) =
     );
   }
 
+  if (launch.mode === "settings") {
+    return (
+      <div className="iphone-inapp iphone-inapp--settings">
+        <SettingsApp onClose={onBack} />
+      </div>
+    );
+  }
+
+  if (launch.mode === "coming-soon") {
+    return (
+      <div className="iphone-inapp iphone-inapp--coming-soon">
+        <ComingSoonApp onClose={onBack} />
+      </div>
+    );
+  }
+
   return (
     <div className="iphone-inapp">
       <header className="iphone-inapp__chrome">
@@ -48,7 +69,7 @@ const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack, games }) =
 
       <div className="iphone-inapp__content">
         {launch.mode === "iframe" ? (
-          <iframe title={app.name} className="iphone-inapp__iframe" src={launch.src} />
+          <PhoneInAppIframe title={app.name} src={launch.src} />
         ) : null}
 
         {launch.mode === "game" ? (

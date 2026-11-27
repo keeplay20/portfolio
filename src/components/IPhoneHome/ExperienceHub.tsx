@@ -182,11 +182,7 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
         </header>
         <div ref={detailScrollRef} className="exp-hub__detail-scroll">
           {detail.deepDive ? (
-            <ExperienceDeepDive
-              experience={detail}
-              variant="hub"
-              scrollContainerRef={detailScrollRef}
-            />
+            <ExperienceDeepDive experience={detail} variant="hub" />
           ) : (
             <article className="exp-hub__detail-panel" aria-label={detail.company}>
               <h2 className="exp-hub__detail-sr-title">

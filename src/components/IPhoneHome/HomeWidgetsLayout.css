@@ -1,0 +1,25 @@
+/* layout test: stack map + stats — revert → row in this file */
+
+.iphone-home-widgets {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.iphone-home-widgets > .iphone-widget,
+.iphone-home-widgets > .iphone-stats-widget {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin-top: 0;
+}
+
+.iphone-home-widgets .iphone-widget {
+  margin-top: 0;
+}

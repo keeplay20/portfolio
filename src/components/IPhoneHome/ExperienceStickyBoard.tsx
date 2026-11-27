@@ -1,4 +1,4 @@
-import React, { useRef, type RefObject } from "react";
+import React, { useLayoutEffect, useRef, useState, type RefObject } from "react";
 import {
   motion,
   useReducedMotion,
@@ -16,45 +16,12 @@ export type StickyImpactSection = {
   bullets: string[];
 };
 
-const PIN_REVEAL_START = 0.86;
-
-function StickyBoardPin({
-  scrollYProgress,
-  staticPin,
-}: {
-  scrollYProgress: MotionValue<number>;
-  staticPin: boolean;
-}) {
-  const pinOpacity = useTransform(scrollYProgress, [PIN_REVEAL_START, 1], [0, 1]);
-  const pinY = useTransform(scrollYProgress, [PIN_REVEAL_START, 0.96, 1], [-16, 3, 0]);
-  const pinScale = useTransform(scrollYProgress, [PIN_REVEAL_START, 0.96, 1], [0.72, 1.1, 1]);
-  const needleScaleY = useTransform(scrollYProgress, [0.9, 1], [0.12, 1]);
-
-  if (staticPin) {
-    return (
-      <span className="exp-sticky-board__pin" aria-hidden="true">
-        <span className="exp-sticky-board__pin-head" />
-        <span className="exp-sticky-board__pin-needle" />
-      </span>
-    );
-  }
-
+function StickyBoardPin() {
   return (
-    <motion.span
-      className="exp-sticky-board__pin"
-      aria-hidden="true"
-      style={{
-        opacity: pinOpacity,
-        y: pinY,
-        scale: pinScale,
-      }}
-    >
+    <span className="exp-sticky-board__pin" aria-hidden="true">
       <span className="exp-sticky-board__pin-head" />
-      <motion.span
-        className="exp-sticky-board__pin-needle"
-        style={{ scaleY: needleScaleY }}
-      />
-    </motion.span>
+      <span className="exp-sticky-board__pin-needle" />
+    </span>
   );
 }
 
@@ -64,6 +31,7 @@ type StickyBoardCardProps = {
   index: number;
   children: React.ReactNode;
   reduceMotion: boolean;
+  flatLayout: boolean;
   scrollContainerRef?: RefObject<HTMLElement | null>;
 };
 
@@ -73,6 +41,7 @@ export function StickyBoardCard({
   index,
   children,
   reduceMotion,
+  flatLayout,
   scrollContainerRef,
 }: StickyBoardCardProps) {
   const ref = useRef<HTMLElement>(null);
@@ -90,16 +59,9 @@ export function StickyBoardCard({
   const scale = useTransform(scrollYProgress, [0, 1], [0.93, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.35, 1], [0.72, 0.92, 1]);
 
-  const motionStyle = reduceMotion
-    ? undefined
-    : {
-        rotate: rotate as MotionValue<number>,
-        y: y as MotionValue<number>,
-        scale: scale as MotionValue<number>,
-        opacity: opacity as MotionValue<number>,
-      };
-
-  const className = `exp-sticky-board__card exp-sticky-board__card--${tone}`;
+  const className = `exp-sticky-board__card exp-sticky-board__card--${tone}${
+    flatLayout ? " exp-sticky-board__card--flat" : ""
+  }`;
 
   const titleAndBody = (
     <>
@@ -108,18 +70,25 @@ export function StickyBoardCard({
     </>
   );
 
-  if (reduceMotion) {
+  if (reduceMotion || flatLayout) {
     return (
       <article ref={ref} className={className}>
-        <StickyBoardPin scrollYProgress={scrollYProgress} staticPin />
+        <StickyBoardPin />
         {titleAndBody}
       </article>
     );
   }
 
+  const motionStyle = {
+    rotate: rotate as MotionValue<number>,
+    y: y as MotionValue<number>,
+    scale: scale as MotionValue<number>,
+    opacity: opacity as MotionValue<number>,
+  };
+
   return (
     <motion.article ref={ref} className={className} style={motionStyle}>
-      <StickyBoardPin scrollYProgress={scrollYProgress} staticPin={false} />
+      <StickyBoardPin />
       {titleAndBody}
     </motion.article>
   );
@@ -141,10 +110,33 @@ const ExperienceStickyBoard: React.FC<ExperienceStickyBoardProps> = ({
   scrollContainerRef,
 }) => {
   const reduceMotion = useReducedMotion() ?? false;
+  const [flatLayout, setFlatLayout] = useState(false);
+
+  useLayoutEffect(() => {
+    const container = scrollContainerRef?.current;
+    if (!container) {
+      setFlatLayout(false);
+      return;
+    }
+
+    const measure = () => {
+      const fits =
+        container.scrollHeight <= container.clientHeight + 28;
+      setFlatLayout(fits);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, [scrollContainerRef, summary, impact, stack]);
 
   return (
     <section
-      className={`exp-sticky-board exp-sticky-board--${variant}`}
+      className={`exp-sticky-board exp-sticky-board--${variant}${
+        flatLayout ? " exp-sticky-board--flat" : ""
+      }`}
       aria-label="Role detail notes"
     >
       {summary ? (
@@ -153,6 +145,7 @@ const ExperienceStickyBoard: React.FC<ExperienceStickyBoardProps> = ({
           tone="yellow"
           index={0}
           reduceMotion={!!reduceMotion}
+          flatLayout={flatLayout}
           scrollContainerRef={scrollContainerRef}
         >
           <p className="exp-sticky-board__paragraph">{summary}</p>
@@ -166,6 +159,7 @@ const ExperienceStickyBoard: React.FC<ExperienceStickyBoardProps> = ({
           tone={SECTION_TONES[(index + 1) % SECTION_TONES.length]}
           index={index + 1}
           reduceMotion={!!reduceMotion}
+          flatLayout={flatLayout}
           scrollContainerRef={scrollContainerRef}
         >
           <ul className="exp-sticky-board__list">
@@ -182,6 +176,7 @@ const ExperienceStickyBoard: React.FC<ExperienceStickyBoardProps> = ({
           tone="mint"
           index={impact.length + 2}
           reduceMotion={!!reduceMotion}
+          flatLayout={flatLayout}
           scrollContainerRef={scrollContainerRef}
         >
           {stack.map((group) => (

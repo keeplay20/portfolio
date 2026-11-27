@@ -1,0 +1,58 @@
+.phone-theme-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  background: var(--phone-screen-bg, #0a0a0c);
+  opacity: 0;
+}
+
+.phone-theme-veil--fade {
+  animation: phone-theme-fade 0.55s ease forwards;
+}
+
+.phone-theme-veil--fade.phone-theme-veil--active {
+  opacity: 1;
+}
+
+.phone-theme-veil--circle {
+  clip-path: circle(0% at var(--phone-reveal-x, 50%) var(--phone-reveal-y, 50%));
+}
+
+.phone-theme-veil--circle.phone-theme-veil--active {
+  animation: phone-theme-circle 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes phone-theme-fade {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes phone-theme-circle {
+  0% {
+    opacity: 1;
+    clip-path: circle(0% at var(--phone-reveal-x, 50%) var(--phone-reveal-y, 50%));
+  }
+  45% {
+    opacity: 1;
+    clip-path: circle(120% at var(--phone-reveal-x, 50%) var(--phone-reveal-y, 50%));
+  }
+  100% {
+    opacity: 0;
+    clip-path: circle(120% at var(--phone-reveal-x, 50%) var(--phone-reveal-y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-theme-veil--fade,
+  .phone-theme-veil--circle.phone-theme-veil--active {
+    animation-duration: 0.01ms;
+  }
+}

@@ -49,6 +49,7 @@ const OpenSourceHub: React.FC<OpenSourceHubProps> = ({ onClose }) => {
             tone="yellow"
             index={0}
             reduceMotion={!!reduceMotion}
+            flatLayout={false}
             scrollContainerRef={scrollRef}
           >
             <p className="exp-sticky-board__paragraph">{OPEN_SOURCE_INTRO}</p>
@@ -61,6 +62,7 @@ const OpenSourceHub: React.FC<OpenSourceHubProps> = ({ onClose }) => {
               tone={CONTRIBUTION_TONES[index % CONTRIBUTION_TONES.length]}
               index={index + 1}
               reduceMotion={!!reduceMotion}
+              flatLayout={false}
               scrollContainerRef={scrollRef}
             >
               {item.mergedLabel ? (

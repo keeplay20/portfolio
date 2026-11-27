@@ -1,0 +1,69 @@
+.exp-sticky-notes {
+  margin: 0 0 1.25rem;
+}
+
+.exp-sticky-notes__label {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--exp-dive-ink-muted, #8e8e93);
+}
+
+.exp-sticky-notes__grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 0.5rem;
+}
+
+.exp-sticky-notes__note {
+  --sticky-rotate: 0deg;
+  margin: 0;
+  padding: 0.65rem 0.6rem 0.7rem;
+  border-radius: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+  color: #2c2c2e;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.06),
+    0 6px 14px rgba(0, 0, 0, 0.08);
+  transform: rotate(var(--sticky-rotate));
+  transform-origin: center center;
+}
+
+.exp-sticky-notes--default .exp-sticky-notes__note {
+  color: rgba(28, 28, 30, 0.92);
+}
+
+.exp-sticky-notes__note--yellow {
+  background: linear-gradient(165deg, #fff9d6 0%, #fff0a8 100%);
+  border: 1px solid rgba(220, 190, 80, 0.35);
+}
+
+.exp-sticky-notes__note--sky {
+  background: linear-gradient(165deg, #eef6ff 0%, #dceeff 100%);
+  border: 1px solid rgba(120, 160, 210, 0.3);
+}
+
+.exp-sticky-notes__note--coral {
+  background: linear-gradient(165deg, #fff0eb 0%, #ffe2d9 100%);
+  border: 1px solid rgba(220, 140, 110, 0.32);
+}
+
+.exp-sticky-notes__note--mint {
+  background: linear-gradient(165deg, #ecf9f3 0%, #dcf5ea 100%);
+  border: 1px solid rgba(90, 170, 130, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-sticky-notes__note {
+    transform: none;
+  }
+}

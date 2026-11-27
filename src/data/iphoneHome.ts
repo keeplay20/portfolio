@@ -2,6 +2,10 @@ import { experiences, personalInfo, projects } from "./portfolio";
 
 const PUBLIC = process.env.PUBLIC_URL ?? "";
 
+/** Featured OSS contribution (gronxb/hot-updater). */
+export const OPEN_SOURCE_HIGHLIGHT_URL =
+  "https://github.com/gronxb/hot-updater/pull/1959";
+
 function appIconPath(file: string): string {
   return `${PUBLIC}/app-icons/${file}`;
 }
@@ -38,7 +42,9 @@ export type AppDestination =
   | { type: "external"; url: string }
   | { type: "experience"; experienceId: string }
   | { type: "experience-hub" }
-  | { type: "open-source-hub" };
+  | { type: "open-source-hub" }
+  | { type: "settings" }
+  | { type: "coming-soon"; teaserId: string };
 
 export interface PhoneApp {
   id: string;
@@ -101,9 +107,9 @@ const projectIconMeta: Record<
 };
 
 const projectWordmarks: Record<string, string> = {
-  "deep-link-doctor": "Deep Link",
-  "animate-spotlight-showcase": "Spotlight",
-  "transition-trail-explorer": "Transitions",
+  "deep-link-doctor": "LinkDoctor",
+  "animate-spotlight-showcase": "MotionSpot",
+  "transition-trail-explorer": "StateLab",
   moviebuzz: "MovieBuzz",
   sudoku: "Sudoku",
 };
@@ -253,6 +259,18 @@ export function getExperienceIconImage(experienceId: string): string {
   return meta?.iconImage ?? appIconPath(`${experienceId}.svg`);
 }
 
+export const settingsApp: PhoneApp = {
+  id: "settings",
+  name: "Settings",
+  label: "Settings",
+  glyph: "⚙",
+  iconBg: "#8e8e93",
+  iconFg: "#fff",
+  iconImage: appIconPath("settings.webp"),
+  overview: "Phone appearance — pick a theme for the in-device home screen; saved on this device.",
+  destination: { type: "settings" },
+};
+
 export const experienceHubApp: PhoneApp = {
   id: "experience",
   name: "Experience",
@@ -318,7 +336,7 @@ export const phoneHomeSections: PhoneHomeSection[] = [
   {
     id: "experience",
     title: "Experience",
-    apps: [experienceHubApp],
+    apps: [experienceHubApp, settingsApp],
   },
   {
     id: "web",
@@ -415,6 +433,8 @@ export type InPhoneLaunch =
   | { mode: "experience"; experienceId: string }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
+  | { mode: "settings" }
+  | { mode: "coming-soon"; teaserId: string }
   | { mode: "placeholder" };
 
 /** How to render an app inside the phone shell (no new browser tab). */
@@ -432,6 +452,14 @@ export function resolveInPhoneLaunch(
 
   if (destination.type === "open-source-hub") {
     return { mode: "open-source-hub" };
+  }
+
+  if (destination.type === "settings") {
+    return { mode: "settings" };
+  }
+
+  if (destination.type === "coming-soon") {
+    return { mode: "coming-soon", teaserId: destination.teaserId };
   }
 
   if (destination.type === "experience") {
@@ -493,6 +521,8 @@ export function resolveAppHref(
     case "experience":
     case "experience-hub":
     case "open-source-hub":
+    case "settings":
+    case "coming-soon":
       return [];
     default:
       return comingSoon();

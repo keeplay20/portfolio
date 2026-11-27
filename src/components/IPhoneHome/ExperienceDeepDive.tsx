@@ -1,4 +1,4 @@
-import React, { type RefObject } from "react";
+import React from "react";
 import { Experience } from "../../types";
 import ExperienceStickyBoard from "./ExperienceStickyBoard";
 import "./ExperienceDeepDive.css";
@@ -6,14 +6,9 @@ import "./ExperienceDeepDive.css";
 type Props = {
   experience: Experience;
   variant?: "default" | "hub";
-  scrollContainerRef?: RefObject<HTMLElement | null>;
 };
 
-const ExperienceDeepDive: React.FC<Props> = ({
-  experience,
-  variant = "default",
-  scrollContainerRef,
-}) => {
+const ExperienceDeepDive: React.FC<Props> = ({ experience, variant = "default" }) => {
   const dive = experience.deepDive;
   if (!dive) return null;
 
@@ -39,27 +34,31 @@ const ExperienceDeepDive: React.FC<Props> = ({
       aria-labelledby={`exp-dive-title-${experience.id}`}
     >
       {isHub ? (
-        <h2 className="exp-dive__sr-title" id={`exp-dive-title-${experience.id}`}>
-          {experience.position}, {experience.company}
-        </h2>
-      ) : (
         <>
-          <header className="exp-dive__hero">
-            <p className="exp-dive__kicker">Experience · Project line</p>
-            <h2 className="exp-dive__company" id={`exp-dive-title-${experience.id}`}>
-              {experience.company}
-            </h2>
+          <h2 className="exp-dive__sr-title" id={`exp-dive-title-${experience.id}`}>
+            {experience.position}, {experience.company}
+          </h2>
+          <header className="exp-dive__hero exp-dive__hero--hub">
             <p className="exp-dive__product">{dive.productLine}</p>
-            <p className="exp-dive__role">{experience.position}</p>
-            {[experience.duration, experience.location].filter(Boolean).length > 0 ? (
-              <p className="exp-dive__meta">
-                {[experience.duration, experience.location].filter(Boolean).join(" · ")}
-              </p>
-            ) : null}
           </header>
-          <p className="exp-dive__tagline">{dive.tagline}</p>
         </>
+      ) : (
+        <header className="exp-dive__hero">
+          <p className="exp-dive__kicker">Experience · Project line</p>
+          <h2 className="exp-dive__company" id={`exp-dive-title-${experience.id}`}>
+            {experience.company}
+          </h2>
+          <p className="exp-dive__product">{dive.productLine}</p>
+          <p className="exp-dive__role">{experience.position}</p>
+          {[experience.duration, experience.location].filter(Boolean).length > 0 ? (
+            <p className="exp-dive__meta">
+              {[experience.duration, experience.location].filter(Boolean).join(" · ")}
+            </p>
+          ) : null}
+        </header>
       )}
+
+      <p className="exp-dive__tagline">{dive.tagline}</p>
 
       {isHub ? (
         <ExperienceStickyBoard
@@ -67,7 +66,6 @@ const ExperienceDeepDive: React.FC<Props> = ({
           summary={dive.summary}
           impact={impactSections}
           stack={stackGroups}
-          scrollContainerRef={scrollContainerRef}
         />
       ) : (
         <>

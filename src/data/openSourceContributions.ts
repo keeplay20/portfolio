@@ -1,5 +1,4 @@
-export const OPEN_SOURCE_HIGHLIGHT_URL =
-  "https://github.com/gronxb/hot-updater/pull/1959";
+import { OPEN_SOURCE_HIGHLIGHT_URL } from "./iphoneHome";
 
 export type OpenSourceContribution = {
   id: string;

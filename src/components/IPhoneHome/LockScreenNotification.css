@@ -1,0 +1,109 @@
+.iphone-lock-notif {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.35rem auto 0;
+  padding: 0.62rem 0.68rem;
+  border-radius: 1.05rem;
+  border: 0.5px solid var(--phone-lock-notif-border, rgba(255, 255, 255, 0.14));
+  background: var(--phone-lock-notif-bg, rgba(40, 40, 44, 0.82));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--phone-lock-notif-text, #f5f5f7);
+  text-align: left;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.iphone-lock-notif--dragging {
+  cursor: grabbing;
+}
+
+.iphone-lock-notif:focus-visible {
+  outline: 2px solid var(--phone-lock-notif-accent, #0a84ff);
+  outline-offset: 2px;
+}
+
+.iphone-lock-notif__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.05rem;
+  height: 2.05rem;
+  border-radius: 0.48rem;
+  background: linear-gradient(145deg, #1a3d32 0%, #3d8f6e 70%, #9ad4bc 100%);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
+}
+
+.iphone-lock-notif__icon-mark {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.iphone-lock-notif__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.iphone-lock-notif__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.iphone-lock-notif__app {
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--phone-lock-notif-muted, rgba(245, 245, 247, 0.65));
+}
+
+.iphone-lock-notif__time {
+  flex-shrink: 0;
+  font-size: 0.58rem;
+  color: var(--phone-lock-notif-muted, rgba(245, 245, 247, 0.55));
+  text-transform: capitalize;
+}
+
+.iphone-lock-notif__title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.iphone-lock__notif-stack {
+  margin-top: 1.45rem;
+  padding: 0 0.1rem;
+}
+
+.iphone-lock-notif__body {
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--phone-lock-notif-muted, rgba(245, 245, 247, 0.82));
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.iphone-device--reduce-transparency .iphone-lock-notif {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--phone-lock-notif-solid, rgba(28, 28, 30, 0.96));
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="Settings">
+  <defs>
+    <linearGradient id="settings-bg" x1="36" y1="0" x2="36" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#AEAEB2"/>
+      <stop offset="48%" stop-color="#8E8E93"/>
+      <stop offset="100%" stop-color="#636366"/>
+    </linearGradient>
+  </defs>
+  <rect width="72" height="72" rx="16" fill="url(#settings-bg)"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="36" cy="36" r="11.5" opacity="0.95"/>
+    <path d="M36 21.5v5.25M36 45.25v5.25M50.5 36h-5.25M26.75 36h-5.25M45.8 26.2l-3.72 3.72M30.92 41.08l-3.72 3.72M45.8 45.8l-3.72-3.72M30.92 30.92l-3.72-3.72"/>
+  </g>
+  <circle cx="36" cy="36" r="4.1" fill="#FFFFFF" stroke="none"/>
+</svg>

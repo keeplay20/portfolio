@@ -1,0 +1,198 @@
+/* Stats glass — theme tokens live on .iphone-device in PhoneShellTheme.css */
+
+.iphone-stats-widget {
+  --stats-radius: 20px;
+
+  padding: 8px;
+  border-radius: calc(var(--stats-radius) + 8px);
+  background: var(--stats-glass, rgba(28, 26, 24, 0.55));
+  border: 1px solid var(--stats-border, rgba(255, 255, 255, 0.1));
+  box-shadow:
+    inset 0 1px 0 var(--stats-highlight, rgba(255, 255, 255, 0.14)),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(var(--stats-blur, 24px)) saturate(160%);
+  backdrop-filter: blur(var(--stats-blur, 24px)) saturate(160%);
+  color: var(--stats-text, #f5f2ee);
+  transition:
+    background var(--phone-transition-duration, 0.45s) ease,
+    border-color var(--phone-transition-duration, 0.45s) ease;
+}
+
+.iphone-stats-widget__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.iphone-stats-widget__cell {
+  --accent: #ffb454;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 104px;
+  padding: 12px 14px 13px;
+  border-radius: var(--stats-radius);
+  background: var(--stats-cell, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stats-border, rgba(255, 255, 255, 0.1));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: left;
+  isolation: isolate;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  animation: stats-in 480ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.iphone-stats-widget__cell::before {
+  content: "";
+  position: absolute;
+  inset: -40% -30% auto auto;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.2;
+  filter: blur(8px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.iphone-stats-widget__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.iphone-stats-widget__value {
+  margin: 0;
+  font-size: clamp(1.7rem, 8vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-family-display, inherit);
+  background: linear-gradient(
+    180deg,
+    var(--stats-text, #f5f2ee) 40%,
+    color-mix(in srgb, var(--accent) 55%, var(--stats-text, #f5f2ee)) 130%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--stats-text, #f5f2ee);
+}
+
+.iphone-stats-widget__label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--stats-muted, rgba(245, 242, 238, 0.6));
+}
+
+.iphone-stats-widget__cell--button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.iphone-stats-widget__chevron {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--stats-text, #f5f2ee);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.iphone-stats-widget__cell--button:active {
+  transform: scale(0.96);
+}
+
+.iphone-stats-widget__cell--button:active .iphone-stats-widget__chevron {
+  transform: translateX(2px);
+}
+
+.iphone-stats-widget__cell--button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .iphone-stats-widget__cell--button:hover {
+    background: var(--stats-cell-hover, rgba(255, 255, 255, 0.1));
+  }
+
+  .iphone-stats-widget__cell--button:hover .iphone-stats-widget__chevron {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateX(2px);
+  }
+}
+
+.iphone-stats-widget--compact {
+  padding: 6px;
+  --stats-radius: 16px;
+}
+
+.iphone-stats-widget--compact .iphone-stats-widget__grid {
+  gap: 6px;
+}
+
+.iphone-stats-widget--compact .iphone-stats-widget__cell {
+  min-height: 82px;
+  padding: 10px 12px;
+}
+
+.iphone-stats-widget--compact .iphone-stats-widget__value {
+  font-size: clamp(1.35rem, 6.5vw, 1.7rem);
+}
+
+.iphone-stats-widget--compact .iphone-stats-widget__label {
+  font-size: 0.66rem;
+}
+
+@keyframes stats-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iphone-stats-widget__cell {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.iphone-device--reduce-motion .iphone-stats-widget__cell {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.iphone-device--reduce-transparency .iphone-stats-widget {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: color-mix(in srgb, var(--stats-glass, rgba(28, 26, 24, 0.85)) 96%, #000);
+}

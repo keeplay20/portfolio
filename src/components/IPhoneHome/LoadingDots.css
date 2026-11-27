@@ -1,0 +1,49 @@
+.loading-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.loading-dots--fill {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.loading-dots__svg {
+  display: block;
+  overflow: visible;
+}
+
+.loading-dots__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-name: loading-dot-hop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.loading-dots--still .loading-dots__dot {
+  animation: none;
+}
+
+/* hopFrac ≈ 0.6 of a 1.2s loop — bounce then rest */
+@keyframes loading-dot-hop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  8% {
+    transform: translateY(-13px) scale(1.09);
+  }
+  16% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.iphone-device--reduce-motion .loading-dots__dot {
+  animation: none;
+}

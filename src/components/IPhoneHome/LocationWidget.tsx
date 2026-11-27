@@ -32,7 +32,10 @@ function TypewriterName({ text }: { text: string }) {
   }, [text]);
 
   return (
-    <p className="iphone-widget__name" aria-label={text}>
+    <p
+      className="iphone-widget__name iphone-brand-gradient-text"
+      aria-label={text}
+    >
       <span aria-hidden="true">{visible}</span>
       {!done ? (
         <span className="iphone-widget__name-cursor" aria-hidden="true" />
@@ -40,9 +43,6 @@ function TypewriterName({ text }: { text: string }) {
     </p>
   );
 }
-
-/** Central Bangalore */
-const BANGALORE = { lat: 12.9716, lon: 77.5946 };
 
 const MAP_BBOX = {
   west: 77.52,
@@ -53,7 +53,7 @@ const MAP_BBOX = {
 
 const mapEmbedSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(
   `${MAP_BBOX.west},${MAP_BBOX.south},${MAP_BBOX.east},${MAP_BBOX.north}`
-)}&layer=mapnik&marker=${BANGALORE.lat}%2C${BANGALORE.lon}`;
+)}&layer=mapnik`;
 
 const LocationWidget: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
   return (
@@ -69,10 +69,9 @@ const LocationWidget: React.FC<{ compact?: boolean }> = ({ compact = false }) =>
           tabIndex={-1}
         />
         <div className="iphone-widget__map-shade" />
-      </div>
-
-      <div className="iphone-widget__meta">
-        <TypewriterName text={personalInfo.name} />
+        <div className="iphone-widget__meta">
+          <TypewriterName text={personalInfo.name} />
+        </div>
       </div>
 
       <a

@@ -6,6 +6,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { personalInfo } from "../../data/portfolio";
+import LockScreenNotification from "./LockScreenNotification";
+import "./LockScreenNotification.css";
 
 const UNLOCK_THRESHOLD_PX = 72;
 const TAP_MOVEMENT_THRESHOLD_PX = 10;
@@ -14,12 +16,16 @@ type PhoneLockScreenProps = {
   time: string | null;
   dateLabel: string | null;
   onUnlock: () => void;
+  showNotification?: boolean;
+  onOpenNotification?: () => void;
 };
 
 const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
   time,
   dateLabel,
   onUnlock,
+  showNotification = false,
+  onOpenNotification,
 }) => {
   const dragY = useMotionValue(0);
   const hintOpacity = useTransform(dragY, [0, -90], [1, 0.25]);
@@ -143,6 +149,11 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
         <p className="iphone-lock__date" suppressHydrationWarning>
           {dateLabel ?? "\u00a0"}
         </p>
+        {showNotification && onOpenNotification ? (
+          <div className="iphone-lock__notif-stack">
+            <LockScreenNotification onOpen={onOpenNotification} />
+          </div>
+        ) : null}
       </motion.div>
 
       <motion.div
@@ -154,7 +165,11 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
         <p className="iphone-lock__kicker" aria-hidden="true">
           Portfolio
         </p>
-        <p className="iphone-lock__name">{personalInfo.name}</p>
+        <p className="iphone-lock__name">
+          <span className="iphone-brand-gradient-text">
+            {personalInfo.name}
+          </span>
+        </p>
         <p className="iphone-lock__role">{personalInfo.title}</p>
         <p className="iphone-lock__intro">{personalInfo.summary}</p>
       </motion.div>

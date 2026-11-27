@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useOptionalPhoneShellAudio } from "../../IPhoneHome/PhoneShellAudioProvider";
 import "./TicTacToe.css";
 
 type Player = "X" | "O" | null;
@@ -111,6 +112,7 @@ const GameStatus: React.FC<GameStatusProps> = ({
 );
 
 const TicTacToe: React.FC = () => {
+  const phoneAudio = useOptionalPhoneShellAudio();
   const [board, setBoard] = useState<Board>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Player>("X");
   const [winner, setWinner] = useState<Player | "draw" | null>(null);
@@ -138,6 +140,8 @@ const TicTacToe: React.FC = () => {
     (index: number) => {
       if (board[index] || winner) return;
 
+      phoneAudio?.play("game");
+
       const newBoard = [...board];
       newBoard[index] = currentPlayer;
       setBoard(newBoard);
@@ -156,7 +160,7 @@ const TicTacToe: React.FC = () => {
         setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
       }
     },
-    [board, currentPlayer, winner]
+    [board, currentPlayer, winner, phoneAudio]
   );
 
   useEffect(() => {
