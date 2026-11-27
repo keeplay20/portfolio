@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -8,6 +8,7 @@ import RockPaperScissors from "../components/Games/RockPaperScissors/RockPaperSc
 import Snake from "../components/Games/Snake/Snake";
 import TypingTest from "../components/Games/TypingTest/TypingTest";
 import MemoryCardGame from "../components/Games/MemoryCardGame/MemoryCardGame";
+import NotFoundPage from "./NotFoundPage";
 import "./GamePlayPage.css";
 
 const GAMES: Record<string, React.FC> = {
@@ -23,7 +24,7 @@ const GamePlayPage: React.FC = () => {
   const Game = gameId ? GAMES[gameId] : undefined;
 
   if (!Game) {
-    return <Navigate to="/" replace />;
+    return <NotFoundPage />;
   }
 
   return (

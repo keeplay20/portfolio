@@ -1,0 +1,198 @@
+/* Motion Shell — interior OS skin; iPhone frame comes from IPhoneHome.css */
+
+.iphone-screen__scroll {
+  background: transparent;
+}
+
+/* ---- Status bar: float over wallpaper (iOS) ---- */
+.shell-status {
+  background: transparent;
+  border-bottom: none;
+}
+
+.iphone-status__island-btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.iphone-status__island-btn:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.iphone-status__island-btn--pulse {
+  animation: island-nudge 0.22s ease-out;
+}
+
+@keyframes island-nudge {
+  50% {
+    box-shadow:
+      inset 0 0 0 1px rgba(155, 196, 157, 0.45),
+      0 0 14px rgba(155, 196, 157, 0.35);
+  }
+}
+
+.iphone-home-section--arcade .iphone-home-section__title {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.iphone-home-section__egg {
+  margin-left: 0.35rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(155, 196, 157, 0.55);
+}
+
+
+/* ---- Session gate (lock) — iOS black lock screen ---- */
+.iphone-lock {
+  background: #000;
+  cursor: grab;
+}
+
+.iphone-lock__glow--top {
+  background: radial-gradient(
+    circle at center,
+    rgba(240, 237, 232, 0.2) 0%,
+    rgba(180, 150, 110, 0.16) 40%,
+    transparent 70%
+  );
+}
+
+.iphone-lock__glow--bottom {
+  background: radial-gradient(
+    circle at center,
+    rgba(155, 196, 157, 0.18) 0%,
+    rgba(46, 43, 40, 0.2) 45%,
+    transparent 72%
+  );
+}
+
+.iphone-lock__kicker {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.5);
+}
+
+.iphone-lock__time {
+  font-family: var(--font-family-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 13vw, 3.75rem);
+}
+
+.iphone-lock__date {
+  font-family: var(--font-family-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.iphone-lock__role {
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+
+/* ---- Launcher tiles (keep iOS squircle from IOSAppIcon.css) ---- */
+
+.ios-icon__shine {
+  opacity: 0.35;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    transparent 42%
+  );
+  mix-blend-mode: screen;
+}
+
+.ios-icon__badge {
+  border-radius: 6px;
+  background: var(--accent-color);
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.ios-folder-icon {
+  border-radius: 22%;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.12),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.ios-folder-icon__glass {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+.ios-folder-icon__cell {
+  border-radius: 6px;
+}
+
+/* ---- Location widget (map + name overlay) ---- */
+.iphone-widget {
+  border-radius: 1.35rem;
+  border: none;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.iphone-widget__name {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+}
+
+/* ---- In-app chrome ---- */
+.iphone-inapp {
+  background: #0f0e0d;
+}
+
+.iphone-inapp__chrome {
+  background: rgba(15, 14, 13, 0.95);
+  border-bottom-color: rgba(240, 237, 232, 0.1);
+  backdrop-filter: none;
+}
+
+.iphone-inapp__back {
+  color: var(--accent-color);
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.iphone-inapp__title {
+  font-family: var(--font-family-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(240, 237, 232, 0.92);
+}
+
+.iphone-folder-view__back {
+  color: var(--accent-color);
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.iphone-folder-view--open .iphone-folder-view__title {
+  text-align: center;
+  color: #f5f5f7;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}

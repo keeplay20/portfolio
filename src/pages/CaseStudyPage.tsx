@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import { getProjectById } from "../data/portfolio";
+import NotFoundPage from "./NotFoundPage";
 import "./CaseStudyPage.css";
 
 const CaseStudyPage: React.FC = () => {
@@ -21,7 +22,7 @@ const CaseStudyPage: React.FC = () => {
   }, [project]);
 
   if (!project) {
-    return <Navigate to="/work" replace />;
+    return <NotFoundPage />;
   }
 
   const study = project.caseStudy;

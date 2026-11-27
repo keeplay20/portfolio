@@ -10,12 +10,8 @@ const PORT = 4173;
 /** App routes to prerender (add paths when you introduce URL-based routing). */
 const ROUTES = [
   "/",
+  "/404",
   "/work",
-  "/games/tictactoe",
-  "/games/rps",
-  "/games/snake",
-  "/games/typing",
-  "/games/memory",
   "/work/animate-spotlight-showcase",
   "/work/transition-trail-explorer",
 ];

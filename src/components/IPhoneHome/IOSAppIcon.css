@@ -59,12 +59,70 @@
   border-radius: inherit;
 }
 
+.ios-icon__wordmark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.42rem 0.35rem;
+  font-family:
+    ui-rounded,
+    "SF Pro Rounded",
+    "SF Pro Text",
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-align: center;
+  line-height: 1.05;
+  text-wrap: balance;
+  user-select: none;
+  pointer-events: none;
+}
+
+.ios-icon__wordmark--s {
+  font-size: 0.62rem;
+}
+
+.ios-icon__wordmark--m {
+  font-size: 0.52rem;
+}
+
+.ios-icon__wordmark--l {
+  font-size: 0.45rem;
+}
+
+.ios-icon__wordmark--xl {
+  font-size: 0.4rem;
+  letter-spacing: -0.04em;
+}
+
+.ios-icon--dock .ios-icon__wordmark--s {
+  font-size: 0.56rem;
+}
+
+.ios-icon--dock .ios-icon__wordmark--m {
+  font-size: 0.48rem;
+}
+
+.ios-icon--dock .ios-icon__wordmark--l {
+  font-size: 0.42rem;
+}
+
+.ios-icon--mini .ios-icon__wordmark {
+  padding: 2px;
+  font-size: 0.34rem;
+  letter-spacing: -0.02em;
+}
+
 .ios-icon__art {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 18%;
+  padding: 22%;
 }
 
 .ios-icon__svg {

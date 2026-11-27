@@ -7,6 +7,7 @@ import CaseStudyPage from "./pages/CaseStudyPage";
 import ProjectsPage from "./components/ProjectsPage/ProjectsPage";
 import GamePlayPage from "./pages/GamePlayPage";
 import PlayRedirect from "./pages/PlayRedirect";
+import NotFoundPage from "./pages/NotFoundPage";
 import { ThemeProvider } from "./theme/ThemeProvider";
 
 function AnimatedRoutes() {
@@ -68,6 +69,32 @@ function AnimatedRoutes() {
           }
         />
         <Route path="/play" element={<PlayRedirect />} />
+        <Route
+          path="/404"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <NotFoundPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <NotFoundPage />
+            </motion.div>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );

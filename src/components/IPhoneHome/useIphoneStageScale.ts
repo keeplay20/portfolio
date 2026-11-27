@@ -2,7 +2,8 @@ import { useLayoutEffect, type RefObject } from "react";
 
 /** Layout height of the scaled phone frame (screen + bezel padding), in CSS px at scale 1. */
 const PHONE_FRAME_WIDTH = 390;
-const PHONE_FRAME_HEIGHT = 830;
+const PHONE_FRAME_HEIGHT = 836;
+const MAX_PHONE_SCALE = 1.58;
 const SCALE_EPSILON = 0.002;
 
 function readViewportSize() {
@@ -15,7 +16,7 @@ function readViewportSize() {
 
 function measureHintBlock(root: HTMLElement): number {
   const hint = root.querySelector<HTMLElement>(".iphone-device__hint");
-  if (!hint) return 48;
+  if (!hint || getComputedStyle(hint).display === "none") return 0;
   const styles = getComputedStyle(hint);
   const marginTop = parseFloat(styles.marginTop) || 0;
   const marginBottom = parseFloat(styles.marginBottom) || 0;
@@ -23,10 +24,13 @@ function measureHintBlock(root: HTMLElement): number {
 }
 
 const STAGE_SHADOW_BLEED_PX = 10;
+const MOBILE_MAX_WIDTH = 768;
 
 export function useIphoneStageScale(
   homeRef: RefObject<HTMLElement | null>,
-  remeasureDeps: unknown[] = []
+  isUnlocked: boolean,
+  view: string,
+  arcadeUnlocked: boolean
 ) {
   useLayoutEffect(() => {
     const root = homeRef.current;
@@ -34,6 +38,9 @@ export function useIphoneStageScale(
 
     const update = () => {
       const { width: vw, height: vh } = readViewportSize();
+      const isMobile = vw <= MOBILE_MAX_WIDTH;
+      root.classList.toggle("iphone-home--mobile", isMobile);
+
       const styles = getComputedStyle(root);
       const padTop = parseFloat(styles.paddingTop) || 0;
       const padBottom = parseFloat(styles.paddingBottom) || 0;
@@ -47,14 +54,19 @@ export function useIphoneStageScale(
 
       const availWidth = Math.max(0, vw - padLeft - padRight);
       const availHeight = Math.max(0, vh - padTop - padBottom - chromeBelowPhone);
+      const stageEl = root.querySelector<HTMLElement>(".iphone-home__phone-stage");
+      const stageWidth =
+        stageEl && stageEl.clientWidth > 0 ? stageEl.clientWidth : availWidth;
 
+      const maxScale = isMobile ? 1.12 : MAX_PHONE_SCALE;
+      const widthBudget = isMobile ? stageWidth - 8 : stageWidth;
       const scale = Math.min(
-        1,
-        availWidth / PHONE_FRAME_WIDTH,
+        maxScale,
+        widthBudget / PHONE_FRAME_WIDTH,
         availHeight / PHONE_FRAME_HEIGHT
       );
 
-      const clamped = Math.max(0.32, scale);
+      const clamped = Math.max(isMobile ? 0.72 : 0.32, scale);
       root.style.setProperty("--iphone-scale", clamped.toFixed(4));
 
       const stage = root.querySelector<HTMLElement>(".iphone-home__phone-stage");
@@ -75,6 +87,9 @@ export function useIphoneStageScale(
     const ro = new ResizeObserver(() => update());
     ro.observe(root);
 
+    const layout = root.querySelector<HTMLElement>(".iphone-home__layout");
+    if (layout) ro.observe(layout);
+
     const stage = root.querySelector<HTMLElement>(".iphone-home__phone-stage");
     if (stage) ro.observe(stage);
 
@@ -91,5 +106,5 @@ export function useIphoneStageScale(
       window.visualViewport?.removeEventListener("resize", update);
       window.visualViewport?.removeEventListener("scroll", update);
     };
-  }, [homeRef, ...remeasureDeps]);
+  }, [homeRef, isUnlocked, view, arcadeUnlocked]);
 }
