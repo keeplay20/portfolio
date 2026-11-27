@@ -29,8 +29,7 @@ const MOBILE_MAX_WIDTH = 768;
 export function useIphoneStageScale(
   homeRef: RefObject<HTMLElement | null>,
   isUnlocked: boolean,
-  view: string,
-  arcadeUnlocked: boolean
+  view: string
 ) {
   useLayoutEffect(() => {
     const root = homeRef.current;
@@ -106,5 +105,5 @@ export function useIphoneStageScale(
       window.visualViewport?.removeEventListener("resize", update);
       window.visualViewport?.removeEventListener("scroll", update);
     };
-  }, [homeRef, isUnlocked, view, arcadeUnlocked]);
+  }, [homeRef, isUnlocked, view]);
 }

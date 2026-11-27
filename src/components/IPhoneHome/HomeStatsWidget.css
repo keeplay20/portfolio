@@ -194,5 +194,4 @@
 .iphone-device--reduce-transparency .iphone-stats-widget {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  background: color-mix(in srgb, var(--stats-glass, rgba(28, 26, 24, 0.85)) 96%, #000);
 }

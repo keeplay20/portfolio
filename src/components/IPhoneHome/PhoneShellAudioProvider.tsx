@@ -61,7 +61,7 @@ export function usePhoneShellAudio(): PhoneShellAudioContextValue {
   return ctx;
 }
 
-/** No-op outside the in-phone shell (e.g. standalone /games routes). */
+/** No-op outside the in-phone shell (e.g. /work routes). */
 export function useOptionalPhoneShellAudio(): PhoneShellAudioContextValue | null {
   return useContext(PhoneShellAudioContext);
 }

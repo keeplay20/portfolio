@@ -176,14 +176,14 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
       }
 
-      .cover__app-icon--a {
+      .cover__app-icon--experience {
+        background: linear-gradient(160deg, #000000, #152331);
+      }
+      .cover__app-icon--settings {
+        background: linear-gradient(145deg, #a8a8ad, #8e8e93);
+      }
+      .cover__app-icon--projects {
         background: linear-gradient(145deg, #0a84ff, #5e5ce6);
-      }
-      .cover__app-icon--b {
-        background: linear-gradient(145deg, #5e5ce6, #30d158);
-      }
-      .cover__app-icon--c {
-        background: linear-gradient(145deg, #1c1c1e, #0a84ff);
       }
 
       .cover__app-label {
@@ -217,8 +217,29 @@
       .cover__dock .cover__app-icon--gh {
         background: linear-gradient(145deg, #30363d, #0d1117);
       }
-      .cover__dock .cover__app-icon--ar {
-        background: linear-gradient(145deg, #8e8e93, #48484a);
+      .cover__dock .cover__app-icon--about {
+        background: linear-gradient(155deg, #ffb340, #ff9500 42%, #ff6b00);
+      }
+
+      .cover__dock-apps {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+      }
+
+      .cover__dock-app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .cover__dock-label {
+        font-size: 9px;
+        opacity: 0.88;
+        max-width: 56px;
+        text-align: center;
+        line-height: 1.15;
       }
 
       .cover__copy {
@@ -275,33 +296,47 @@
           </div>
           <div class="cover__grid">
             <div class="cover__app">
-              <div class="cover__app-icon cover__app-icon--a"></div>
-              <span class="cover__app-label">Projects</span>
-            </div>
-            <div class="cover__app">
-              <div class="cover__app-icon cover__app-icon--b"></div>
-              <span class="cover__app-label">Games</span>
-            </div>
-            <div class="cover__app">
-              <div class="cover__app-icon cover__app-icon--c"></div>
+              <div class="cover__app-icon cover__app-icon--experience"></div>
               <span class="cover__app-label">Experience</span>
+            </div>
+            <div class="cover__app">
+              <div class="cover__app-icon cover__app-icon--settings"></div>
+              <span class="cover__app-label">Settings</span>
+            </div>
+            <div class="cover__app">
+              <div class="cover__app-icon cover__app-icon--projects"></div>
+              <span class="cover__app-label">Projects</span>
             </div>
             <div class="cover__app" aria-hidden="true"></div>
           </div>
           <div class="cover__dock">
-            <div class="cover__app-icon cover__app-icon--mail"></div>
-            <div class="cover__app-icon cover__app-icon--in"></div>
-            <div class="cover__app-icon cover__app-icon--gh"></div>
-            <div class="cover__app-icon cover__app-icon--ar"></div>
+            <div class="cover__dock-apps">
+              <div class="cover__dock-app">
+                <div class="cover__app-icon cover__app-icon--mail"></div>
+                <span class="cover__dock-label">Mail</span>
+              </div>
+              <div class="cover__dock-app">
+                <div class="cover__app-icon cover__app-icon--in"></div>
+                <span class="cover__dock-label">LinkedIn</span>
+              </div>
+              <div class="cover__dock-app">
+                <div class="cover__app-icon cover__app-icon--gh"></div>
+                <span class="cover__dock-label">GitHub</span>
+              </div>
+              <div class="cover__dock-app">
+                <div class="cover__app-icon cover__app-icon--about"></div>
+                <span class="cover__dock-label">About Me</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="cover__copy">
         <p class="cover__eyebrow">Interactive portfolio</p>
-        <h1 class="cover__title">Your résumé,<br />one home screen.</h1>
+        <h1 class="cover__title">Your resume,<br />one home screen.</h1>
         <p class="cover__subtitle">
-          An iPhone metaphor for work, case studies, and play—built in React,
-          TypeScript, and Framer Motion.
+          Experience, projects, themes, and About Me on one home screen—built in
+          React, TypeScript, and Framer Motion.
         </p>
         <p class="cover__meta">mandarvyas.vercel.app · India</p>
       </div>

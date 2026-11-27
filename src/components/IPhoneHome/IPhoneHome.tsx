@@ -1,21 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   dockApps,
   InPhoneLaunch,
-  phoneArcadeSection,
   phoneHomeSections,
   PhoneApp,
   resolveInPhoneLaunch,
 } from "../../data/iphoneHome";
 import { experiences, personalInfo, projects } from "../../data/portfolio";
-import TicTacToe from "../Games/TicTacToe/TicTacToe";
-import RockPaperScissors from "../Games/RockPaperScissors/RockPaperScissors";
-import Snake from "../Games/Snake/Snake";
-import TypingTest from "../Games/TypingTest/TypingTest";
-import MemoryCardGame from "../Games/MemoryCardGame/MemoryCardGame";
 import IOSAppIcon from "./IOSAppIcon";
-import IPhoneStatusBar, { ARCADE_TAP_TARGET } from "./IPhoneStatusBar";
+import IPhoneStatusBar from "./IPhoneStatusBar";
 import HomeStatsWidget from "./HomeStatsWidget";
 import LocationWidget from "./LocationWidget";
 import PhoneInApp, { PhoneInAppLaunch } from "./PhoneInApp";
@@ -42,14 +36,6 @@ import VolumeHUD from "./VolumeHUD";
 import { useTheme } from "../../theme/ThemeProvider";
 import "./PhoneShellTheme.css";
 import "./PhoneThemeTransition.css";
-
-const PHONE_GAMES: Record<string, React.FC> = {
-  tictactoe: TicTacToe,
-  rps: RockPaperScissors,
-  snake: Snake,
-  typing: TypingTest,
-  memory: MemoryCardGame,
-};
 
 type PhoneView = "home" | "inapp";
 
@@ -91,10 +77,6 @@ function toPhoneInAppLaunch(raw: InPhoneLaunch): PhoneInAppLaunch {
     case "iframe":
     case "placeholder":
       return raw;
-    case "route": {
-      const gameId = raw.path.split("/").filter(Boolean).pop() ?? "";
-      return { mode: "game", gameId };
-    }
     case "experience-hub":
       return { mode: "experience-hub" };
     case "open-source-hub":
@@ -166,60 +148,11 @@ const IPhoneHomeShell: React.FC = () => {
     app: PhoneApp;
     launch: PhoneInAppLaunch;
   } | null>(null);
-  const [arcadeUnlocked, setArcadeUnlocked] = useState(() => {
-    try {
-      return sessionStorage.getItem("mv-shell-arcade") === "1";
-    } catch {
-      return false;
-    }
-  });
-  const brandTapCountRef = useRef(0);
-  const brandTapResetRef = useRef<number | null>(null);
-  const [brandTapNudge, setBrandTapNudge] = useState(false);
-  const homeSections = useMemo(
-    () =>
-      arcadeUnlocked
-        ? [...phoneHomeSections, phoneArcadeSection]
-        : phoneHomeSections,
-    [arcadeUnlocked]
-  );
-
-  useIphoneStageScale(homeRef, isUnlocked, view, arcadeUnlocked);
+  useIphoneStageScale(homeRef, isUnlocked, view);
 
   const { play, hudVisible, volume, muted } = usePhoneShellAudio();
   const { theme: phoneTheme, transition, clearTransition } = useTheme();
   const { display } = usePhoneShellSettings();
-
-  const unlockArcade = useCallback(() => {
-    setArcadeUnlocked(true);
-    try {
-      sessionStorage.setItem("mv-shell-arcade", "1");
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  const onShellBrandTap = useCallback(() => {
-    if (arcadeUnlocked) return;
-    if (brandTapResetRef.current) {
-      window.clearTimeout(brandTapResetRef.current);
-    }
-    brandTapCountRef.current += 1;
-    const count = brandTapCountRef.current;
-    if (count >= ARCADE_TAP_TARGET) {
-      brandTapCountRef.current = 0;
-      unlockArcade();
-      return;
-    }
-    if (count >= 3) {
-      setBrandTapNudge(true);
-      window.setTimeout(() => setBrandTapNudge(false), 220);
-    }
-    brandTapResetRef.current = window.setTimeout(() => {
-      brandTapCountRef.current = 0;
-      brandTapResetRef.current = null;
-    }, 900);
-  }, [arcadeUnlocked, unlockArcade]);
 
   const bumpStatsAnim = useCallback(() => {
     setStatsAnimKey((k) => k + 1);
@@ -363,11 +296,7 @@ const IPhoneHomeShell: React.FC = () => {
                   }}
                   aria-hidden={!isUnlocked}
                 >
-                  <IPhoneStatusBar
-                    time={clock}
-                    onIslandTap={isUnlocked ? onShellBrandTap : undefined}
-                    islandTapHint={brandTapNudge}
-                  />
+                  <IPhoneStatusBar time={clock} />
 
                   <div className="iphone-screen__scroll">
                     {view === "inapp" && inApp ? (
@@ -375,7 +304,6 @@ const IPhoneHomeShell: React.FC = () => {
                         app={inApp.app}
                         launch={inApp.launch}
                         onBack={exitInApp}
-                        games={PHONE_GAMES}
                       />
                     ) : view === "home" ? (
                       <>
@@ -390,23 +318,14 @@ const IPhoneHomeShell: React.FC = () => {
                           </div>
                         ) : null}
                         <div className="iphone-home-screen">
-                          {homeSections.map((section) => (
+                          {phoneHomeSections.map((section) => (
                             <section
                               key={section.id}
-                              className={`iphone-home-section${
-                                section.id === "arcade"
-                                  ? " iphone-home-section--arcade"
-                                  : ""
-                              }`}
+                              className="iphone-home-section"
                               aria-label={section.title}
                             >
                               <h2 className="iphone-home-section__title">
                                 {section.title}
-                                {section.id === "arcade" ? (
-                                  <span className="iphone-home-section__egg">
-                                    easter egg
-                                  </span>
-                                ) : null}
                               </h2>
                               <div className="iphone-grid iphone-grid--apps iphone-grid--home">
                                 {section.apps.map((app) => (

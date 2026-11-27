@@ -1,4 +1,4 @@
-export type PhoneShellSound = "unlock" | "lock" | "tap" | "tick" | "game";
+export type PhoneShellSound = "unlock" | "lock" | "tap" | "tick";
 
 const UI_GAIN = 0.32;
 
@@ -106,10 +106,6 @@ export function playPhoneShellSound(
     case "lock":
       noiseClick(vol * 0.85);
       tone(320, 75, vol * 0.8, "sine");
-      break;
-    case "game":
-      tone(660, 40, vol * 0.7, "square");
-      tone(880, 35, vol * 0.45, "sine", 0.03);
       break;
     default:
       break;

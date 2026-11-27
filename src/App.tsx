@@ -5,8 +5,6 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import CaseStudyPage from "./pages/CaseStudyPage";
 import ProjectsPage from "./components/ProjectsPage/ProjectsPage";
-import GamePlayPage from "./pages/GamePlayPage";
-import PlayRedirect from "./pages/PlayRedirect";
 import NotFoundPage from "./pages/NotFoundPage";
 import { ThemeProvider } from "./theme/ThemeProvider";
 
@@ -55,20 +53,6 @@ function AnimatedRoutes() {
             </motion.div>
           }
         />
-        <Route
-          path="/games/:gameId"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <GamePlayPage />
-            </motion.div>
-          }
-        />
-        <Route path="/play" element={<PlayRedirect />} />
         <Route
           path="/404"
           element={

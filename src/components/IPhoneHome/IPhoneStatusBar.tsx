@@ -2,8 +2,6 @@ import React from "react";
 
 type IPhoneStatusBarProps = {
   time: string | null;
-  onIslandTap?: () => void;
-  islandTapHint?: boolean;
 };
 
 export function StatusGlyphs() {
@@ -79,50 +77,16 @@ export function StatusGlyphs() {
   );
 }
 
-function DynamicIsland({
-  onTap,
-  tapHint,
-}: {
-  onTap?: () => void;
-  tapHint?: boolean;
-}) {
-  const sensors = (
-    <>
+function DynamicIsland() {
+  return (
+    <div className="iphone-status__island" aria-hidden>
       <span className="iphone-status__island-sensor" aria-hidden />
       <span className="iphone-status__island-lens" aria-hidden />
-    </>
-  );
-  const className = `iphone-status__island${
-    onTap ? " iphone-status__island-btn" : ""
-  }${tapHint ? " iphone-status__island-btn--pulse" : ""}`;
-
-  if (onTap) {
-    return (
-      <button
-        type="button"
-        className={className}
-        onClick={onTap}
-        aria-label="Status indicators"
-      >
-        {sensors}
-      </button>
-    );
-  }
-
-  return (
-    <div className={className} aria-hidden>
-      {sensors}
     </div>
   );
 }
 
-const ARCADE_TAP_TARGET = 5;
-
-const IPhoneStatusBar: React.FC<IPhoneStatusBarProps> = ({
-  time,
-  onIslandTap,
-  islandTapHint,
-}) => {
+const IPhoneStatusBar: React.FC<IPhoneStatusBarProps> = ({ time }) => {
   return (
     <header className="iphone-status shell-status" role="presentation">
       <time
@@ -132,12 +96,10 @@ const IPhoneStatusBar: React.FC<IPhoneStatusBarProps> = ({
       >
         {time ?? "\u00a0"}
       </time>
-      <DynamicIsland onTap={onIslandTap} tapHint={islandTapHint} />
+      <DynamicIsland />
       <StatusGlyphs />
     </header>
   );
 };
-
-export { ARCADE_TAP_TARGET };
 
 export default IPhoneStatusBar;

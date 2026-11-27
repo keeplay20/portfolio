@@ -1,133 +1,72 @@
-# Resume Portfolio - Mandar Vyas
+# Mandar Vyas — Portfolio
 
-A modern, responsive portfolio website built with React and TypeScript, featuring an interactive game center.
+React + TypeScript portfolio built as an interactive **iPhone-style home screen**: lock screen, app folders, in-phone experiences, and dock shortcuts.
 
-## Features
+## What’s on the site
 
-- **Responsive Design**: Works perfectly on all devices (mobile, tablet, desktop)
-- **Modern UI**: Clean, professional design with smooth animations
-- **Interactive Games**: Built-in game center with 4 different games
-- **Performance Optimized**: Fast loading with Framer Motion animations
-- **TypeScript**: Type-safe development experience
-- **Accessibility**: WCAG compliant with proper focus management
+- **Home (`/`)** — Phone shell: lock screen, location map widget, stats, project folders, Experience hub, Settings (themes & display), and dock (Mail, LinkedIn, GitHub, About Me).
+- **About Me** — Profile cover, résumé download (`public/resume/mandar-vyas-resume.pdf`), bio, skills, tech stack, education.
+- **Work (`/work`)** — Project archive and links to case studies (`/work/:projectId`).
+- **Open source** — Open Source contributions hub from the home stats widget (not a dock app).
 
-## Sections
+## Tech stack
 
-1. **Hero**: Introduction with profile card and stats
-2. **About**: Personal information and career highlights
-3. **Experience**: Professional work history with timeline
-4. **Skills**: Technical skills organized by category
-5. **Contact**: Contact information and links
-6. **Game Center**: Interactive games including:
-   - Tic Tac Toe (vs AI)
-   - Rock Paper Scissors
-   - Snake Game
-   - Typing Speed Test
-   - Memory Card Game
+- React 18, TypeScript, React Router, Framer Motion
+- Create React App (`react-scripts`)
+- Typography: Graphik (UI) + monospace tokens in `index.css`
+- Build: Puppeteer scripts for OG / Awwwards preview assets (`npm run build`)
 
-## Technologies Used
+## Getting started
 
-- **Frontend**: React 18, TypeScript
-- **Styling**: CSS3 with CSS Custom Properties
-- **Animations**: Framer Motion
-- **Build Tool**: Create React App
-- **Font**: Inter (UI) + JetBrains Mono (code)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (version 16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-cd React/resume-portfolio
-```
-
-2. Install dependencies:
+**Prerequisites:** Node.js 16+, npm or yarn
 
 ```bash
 npm install
-```
-
-3. Start the development server:
-
-```bash
 npm start
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-### Build for Production
+**Production build:**
 
 ```bash
 npm run build
 ```
 
-This builds the app for production to the `build` folder.
+Output goes to `build/`. Local dev proxies `POST /api/contact` via `src/setupProxy.js` (see `api/contact.js`; deployed as serverless on Vercel when applicable).
 
-## Project Structure
+## Project layout (high level)
 
 ```
 src/
 ├── components/
-│   ├── Header/              # Navigation header
-│   ├── Hero/                # Hero section
-│   ├── About/               # About section
-│   ├── Experience/          # Work experience
-│   ├── Skills/              # Technical skills
-│   ├── Contact/             # Contact information
-│   ├── Footer/              # Footer
-│   ├── GameCenter/          # Game center hub
-│   └── Games/               # Individual games
-│       ├── TicTacToe/
-│       ├── RockPaperScissors/
-│       ├── Snake/
-│       ├── TypingTest/
-│       └── MemoryCardGame/
+│   ├── IPhoneHome/     # Phone UI, lock screen, widgets, in-app shells
+│   ├── ProjectsPage/   # /work gallery
+│   ├── Header/         # Used on /work and 404 routes
+│   └── Footer/
 ├── data/
-│   └── portfolio.ts         # Portfolio content
-├── types/
-│   └── index.ts             # TypeScript types
-├── App.tsx                  # Main app component
-├── index.tsx               # Entry point
-└── index.css               # Global styles
+│   ├── portfolio.ts    # Projects, experience, personalInfo
+│   ├── iphoneHome.ts   # Apps, folders, dock
+│   └── aboutMe.ts      # About Me copy & asset paths
+├── pages/              # Home, CaseStudy, NotFound
+├── theme/              # Phone appearance themes
+└── App.tsx             # Routes
+public/
+├── images/profile.jpg
+└── resume/mandar-vyas-resume.pdf
 ```
 
 ## Customization
 
-To customize the portfolio for your own use:
-
-1. Update the content in `src/data/portfolio.ts`
-2. Replace personal information, experience, and skills
-3. Modify colors in `src/index.css` CSS custom properties
-4. Update the favicon and logo in the `public/` folder
-
-## Performance
-
-- Lighthouse Score: 95+ (Performance, Accessibility, Best Practices, SEO)
-- Mobile-first responsive design
-- Optimized animations with Framer Motion
-- Lazy loading for game components
-- Efficient re-renders with React.memo and useCallback
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+- Copy & roles: `src/data/portfolio.ts`, `src/data/aboutMe.ts`
+- Home screen apps & dock: `src/data/iphoneHome.ts`
+- Phone themes: `src/theme/phoneThemes.ts` + `PhoneShellTheme.css`
+- Headshot & résumé: `public/images/profile.jpg`, `public/resume/mandar-vyas-resume.pdf`
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+[MIT License](LICENSE)
 
 ## Contact
 
-Mandar Vyas - [mandar.vyas@example.com](mailto:mandar.vyas@example.com)
-
-Project Link: [https://github.com/mandarvyas/resume-portfolio](https://github.com/mandarvyas/resume-portfolio)
+Mandar Vyas — [mandar.vyas20@gmail.com](mailto:mandar.vyas20@gmail.com) · [LinkedIn](https://www.linkedin.com/in/mandar-vyas/) · [GitHub](https://github.com/keeplay20)

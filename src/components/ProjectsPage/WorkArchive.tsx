@@ -6,11 +6,7 @@ import "./WorkArchive.css";
 const ROTATE_MS = 5500;
 
 function projectPreviewSrc(project: Project): string | null {
-  if (project.previewImage) return project.previewImage;
-  if (project.demoVideo?.startsWith("/")) {
-    return `${process.env.PUBLIC_URL ?? ""}${project.demoVideo}`;
-  }
-  return null;
+  return project.previewImage ?? null;
 }
 
 function WorkProjectCard({ project }: { project: Project }) {
@@ -52,18 +48,14 @@ function WorkProjectCard({ project }: { project: Project }) {
         </p>
 
         <div className="work-card__actions">
-          {project.liveDemo ? (
-            <a
-              href={project.liveDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="work-card__cta"
-            >
-              Live site ↗
-            </a>
-          ) : (
-            <span className="work-card__soon">Coming soon</span>
-          )}
+          <a
+            href={project.liveDemo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="work-card__cta"
+          >
+            Live site ↗
+          </a>
         </div>
       </div>
     </article>
@@ -205,7 +197,11 @@ function SingleCardCarousel({
 
 const WorkArchive: React.FC = () => {
   const archiveProjects = useMemo(
-    () => projects.filter((p) => p.category === "Web App"),
+    () =>
+      projects.filter(
+        (p): p is Project & { liveDemo: string } =>
+          p.category === "Web App" && Boolean(p.liveDemo)
+      ),
     []
   );
 

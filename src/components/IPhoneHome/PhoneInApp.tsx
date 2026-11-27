@@ -11,7 +11,6 @@ import PhoneInAppIframe from "./PhoneInAppIframe";
 
 export type PhoneInAppLaunch =
   | { mode: "iframe"; src: string }
-  | { mode: "game"; gameId: string }
   | { mode: "experience"; experience: Experience }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
@@ -24,10 +23,9 @@ interface PhoneInAppProps {
   app: PhoneApp;
   launch: PhoneInAppLaunch;
   onBack: () => void;
-  games: Record<string, React.FC>;
 }
 
-const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack, games }) => {
+const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack }) => {
   if (launch.mode === "experience-hub") {
     return (
       <div className="iphone-inapp iphone-inapp--experience-hub">
@@ -80,16 +78,6 @@ const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack, games }) =
       <div className="iphone-inapp__content">
         {launch.mode === "iframe" ? (
           <PhoneInAppIframe title={app.name} src={launch.src} />
-        ) : null}
-
-        {launch.mode === "game" ? (
-          <div className="iphone-inapp__embed iphone-inapp__embed--game">
-            {games[launch.gameId] ? (
-              React.createElement(games[launch.gameId])
-            ) : (
-              <p className="iphone-inapp__empty">Game not found.</p>
-            )}
-          </div>
         ) : null}
 
         {launch.mode === "experience" ? (

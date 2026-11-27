@@ -1,5 +1,5 @@
 # Awwwards submission — Mandar Vyas portfolio
-# Upload cover: public/awwwards-cover.png (1600×1200)
+# Upload cover: public/awwwards-cover.png (1600×1200) — npm run generate:awwwards
 
 SITE URL
 https://mandarvyas.vercel.app/
@@ -8,10 +8,10 @@ WEBSITE NAME
 Mandar Vyas — iPhone Portfolio
 
 SHORT DESCRIPTION (max 185 characters — paste into Description field)
-Senior mobile engineer portfolio as an interactive iPhone: lock screen, app folders for work and experience, in-phone case studies, and a Games arcade—React, TypeScript, Framer Motion.
+Senior mobile engineer portfolio as an interactive iPhone: lock screen, Experience & Projects, in-phone About Me, theme Settings, case studies—React, TypeScript, Framer Motion.
 
 LONGER PROJECT STORY (for extended fields / your notes)
-The site replaces a scroll-heavy résumé with a familiar phone metaphor. Visitors swipe up from a lock screen, browse company and project folders like iOS apps, open case studies inside the device chrome, and reach contact via the dock. Built solo with React 18, TypeScript, React Router, and Framer Motion; OG and Awwwards assets are generated via Puppeteer at build time.
+The site replaces a scroll-heavy resume with a familiar phone metaphor. Visitors swipe up from a lock screen, use the location and stats widgets, open the Experience hub and individual role stories, browse web projects as home-screen apps, and read case studies inside the device chrome. Settings swaps phone themes (saved locally); Open Source opens from the stats widget. The dock exposes Mail, LinkedIn, GitHub, and About Me (résumé, stack, education). Built solo with React 18, TypeScript, React Router, and Framer Motion; OG and Awwwards cover assets are generated via Puppeteer at build time.
 
 COUNTRY
 India
@@ -26,16 +26,18 @@ Design & development: Mandar Vyas
 
 ELEMENT URLS TO HIGHLIGHT (add as Elements / showcase sections)
 Desktop — Home:     https://mandarvyas.vercel.app/
-Desktop — Work:    https://mandarvyas.vercel.app/work
-Case study:        https://mandarvyas.vercel.app/work/animate-spotlight-showcase
-Case study:        https://mandarvyas.vercel.app/work/transition-trail-explorer
-Mobile entry:      https://mandarvyas.vercel.app/ (test on phone viewport)
+Desktop — Work:     https://mandarvyas.vercel.app/work
+Case study:         https://mandarvyas.vercel.app/work/animate-spotlight-showcase
+Case study:         https://mandarvyas.vercel.app/work/transition-trail-explorer
+Mobile entry:       https://mandarvyas.vercel.app/ (test on phone viewport)
 
 VIDEO (highly recommended, MP4, show interaction)
 1. Lock screen → swipe up
-2. Tap Projects folder → open a case study
-3. Home → Games → launch one mini-game
-4. Scroll dock → Mail/LinkedIn affordance
+2. Stats widget → Open Source hub
+3. Experience hub → one role deep dive
+4. Settings → switch phone theme
+5. Project app → in-phone case study (or /work case study)
+6. Dock → About Me (résumé) and Mail
 Keep 60–90 seconds, 1920×1080 or 16:9, no music required.
 
 CHECKOUT

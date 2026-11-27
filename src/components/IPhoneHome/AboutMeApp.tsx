@@ -3,6 +3,7 @@ import { personalInfo } from "../../data/portfolio";
 import {
   ABOUT_ME_PROFILE_IMAGE,
   ABOUT_ME_RESUME_PDF,
+  ABOUT_ME_RESUME_DOWNLOAD_NAME,
   aboutMeEducation,
   aboutMeShortBio,
   aboutMeSkills,
@@ -91,9 +92,7 @@ const AboutMeApp: React.FC<AboutMeAppProps> = ({ onClose }) => {
           <a
             className="about-me__resume"
             href={ABOUT_ME_RESUME_PDF}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
+            download={ABOUT_ME_RESUME_DOWNLOAD_NAME}
           >
             <svg
               width="16"

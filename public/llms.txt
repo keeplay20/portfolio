@@ -1,28 +1,37 @@
 # Mandar Vyas — Portfolio
 
-> Portfolio of Mandar Vyas, Senior Mobile Engineer: React Native at scale (Dream11, Superhealth), interaction labs, and contact.
+> Portfolio of Mandar Vyas, Senior Mobile Engineer: React Native at scale (Dream11, Superhealth), web interaction labs, and in-phone case studies.
 
-This site is a client-rendered React application. The home page is an interactive iPhone-style portfolio (folders for web and mobile projects, games, experience, and dock links). Use the links below for stable entry points.
+This site is a client-rendered React application. The home page is an interactive iPhone-style portfolio: lock screen, Experience and Projects on the home screen, in-phone About Me and Open Source hubs, Settings (themes), and dock shortcuts (Mail, LinkedIn, GitHub).
+
+Canonical site: https://mandarvyas.vercel.app
 
 ## Site
 
-- [Home](https://portfolio-blush-one-87.vercel.app/): Introduction, experience, skills, and contact
-- [Work](https://portfolio-blush-one-87.vercel.app/work): Project gallery and case studies
-- [Tic Tac Toe](https://portfolio-blush-one-87.vercel.app/games/tictactoe): Mini arcade from the phone home Games folder
-- [Snake](https://portfolio-blush-one-87.vercel.app/games/snake): Snake game
+- [Home](https://mandarvyas.vercel.app/): Interactive phone shell — experience, projects, About Me, open source
+- [Work](https://mandarvyas.vercel.app/work): Project gallery and case studies (`/work/:projectId`)
 
 ## Case studies
 
-- [Animate Spotlight Showcase](https://portfolio-blush-one-87.vercel.app/work/animate-spotlight-showcase): Motion and spotlight interaction lab
-- [Transition Trail Explorer](https://portfolio-blush-one-87.vercel.app/work/transition-trail-explorer): UI transition and trail exploration
+- [Animate Spotlight Showcase](https://mandarvyas.vercel.app/work/animate-spotlight-showcase): Motion and spotlight interaction lab
+- [Transition Trail Explorer](https://mandarvyas.vercel.app/work/transition-trail-explorer): UI transition and trail exploration
+- [MovieBuzz](https://mandarvyas.vercel.app/work/moviebuzz): React Native movie discovery app
+- [Sudoku](https://mandarvyas.vercel.app/work/sudoku): Create-and-solve Sudoku (React Native)
+- [Deep Link Doctor](https://mandarvyas.vercel.app/work/deep-link-doctor): Deep-link debugging tool
 
 ## For agents
 
-- [Agent Resource Descriptor](https://portfolio-blush-one-87.vercel.app/.well-known/ard.json): Machine-readable site and API entries (AIR)
-- [Contact API](https://portfolio-blush-one-87.vercel.app/api/contact): POST endpoint for the portfolio contact form
+- [Agent Resource Descriptor](https://mandarvyas.vercel.app/.well-known/ard.json): Machine-readable site metadata (AIR)
+- [Sitemap](https://mandarvyas.vercel.app/sitemap.xml): Crawlable routes
+
+## Contact
+
+Reach Mandar via the dock Mail app on the home screen or directly:
+
+- Email: [mandar.vyas20@gmail.com](mailto:mandar.vyas20@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/mandar-vyas/)
+- [GitHub](https://github.com/keeplay20)
 
 ## Optional
 
-- [LinkedIn](https://www.linkedin.com/in/mandar-vyas/): Professional profile
-- [GitHub](https://github.com/keeplay20): Open source and experiments
 - [Tech practice hub](https://keeplay20.github.io/tech-practice-hub/): Additional JavaScript and learning projects

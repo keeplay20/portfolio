@@ -266,6 +266,64 @@
   --phone-screen-scrim: transparent;
 }
 
+/* Derived tokens (lock notif, solids for accessibility modes) */
+.iphone-device {
+  --phone-lock-notif-text: var(--phone-lock-text);
+  --phone-lock-notif-muted: var(--phone-lock-muted);
+  --phone-lock-notif-accent: var(--phone-settings-accent);
+  --phone-lock-notif-border: color-mix(
+    in srgb,
+    var(--phone-lock-text) 22%,
+    transparent
+  );
+  --phone-lock-notif-bg: color-mix(
+    in srgb,
+    var(--phone-settings-card) 76%,
+    transparent
+  );
+  --phone-lock-notif-solid: color-mix(
+    in srgb,
+    var(--phone-settings-card) 92%,
+    var(--phone-lock-bg) 8%
+  );
+  --phone-dock-solid: color-mix(
+    in srgb,
+    var(--phone-dock-bg) 55%,
+    var(--phone-screen-bg) 45%
+  );
+  --phone-stats-panel-solid: color-mix(
+    in srgb,
+    var(--phone-stats-panel) 52%,
+    var(--phone-screen-bg) 48%
+  );
+  --phone-about-chrome-solid: color-mix(
+    in srgb,
+    var(--phone-settings-bg) 90%,
+    var(--phone-settings-card) 10%
+  );
+  --phone-about-back-solid: color-mix(
+    in srgb,
+    var(--phone-settings-card) 86%,
+    var(--phone-settings-bg) 14%
+  );
+  --phone-map-shade: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--phone-screen-bg) 18%, transparent) 0%,
+      color-mix(in srgb, var(--phone-screen-bg) 42%, transparent) 48%,
+      color-mix(in srgb, var(--phone-screen-bg) 78%, transparent) 100%
+    ),
+    radial-gradient(
+      circle at 58% 42%,
+      transparent 0%,
+      color-mix(in srgb, var(--phone-screen-bg) 28%, transparent) 72%
+    ),
+    radial-gradient(
+      ellipse 50% 30% at 0% 100%,
+      color-mix(in srgb, var(--phone-screen-bg) 48%, transparent) 0%,
+      transparent 72%
+    );
+}
+
 /* Token consumers */
 .iphone-device .iphone-device__screen {
   background-color: var(--phone-screen-bg);
@@ -323,9 +381,22 @@
   background-image: var(--phone-name-gradient);
 }
 
+.iphone-device .iphone-widget {
+  background: var(--phone-widget-map-bg);
+  transition: background var(--phone-transition-duration) ease;
+}
+
 .iphone-device .iphone-widget__map {
   background: var(--phone-widget-map-bg);
   transition: background var(--phone-transition-duration) ease;
+}
+
+.iphone-device .iphone-widget__map-shade {
+  background: var(--phone-map-shade);
+}
+
+.iphone-device .iphone-widget__meta {
+  color: var(--phone-lock-text);
 }
 
 .iphone-device .iphone-widget__map-frame {
@@ -393,6 +464,26 @@
   display: none;
 }
 
+.iphone-device--true-black {
+  --phone-screen-bg: #000;
+  --phone-lock-bg: #000;
+  --phone-dock-solid: color-mix(
+    in srgb,
+    var(--phone-dock-bg) 42%,
+    #000 58%
+  );
+  --phone-stats-panel-solid: color-mix(
+    in srgb,
+    var(--phone-stats-panel) 38%,
+    #000 62%
+  );
+  --phone-lock-notif-solid: color-mix(
+    in srgb,
+    var(--phone-settings-card) 78%,
+    #000 22%
+  );
+}
+
 .iphone-device--true-black .iphone-device__screen {
   background-color: #000;
 }
@@ -401,17 +492,50 @@
   background: #000;
 }
 
+.iphone-device--true-black .iphone-dock {
+  background: var(--phone-dock-solid);
+}
+
+.iphone-device--true-black .iphone-stats-widget {
+  background: var(--phone-stats-panel-solid);
+}
+
+.iphone-device--true-black .iphone-lock-notif {
+  background: var(--phone-lock-notif-solid);
+  border-color: color-mix(in srgb, var(--phone-lock-notif-border) 75%, #000);
+}
+
 .iphone-device--reduce-transparency {
   --phone-blur: 0px;
   --phone-dock-blur: 0px;
 }
 
 .iphone-device--reduce-transparency .iphone-stats-widget {
-  background: color-mix(in srgb, var(--phone-stats-panel) 96%, #000);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: var(--phone-stats-panel-solid);
 }
 
 .iphone-device--reduce-transparency .iphone-dock {
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
+  background: var(--phone-dock-solid);
+}
+
+.iphone-device--reduce-transparency .iphone-lock-notif {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: var(--phone-lock-notif-solid);
+}
+
+.iphone-device--true-black .iphone-widget,
+.iphone-device--true-black .iphone-widget__map {
+  background: color-mix(in srgb, var(--phone-widget-map-bg) 72%, #000);
+}
+
+.iphone-device--reduce-transparency .iphone-widget,
+.iphone-device--reduce-transparency .iphone-widget__map {
+  background: var(--phone-widget-map-bg);
 }
 
 @media (prefers-reduced-motion: no-preference) {

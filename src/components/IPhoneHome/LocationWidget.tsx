@@ -75,14 +75,13 @@ const LocationWidget: React.FC<{ compact?: boolean }> = ({ compact = false }) =>
       </div>
 
       <a
-        className="iphone-widget__attrib"
+        className="iphone-widget__attrib-sr"
         href="https://www.openstreetmap.org/copyright"
         target="_blank"
         rel="noopener noreferrer"
       >
-        © OpenStreetMap
+        © OpenStreetMap contributors
       </a>
-
     </div>
   );
 };

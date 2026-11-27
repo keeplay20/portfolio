@@ -74,11 +74,8 @@ export interface PhoneFolder {
 }
 
 /** Web projects on the shell home — only apps with a live demo (no placeholders). */
-const PHONE_WEB_PROJECT_IDS_EXCLUDED = new Set(["wander-travel"]);
-
 const webProjects = projects.filter(
-  (p) =>
-    p.category === "Web App" && !PHONE_WEB_PROJECT_IDS_EXCLUDED.has(p.id)
+  (p) => p.category === "Web App" && Boolean(p.liveDemo)
 );
 
 const projectIconMeta: Record<
@@ -136,69 +133,6 @@ function projectApp(
     badge: p.status === "In Progress" ? "1" : undefined,
   };
 }
-
-export const gameApps: PhoneApp[] = [
-  {
-    id: "tictactoe",
-    name: "Tic Tac Toe",
-    label: "Tic Tac Toe",
-    glyph: "O/X",
-    iconBg: "#0a84ff",
-    iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #0a84ff, #5ac8fa)",
-    iconWordmark: "Tic Tac Toe",
-    overview: "Classic X's and O's against a simple opponent.",
-    destination: { type: "route", path: "/games/tictactoe" },
-  },
-  {
-    id: "rps",
-    name: "Rock Paper Scissors",
-    label: "Rock Paper",
-    glyph: "RPS",
-    iconWordmark: "Rock Paper",
-    iconBg: "#bf5af2",
-    iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #af52de, #ff2d55)",
-    overview: "Quick rounds against AI.",
-    destination: { type: "route", path: "/games/rps" },
-  },
-  {
-    id: "snake",
-    name: "Snake",
-    label: "Snake",
-    glyph: "SN",
-    iconWordmark: "Snake",
-    iconBg: "#30d158",
-    iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #30d158, #248a3d)",
-    overview: "Classic snake on a grid.",
-    destination: { type: "route", path: "/games/snake" },
-  },
-  {
-    id: "typing",
-    name: "Typing Test",
-    label: "Typing",
-    glyph: "WPM",
-    iconWordmark: "Typing Test",
-    iconBg: "#ff9f0a",
-    iconFg: "#1c1c1e",
-    iconBackground: "linear-gradient(145deg, #ff9f0a, #ffcc00)",
-    overview: "Measure typing speed on code snippets.",
-    destination: { type: "route", path: "/games/typing" },
-  },
-  {
-    id: "memory",
-    name: "Memory Cards",
-    label: "Memory",
-    glyph: "MEM",
-    iconWordmark: "Memory Cards",
-    iconBg: "#ff375f",
-    iconFg: "#fff",
-    iconBackground: "linear-gradient(145deg, #ff375f, #ff6482)",
-    overview: "Flip and match pairs.",
-    destination: { type: "route", path: "/games/memory" },
-  },
-];
 
 export const experienceIconMeta: Record<
   string,
@@ -332,7 +266,7 @@ export const phoneFolders: PhoneFolder[] = [
   },
 ];
 
-/** Home screen rows — Experience first, then projects (games are an easter egg). */
+/** Home screen rows — Experience first, then projects. */
 export const phoneHomeSections: PhoneHomeSection[] = [
   {
     id: "experience",
@@ -345,12 +279,6 @@ export const phoneHomeSections: PhoneHomeSection[] = [
     apps: webProjects.map((p) => projectApp(p)),
   },
 ];
-
-export const phoneArcadeSection: PhoneHomeSection = {
-  id: "arcade",
-  title: "Arcade",
-  apps: gameApps,
-};
 
 export const dockApps: PhoneApp[] = [
   {
@@ -396,7 +324,7 @@ export const dockApps: PhoneApp[] = [
     iconFg: "#fff",
     iconBackground:
       "linear-gradient(155deg, #ffb340 0%, #ff9500 42%, #ff6b00 100%)",
-    overview: `${personalInfo.title} — skills, stack, education, and résumé.`,
+    overview: `${personalInfo.title} — skills, stack, education, and resume.`,
     destination: { type: "about-me-hub" },
   },
 ];
@@ -429,7 +357,6 @@ export function getAppDirectLink(
 
 export type InPhoneLaunch =
   | { mode: "iframe"; src: string }
-  | { mode: "route"; path: string }
   | { mode: "experience"; experienceId: string }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
@@ -472,9 +399,6 @@ export function resolveInPhoneLaunch(
   }
 
   if (destination.type === "route") {
-    if (destination.path.startsWith("/games/")) {
-      return { mode: "route", path: destination.path };
-    }
     return {
       mode: "iframe",
       src: new URL(destination.path, window.location.origin).href,
@@ -485,9 +409,6 @@ export function resolveInPhoneLaunch(
   if (direct) {
     if (direct.external) {
       return { mode: "iframe", src: direct.href };
-    }
-    if (direct.href.startsWith("/games/")) {
-      return { mode: "route", path: direct.href };
     }
     return {
       mode: "iframe",
