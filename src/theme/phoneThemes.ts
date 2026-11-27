@@ -1,4 +1,10 @@
-export type PhoneThemeId = "graphite" | "obsidian" | "midnight" | "amber";
+export type PhoneThemeId =
+  | "graphite"
+  | "obsidian"
+  | "midnight"
+  | "amber"
+  | "teal"
+  | "sage";
 
 export type PhoneThemeMeta = {
   id: PhoneThemeId;
@@ -36,6 +42,20 @@ export const PHONE_THEME_LIST: PhoneThemeMeta[] = [
     detail: "Warm portfolio gold",
     isDark: true,
     swatch: "linear-gradient(145deg, #c9a06b, #5c4030)",
+  },
+  {
+    id: "teal",
+    label: "Teal",
+    detail: "Deep reef & mint glow",
+    isDark: true,
+    swatch: "linear-gradient(145deg, #1c6b6a, #071014)",
+  },
+  {
+    id: "sage",
+    label: "Sage",
+    detail: "Olive stone & warm cream",
+    isDark: true,
+    swatch: "linear-gradient(145deg, #697565, #181c14)",
   },
 ];
 

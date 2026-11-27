@@ -20,6 +20,7 @@ import HomeStatsWidget from "./HomeStatsWidget";
 import LocationWidget from "./LocationWidget";
 import PhoneInApp, { PhoneInAppLaunch } from "./PhoneInApp";
 import PhoneLockScreen from "./PhoneLockScreen";
+import { openSourceHubApp } from "../../data/openSourceContributions";
 import {
   WARRANTY_VAULT_TEASER_ID,
   warrantyVaultTeaserApp,
@@ -98,6 +99,8 @@ function toPhoneInAppLaunch(raw: InPhoneLaunch): PhoneInAppLaunch {
       return { mode: "experience-hub" };
     case "open-source-hub":
       return { mode: "open-source-hub" };
+    case "about-me-hub":
+      return { mode: "about-me-hub" };
     case "settings":
       return { mode: "settings" };
     case "coming-soon":
@@ -260,14 +263,9 @@ const IPhoneHomeShell: React.FC = () => {
     setView("inapp");
   }, []);
 
-  const openSourceDockApp = useMemo(
-    () => dockApps.find((app) => app.id === "opensource"),
-    []
-  );
-
   const launchOpenSourceHub = useCallback(() => {
-    if (openSourceDockApp) launchAppInPhone(openSourceDockApp);
-  }, [openSourceDockApp, launchAppInPhone]);
+    launchAppInPhone(openSourceHubApp);
+  }, [launchAppInPhone]);
 
   const openWarrantyVaultTeaser = useCallback(() => {
     play("unlock");

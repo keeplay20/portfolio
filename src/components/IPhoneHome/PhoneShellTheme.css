@@ -180,6 +180,92 @@
   );
 }
 
+.iphone-device[data-phone-theme="teal"] {
+  --phone-screen-bg: #071014;
+  --phone-lock-bg: #071014;
+  --phone-lock-text: #b8f2e6;
+  --phone-lock-muted: rgba(184, 242, 230, 0.72);
+  --phone-status-text: #b8f2e6;
+  --phone-home-title: rgba(184, 242, 230, 0.94);
+  --phone-dock-bg: rgba(10, 31, 36, 0.82);
+  --phone-stat-value: rgba(214, 255, 248, 0.98);
+  --phone-stat-label: rgba(184, 242, 230, 0.62);
+  --phone-stats-panel: rgba(15, 58, 63, 0.72);
+  --phone-stats-panel-border: rgba(28, 107, 106, 0.28);
+  --phone-stats-cell: rgba(28, 107, 106, 0.1);
+  --phone-stats-cell-border: rgba(28, 107, 106, 0.16);
+  --phone-settings-bg: #0a1f24;
+  --phone-settings-chrome: rgba(7, 16, 20, 0.96);
+  --phone-settings-card: #0f3a3f;
+  --phone-settings-text: #b8f2e6;
+  --phone-settings-muted: rgba(184, 242, 230, 0.55);
+  --phone-settings-accent: #1c6b6a;
+  --phone-settings-border: rgba(28, 107, 106, 0.22);
+  --phone-accent-soft: #1c6b6a;
+  --phone-widget-map-bg: #0a1f24;
+  --phone-map-filter: brightness(0.48) contrast(1.14) saturate(0.55) hue-rotate(145deg);
+  --phone-map-cover: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(7, 16, 20, 0.92) 45%,
+    rgba(7, 16, 20, 0.98) 100%
+  );
+  --phone-map-tint-a: rgba(28, 107, 106, 0.12);
+  --phone-map-tint-b: rgba(184, 242, 230, 0.06);
+  --phone-name-gradient: linear-gradient(
+    96deg,
+    #e8fff9 0%,
+    #b8f2e6 32%,
+    #5ec4b8 68%,
+    #1c6b6a 100%
+  );
+  --phone-icon-gloss: rgba(184, 242, 230, 0.12);
+  --phone-screen-scrim: transparent;
+}
+
+.iphone-device[data-phone-theme="sage"] {
+  --phone-screen-bg: #181c14;
+  --phone-lock-bg: #181c14;
+  --phone-lock-text: #ecdfcc;
+  --phone-lock-muted: rgba(236, 223, 204, 0.72);
+  --phone-status-text: #ecdfcc;
+  --phone-home-title: rgba(236, 223, 204, 0.94);
+  --phone-dock-bg: rgba(60, 61, 55, 0.82);
+  --phone-stat-value: rgba(244, 238, 228, 0.98);
+  --phone-stat-label: rgba(236, 223, 204, 0.62);
+  --phone-stats-panel: rgba(60, 61, 55, 0.78);
+  --phone-stats-panel-border: rgba(105, 117, 101, 0.32);
+  --phone-stats-cell: rgba(105, 117, 101, 0.1);
+  --phone-stats-cell-border: rgba(105, 117, 101, 0.18);
+  --phone-settings-bg: #181c14;
+  --phone-settings-chrome: rgba(24, 28, 20, 0.96);
+  --phone-settings-card: #3c3d37;
+  --phone-settings-text: #ecdfcc;
+  --phone-settings-muted: rgba(236, 223, 204, 0.52);
+  --phone-settings-accent: #697565;
+  --phone-settings-border: rgba(105, 117, 101, 0.24);
+  --phone-accent-soft: #697565;
+  --phone-widget-map-bg: #181c14;
+  --phone-map-filter: brightness(0.5) contrast(1.1) saturate(0.42) sepia(0.22);
+  --phone-map-cover: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(24, 28, 20, 0.92) 45%,
+    rgba(24, 28, 20, 0.98) 100%
+  );
+  --phone-map-tint-a: rgba(105, 117, 101, 0.12);
+  --phone-map-tint-b: rgba(236, 223, 204, 0.06);
+  --phone-name-gradient: linear-gradient(
+    96deg,
+    #faf6ef 0%,
+    #ecdfcc 35%,
+    #a8a89a 68%,
+    #697565 100%
+  );
+  --phone-icon-gloss: rgba(236, 223, 204, 0.1);
+  --phone-screen-scrim: transparent;
+}
+
 /* Token consumers */
 .iphone-device .iphone-device__screen {
   background-color: var(--phone-screen-bg);

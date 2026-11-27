@@ -43,6 +43,7 @@ export type AppDestination =
   | { type: "experience"; experienceId: string }
   | { type: "experience-hub" }
   | { type: "open-source-hub" }
+  | { type: "about-me-hub" }
   | { type: "settings" }
   | { type: "coming-soon"; teaserId: string };
 
@@ -387,17 +388,16 @@ export const dockApps: PhoneApp[] = [
     destination: { type: "external", url: personalInfo.github },
   },
   {
-    id: "opensource",
-    name: "Open Source",
-    label: "Open Source",
-    glyph: "OSS",
-    iconBg: "#5856d6",
+    id: "aboutme",
+    name: "About Me",
+    label: "About Me",
+    glyph: "Me",
+    iconBg: "#ff9500",
     iconFg: "#fff",
     iconBackground:
-      "linear-gradient(155deg, #a855f7 0%, #5856d6 42%, #0a84ff 100%)",
-    overview:
-      "Merged PR #1959 on hot-updater: Console hint when a bundle git commit has no console.gitUrl (docs link + tests).",
-    destination: { type: "open-source-hub" },
+      "linear-gradient(155deg, #ffb340 0%, #ff9500 42%, #ff6b00 100%)",
+    overview: `${personalInfo.title} — skills, stack, education, and résumé.`,
+    destination: { type: "about-me-hub" },
   },
 ];
 
@@ -433,6 +433,7 @@ export type InPhoneLaunch =
   | { mode: "experience"; experienceId: string }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
+  | { mode: "about-me-hub" }
   | { mode: "settings" }
   | { mode: "coming-soon"; teaserId: string }
   | { mode: "placeholder" };
@@ -452,6 +453,10 @@ export function resolveInPhoneLaunch(
 
   if (destination.type === "open-source-hub") {
     return { mode: "open-source-hub" };
+  }
+
+  if (destination.type === "about-me-hub") {
+    return { mode: "about-me-hub" };
   }
 
   if (destination.type === "settings") {
@@ -521,6 +526,7 @@ export function resolveAppHref(
     case "experience":
     case "experience-hub":
     case "open-source-hub":
+    case "about-me-hub":
     case "settings":
     case "coming-soon":
       return [];

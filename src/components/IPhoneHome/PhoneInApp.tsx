@@ -4,6 +4,7 @@ import { PhoneApp } from "../../data/iphoneHome";
 import ExperienceDeepDive from "./ExperienceDeepDive";
 import ExperienceHub from "./ExperienceHub";
 import OpenSourceHub from "./OpenSourceHub";
+import AboutMeApp from "./AboutMeApp";
 import SettingsApp from "./SettingsApp";
 import ComingSoonApp from "./ComingSoonApp";
 import PhoneInAppIframe from "./PhoneInAppIframe";
@@ -14,6 +15,7 @@ export type PhoneInAppLaunch =
   | { mode: "experience"; experience: Experience }
   | { mode: "experience-hub" }
   | { mode: "open-source-hub" }
+  | { mode: "about-me-hub" }
   | { mode: "settings" }
   | { mode: "coming-soon"; teaserId: string }
   | { mode: "placeholder" };
@@ -38,6 +40,14 @@ const PhoneInApp: React.FC<PhoneInAppProps> = ({ app, launch, onBack, games }) =
     return (
       <div className="iphone-inapp iphone-inapp--experience-hub">
         <OpenSourceHub onClose={onBack} />
+      </div>
+    );
+  }
+
+  if (launch.mode === "about-me-hub") {
+    return (
+      <div className="iphone-inapp iphone-inapp--about-me">
+        <AboutMeApp onClose={onBack} />
       </div>
     );
   }

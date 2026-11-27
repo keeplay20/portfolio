@@ -1609,6 +1609,7 @@
 
 /* ---- In-phone app (Safari-style) ---- */
 .iphone-inapp--experience-hub,
+.iphone-inapp--about-me,
 .iphone-inapp--settings,
 .iphone-inapp--coming-soon {
   display: flex;
@@ -1620,7 +1621,8 @@
 }
 
 .iphone-inapp--settings .iphone-settings,
-.iphone-inapp--coming-soon .iphone-coming-soon {
+.iphone-inapp--coming-soon .iphone-coming-soon,
+.iphone-inapp--about-me .about-me {
   flex: 1;
   min-height: 0;
 }

@@ -374,6 +374,19 @@ function IconGraphic({ id, light }: { id: string; light?: boolean }) {
           />
         </svg>
       );
+    case "aboutme":
+      return (
+        <svg viewBox="0 0 48 48" className="ios-icon__svg">
+          <circle cx="24" cy="16" r="7" fill={fill} />
+          <path
+            d="M10 40c2.8-8.5 8.5-12 14-12s11.2 3.5 14 12"
+            stroke={stroke}
+            strokeWidth="2.75"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </svg>
+      );
     case "superhealth":
       return (
         <svg viewBox="0 0 48 48" className="ios-icon__svg">
