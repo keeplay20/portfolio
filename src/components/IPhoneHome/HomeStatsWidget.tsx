@@ -128,9 +128,7 @@ const HomeStatsWidget: React.FC<HomeStatsWidgetProps> = ({
               delay={120}
               reduceMotion={reduceMotion}
             />
-            <p className="iphone-stats-widget__label">
-              Merged PRs · {repoLabel}
-            </p>
+            <p className="iphone-stats-widget__label">{openSourceStat.label}</p>
           </div>
           <span className="iphone-stats-widget__chevron" aria-hidden="true">
             ›

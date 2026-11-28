@@ -275,6 +275,10 @@
 }
 
 .iphone-home__phone-stage .iphone-device--15 {
+  filter: none;
+}
+
+.iphone-home__phone-stage .iphone-device--15 .iphone-device__bezel {
   filter:
     drop-shadow(0 22px 40px rgba(0, 0, 0, 0.48))
     drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
@@ -337,10 +341,15 @@
     inset -2px 0 6px rgba(0, 0, 0, 0.55);
 }
 
-/* iPhone 15 — aluminum frame, thin bezels, mute switch + volume */
+/* iPhone 15 — large squircle on metal chassis; inner screen keeps tighter radius */
+.iphone-device--15 {
+  --iphone-chassis-radius: 3.9rem;
+}
+
 .iphone-device--15 .iphone-device__bezel {
-  border-radius: 2.82rem;
-  padding: 0.26rem;
+  border-radius: var(--iphone-chassis-radius);
+  corner-shape: squircle;
+  padding: 0.36rem;
   background:
     linear-gradient(
       90deg,
@@ -412,6 +421,18 @@
   pointer-events: none;
   z-index: 0;
   background:
+    radial-gradient(
+      ellipse 72% 42% at 50% 2%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.06) 42%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 72% 42% at 50% 98%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 40%,
+      transparent 70%
+    ),
     radial-gradient(
       ellipse 48% 30% at 20% 6%,
       rgba(255, 255, 255, 0.28) 0%,
@@ -1877,9 +1898,12 @@
     --iphone-display-name-size: 1.82rem;
   }
 
+  .iphone-device--15 {
+    --iphone-chassis-radius: 3.42rem;
+  }
+
   .iphone-device--15 .iphone-device__bezel {
-    border-radius: 2.55rem;
-    padding: 0.22rem;
+    padding: 0.3rem;
   }
 
   .iphone-device--15 .iphone-device__screen {

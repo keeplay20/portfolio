@@ -21,4 +21,5 @@ const openSourceProjectIds = new Set(
 export const openSourceStat = {
   mergedPrs: openSourceContributions.length,
   repos: openSourceProjectIds.size,
-};
+  label: "OSS",
+} as const;
