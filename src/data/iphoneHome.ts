@@ -144,32 +144,32 @@ export const experienceIconMeta: Record<
   }
 > = {
   superhealth: {
-    iconBackground: "linear-gradient(145deg, #dc2626, #991b1b)",
-    iconBg: "#dc2626",
+    iconBackground: "linear-gradient(145deg, #914bfa 0%, #1f30a0 100%)",
+    iconBg: "#914bfa",
     iconFg: "#fff",
     iconImage: appIconPath("superhealth.svg"),
   },
   dream11: {
-    iconBackground: "linear-gradient(145deg, #ea580c, #c2410c)",
-    iconBg: "#ea580c",
+    iconBackground: "linear-gradient(145deg, #ef4444 0%, #b91c1c 55%, #7f1d1d 100%)",
+    iconBg: "#dc2626",
     iconFg: "#fff",
     iconImage: appIconPath("dream11.svg"),
   },
   gupshup: {
-    iconBackground: "linear-gradient(145deg, #2563eb, #1d4ed8)",
-    iconBg: "#2563eb",
+    iconBackground: "linear-gradient(145deg, #8b5cf6 0%, #6d28d9 100%)",
+    iconBg: "#7c3aed",
     iconFg: "#fff",
     iconImage: appIconPath("gupshup.svg"),
   },
   vxl: {
-    iconBackground: "#ffffff",
+    iconBackground: "linear-gradient(145deg, #f4f4f5 0%, #ffffff 100%)",
     iconBg: "#ffffff",
     iconFg: "#1a1a1a",
     iconImage: appIconPath("vxl.svg"),
   },
   freelancer: {
-    iconBackground: "linear-gradient(145deg, #7c3aed, #5b21b6)",
-    iconBg: "#7c3aed",
+    iconBackground: "linear-gradient(145deg, #52525b 0%, #27272a 100%)",
+    iconBg: "#3f3f46",
     iconFg: "#fff",
     iconImage: appIconPath("freelancer.svg"),
   },
@@ -192,6 +192,33 @@ function experienceOverview(exp: (typeof experiences)[number]): string {
 export function getExperienceIconImage(experienceId: string): string {
   const meta = experienceIconMeta[experienceId];
   return meta?.iconImage ?? appIconPath(`${experienceId}.svg`);
+}
+
+/** Experience hub backdrop — dark base + brand accent from the active icon */
+export function getExperienceHubTheme(experienceId: string): {
+  deep: string;
+  accent: string;
+} {
+  const meta = experienceIconMeta[experienceId];
+  const accent = meta?.iconBg ?? "#152331";
+
+  if (experienceId === "superhealth") {
+    return { deep: "#1f30a0", accent: "#914bfa" };
+  }
+  if (experienceId === "dream11") {
+    return { deep: "#450a0a", accent: "#dc2626" };
+  }
+  if (experienceId === "gupshup") {
+    return { deep: "#0a0a0f", accent: "#7c3aed" };
+  }
+  if (experienceId === "vxl") {
+    return { deep: "#3f3f46", accent: "#881337" };
+  }
+  if (experienceId === "freelancer") {
+    return { deep: "#0a0a0c", accent: "#52525b" };
+  }
+
+  return { deep: "#000000", accent };
 }
 
 export const settingsApp: PhoneApp = {

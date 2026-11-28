@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import {
+  animate,
   motion,
   useMotionValue,
   useReducedMotion,
@@ -38,11 +39,23 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const showIdleMotion = !reduceMotion && !isDragging;
 
-  const resetDrag = useCallback(() => {
-    dragY.set(0);
-    setIsDragging(false);
-    activeRef.current = false;
-  }, [dragY]);
+  const resetDrag = useCallback(
+    (withSpring = false) => {
+      setIsDragging(false);
+      activeRef.current = false;
+      if (withSpring && !reduceMotion && dragY.get() !== 0) {
+        void animate(dragY, 0, {
+          type: "spring",
+          stiffness: 420,
+          damping: 36,
+          mass: 0.82,
+        });
+        return;
+      }
+      dragY.set(0);
+    },
+    [dragY, reduceMotion]
+  );
 
   const finishGesture = useCallback(
     (deltaY: number, didMove: boolean) => {
@@ -54,7 +67,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
         onUnlock();
         return;
       }
-      resetDrag();
+      resetDrag(true);
     },
     [onUnlock, resetDrag]
   );
@@ -97,7 +110,7 @@ const PhoneLockScreen: React.FC<PhoneLockScreenProps> = ({
   );
 
   const onPointerCancel = useCallback(() => {
-    resetDrag();
+    resetDrag(true);
   }, [resetDrag]);
 
   const onKeyDown = useCallback(

@@ -1,13 +1,31 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import {
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+  type TargetAndTransition,
+} from "framer-motion";
 import { experiences } from "../../data/portfolio";
-import { getExperienceIconImage } from "../../data/iphoneHome";
+import {
+  getExperienceHubTheme,
+  getExperienceIconImage,
+} from "../../data/iphoneHome";
 import { Experience } from "../../types";
 import ExperienceDeepDive from "./ExperienceDeepDive";
 import ExperienceStickyBoard from "./ExperienceStickyBoard";
 import "./ExperienceHub.css";
 
 const SWIPE_OFFSET_PX = 48;
+const SWIPE_VELOCITY_PX_MS = 0.42;
+const WHEEL_GESTURE_IDLE_MS = 140;
+
+/** Shared timing for logo carousel + card pages */
+const HUB_PAGE_TRANSITION = {
+  type: "spring" as const,
+  stiffness: 240,
+  damping: 30,
+  mass: 1.05,
+};
 
 type ExperienceHubProps = {
   onClose: () => void;
@@ -25,18 +43,15 @@ function getCardHighlight(exp: Experience): string {
 function ExperienceCardSection({
   exp,
   onKnowMore,
-  sectionRef,
 }: {
   exp: Experience;
   onKnowMore: (id: string) => void;
-  sectionRef: (node: HTMLElement | null) => void;
 }) {
   const highlight = getCardHighlight(exp);
   const tenureMeta = [exp.duration, exp.location].filter(Boolean).join(" · ");
 
   return (
     <section
-      ref={sectionRef}
       className="exp-hub__card-section"
       aria-labelledby={`exp-hub-role-${exp.id}`}
     >
@@ -97,9 +112,16 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
   const [detailId, setDetailId] = useState<string | null>(null);
 
   const swipeStartXRef = useRef<number | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const dragActiveRef = useRef(false);
+  const lastPointerXRef = useRef(0);
+  const lastPointerTimeRef = useRef(0);
+  const pointerVelocityRef = useRef(0);
+  const wheelAccumRef = useRef(0);
+  const wheelIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const cardViewportRef = useRef<HTMLDivElement>(null);
+  const [cardPageHeight, setCardPageHeight] = useState(0);
   const detailScrollRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   const count = experiences.length;
@@ -119,46 +141,116 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
   }, [count]);
 
   useEffect(() => {
-    const section = sectionRefs.current[index];
-    const scroller = scrollRef.current;
-    if (!section || !scroller) return;
-    scroller.scrollTo({
-      top: section.offsetTop,
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
-  }, [index, reduceMotion]);
+    const viewport = cardViewportRef.current;
+    if (!viewport) return;
+
+    const measure = () => setCardPageHeight(viewport.clientHeight);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const root = showcaseRef.current;
+    if (!root) return;
+
+    const flushWheel = () => {
+      const accumulated = wheelAccumRef.current;
+      wheelAccumRef.current = 0;
+      wheelIdleTimerRef.current = null;
+      if (accumulated >= SWIPE_OFFSET_PX) {
+        paginate(1);
+      } else if (accumulated <= -SWIPE_OFFSET_PX) {
+        paginate(-1);
+      }
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      wheelAccumRef.current += event.deltaX;
+      if (wheelIdleTimerRef.current) {
+        clearTimeout(wheelIdleTimerRef.current);
+      }
+      wheelIdleTimerRef.current = setTimeout(flushWheel, WHEEL_GESTURE_IDLE_MS);
+    };
+
+    root.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      root.removeEventListener("wheel", onWheel);
+      if (wheelIdleTimerRef.current) {
+        clearTimeout(wheelIdleTimerRef.current);
+      }
+    };
+  }, [paginate]);
 
   const onShowcasePointerDown = useCallback((event: React.PointerEvent) => {
+    if (event.button !== 0) return;
+    dragActiveRef.current = true;
+    setIsDragging(true);
     swipeStartXRef.current = event.clientX;
+    lastPointerXRef.current = event.clientX;
+    lastPointerTimeRef.current = performance.now();
+    pointerVelocityRef.current = 0;
     showcaseRef.current?.setPointerCapture(event.pointerId);
   }, []);
+
+  const onShowcasePointerMove = useCallback(
+    (event: React.PointerEvent) => {
+      if (!dragActiveRef.current || swipeStartXRef.current === null) return;
+
+      const now = performance.now();
+      const elapsed = now - lastPointerTimeRef.current;
+      if (elapsed > 0) {
+        pointerVelocityRef.current =
+          (event.clientX - lastPointerXRef.current) / elapsed;
+      }
+      lastPointerXRef.current = event.clientX;
+      lastPointerTimeRef.current = now;
+    },
+    []
+  );
 
   const onShowcasePointerUp = useCallback(
     (event: React.PointerEvent) => {
       const startX = swipeStartXRef.current;
       swipeStartXRef.current = null;
+      dragActiveRef.current = false;
+      setIsDragging(false);
       if (showcaseRef.current?.hasPointerCapture(event.pointerId)) {
         showcaseRef.current.releasePointerCapture(event.pointerId);
       }
       if (startX === null) return;
+
       const delta = event.clientX - startX;
-      if (delta < -SWIPE_OFFSET_PX) {
+      const velocity = pointerVelocityRef.current;
+      const shouldAdvance =
+        delta < -SWIPE_OFFSET_PX || velocity < -SWIPE_VELOCITY_PX_MS;
+      const shouldRetreat =
+        delta > SWIPE_OFFSET_PX || velocity > SWIPE_VELOCITY_PX_MS;
+
+      if (shouldAdvance) {
         paginate(1);
-        return;
-      }
-      if (delta > SWIPE_OFFSET_PX) {
+      } else if (shouldRetreat) {
         paginate(-1);
       }
     },
     [paginate]
   );
 
-  const onShowcasePointerCancel = useCallback((event: React.PointerEvent) => {
-    swipeStartXRef.current = null;
-    if (showcaseRef.current?.hasPointerCapture(event.pointerId)) {
-      showcaseRef.current.releasePointerCapture(event.pointerId);
-    }
-  }, []);
+  const onShowcasePointerCancel = useCallback(
+    (event: React.PointerEvent) => {
+      swipeStartXRef.current = null;
+      dragActiveRef.current = false;
+      setIsDragging(false);
+      if (showcaseRef.current?.hasPointerCapture(event.pointerId)) {
+        showcaseRef.current.releasePointerCapture(event.pointerId);
+      }
+    },
+    []
+  );
 
   if (detail) {
     return (
@@ -202,12 +294,21 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
     );
   }
 
-  const logoTransition = reduceMotion
-    ? { duration: 0 }
-    : { type: "spring" as const, stiffness: 260, damping: 26, mass: 0.95 };
+  const pageTransition = reduceMotion ? { duration: 0 } : HUB_PAGE_TRANSITION;
+  const hubTheme = getExperienceHubTheme(activeExperience.id);
+  const hubThemeVars = {
+    "--exp-hub-deep": hubTheme.deep,
+    "--exp-hub-accent": hubTheme.accent,
+  };
 
   return (
-    <div className="exp-hub">
+    <motion.div
+      className="exp-hub"
+      style={hubThemeVars as React.CSSProperties}
+      initial={false}
+      animate={hubThemeVars as TargetAndTransition}
+      transition={pageTransition}
+    >
       <header className="exp-hub__topbar">
         <button type="button" className="exp-hub__nav-btn" onClick={onClose}>
           ← Home
@@ -218,11 +319,14 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
 
       <div
         ref={showcaseRef}
-        className="exp-hub__showcase"
+        className={`exp-hub__showcase${
+          isDragging ? " exp-hub__showcase--dragging" : ""
+        }`}
         role="region"
         aria-label={`${activeExperience.company}, ${activeExperience.position}. Swipe for more.`}
         tabIndex={0}
         onPointerDown={onShowcasePointerDown}
+        onPointerMove={onShowcasePointerMove}
         onPointerUp={onShowcasePointerUp}
         onPointerCancel={onShowcasePointerCancel}
         onKeyDown={(event) => {
@@ -230,43 +334,58 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
           if (event.key === "ArrowLeft") paginate(-1);
         }}
       >
-        <LayoutGroup id="exp-hub-logo-carousel">
-          <motion.div className="exp-hub__hero" layout={false} aria-hidden>
-            <LogoCarouselTile
-              key={prevExperience.id}
-              exp={prevExperience}
-              slot="left"
-              transition={logoTransition}
-            />
-            <LogoCarouselTile
-              key={activeExperience.id}
-              exp={activeExperience}
-              slot="center"
-              transition={logoTransition}
-            />
-            <LogoCarouselTile
-              key={nextExperience.id}
-              exp={nextExperience}
-              slot="right"
-              transition={logoTransition}
-            />
-          </motion.div>
-        </LayoutGroup>
-
-        <article className="exp-hub__card" aria-live="polite">
-          <div ref={scrollRef} className="exp-hub__card-scroll">
-            {experiences.map((exp, i) => (
-              <ExperienceCardSection
-                key={exp.id}
-                exp={exp}
-                onKnowMore={setDetailId}
-                sectionRef={(node) => {
-                  sectionRefs.current[i] = node;
-                }}
+        <div className="exp-hub__showcase-track">
+          <LayoutGroup id="exp-hub-logo-carousel">
+            <motion.div className="exp-hub__hero" layout={false} aria-hidden>
+              <LogoCarouselTile
+                key={prevExperience.id}
+                exp={prevExperience}
+                slot="left"
+                transition={pageTransition}
               />
-            ))}
-          </div>
-        </article>
+              <LogoCarouselTile
+                key={activeExperience.id}
+                exp={activeExperience}
+                slot="center"
+                transition={pageTransition}
+              />
+              <LogoCarouselTile
+                key={nextExperience.id}
+                exp={nextExperience}
+                slot="right"
+                transition={pageTransition}
+              />
+            </motion.div>
+          </LayoutGroup>
+
+          <article className="exp-hub__card" aria-live="polite">
+            <div
+              ref={cardViewportRef}
+              className="exp-hub__card-scroll"
+              style={
+                cardPageHeight > 0
+                  ? ({
+                      "--exp-hub-page-h": `${cardPageHeight}px`,
+                    } as React.CSSProperties)
+                  : undefined
+              }
+            >
+              <motion.div
+                className="exp-hub__card-track"
+                animate={{ y: -index * cardPageHeight }}
+                transition={pageTransition}
+              >
+                {experiences.map((exp) => (
+                  <ExperienceCardSection
+                    key={exp.id}
+                    exp={exp}
+                    onKnowMore={setDetailId}
+                  />
+                ))}
+              </motion.div>
+            </div>
+          </article>
+        </div>
       </div>
 
       <motion.div className="exp-hub__footer" layout={false}>
@@ -280,7 +399,7 @@ const ExperienceHub: React.FC<ExperienceHubProps> = ({ onClose }) => {
         </div>
         <p className="exp-hub__swipe-hint">Swipe to change company</p>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
