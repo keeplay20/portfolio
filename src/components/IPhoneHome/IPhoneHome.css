@@ -341,15 +341,22 @@
     inset -2px 0 6px rgba(0, 0, 0, 0.55);
 }
 
-/* iPhone 15 — large squircle on metal chassis; inner screen keeps tighter radius */
+/* iPhone 15 — concentric squircles (390pt ref); screen radius = chassis − frame pad */
 .iphone-device--15 {
-  --iphone-chassis-radius: 3.9rem;
+  --iphone-chassis-radius: 55px;
+  --iphone-frame-padding: 7px;
+  --iphone-screen-radius: calc(
+    var(--iphone-chassis-radius) - var(--iphone-frame-padding)
+  );
 }
 
 .iphone-device--15 .iphone-device__bezel {
+  position: relative;
+  z-index: 0;
   border-radius: var(--iphone-chassis-radius);
   corner-shape: squircle;
-  padding: 0.36rem;
+  padding: var(--iphone-frame-padding);
+  overflow: visible;
   background:
     linear-gradient(
       90deg,
@@ -371,15 +378,18 @@
     );
   box-shadow:
     0 28px 56px rgba(0, 0, 0, 0.52),
-    0 0 0 1px rgba(0, 0, 0, 0.65),
-    0 0 0 0.5px rgba(255, 255, 255, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+    0 0 0 1px rgba(0, 0, 0, 0.72),
+    0 0 0 1.5px rgba(255, 255, 255, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .iphone-device--15 .iphone-device__bezel::before {
   opacity: 0.55;
   mix-blend-mode: overlay;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.08);
 }
 
 .iphone-device--15 .iphone-device__bezel::after {
@@ -387,10 +397,20 @@
 }
 
 .iphone-device--15 .iphone-device__screen {
-  border-radius: 2.42rem;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.88),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.14);
+  border-radius: var(--iphone-screen-radius);
+  corner-shape: squircle;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55);
+}
+
+.iphone-device--15 .iphone-device__screen::after {
+  border-radius: inherit;
+  corner-shape: squircle;
+  box-shadow: none;
+}
+
+.iphone-device--15 .iphone-device__wallpaper-slide,
+.iphone-device--15 .iphone-device__wallpaper-art {
+  transform: none;
 }
 
 .iphone-device__bezel::before {
@@ -1899,15 +1919,8 @@
   }
 
   .iphone-device--15 {
-    --iphone-chassis-radius: 3.42rem;
-  }
-
-  .iphone-device--15 .iphone-device__bezel {
-    padding: 0.3rem;
-  }
-
-  .iphone-device--15 .iphone-device__screen {
-    border-radius: 2.18rem;
+    --iphone-chassis-radius: 50px;
+    --iphone-frame-padding: 6px;
   }
 
   .iphone-device__hint {
